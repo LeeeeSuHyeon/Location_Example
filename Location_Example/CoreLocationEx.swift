@@ -43,9 +43,14 @@ class CoreLocationEx: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
 
+    // This method can cause UI unresponsiveness if invoked on the main thread. Instead, consider waiting for the `-locationManagerDidChangeAuthorization:` callback and checking `authorizationStatus` first.
+    // 비동기처리 하지 않으면 위와 같은 오류 발생
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        checkUserDeviceLocationServiceAuthorization()
+        DispatchQueue.global().async {
+            self.checkUserDeviceLocationServiceAuthorization()
+        }
     }
+
 
     func checkUserDeviceLocationServiceAuthorization() {
         // 3.1
