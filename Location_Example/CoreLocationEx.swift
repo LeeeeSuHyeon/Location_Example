@@ -25,7 +25,7 @@ class CoreLocationEx: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func setupLocationManager() {
         locationManager.delegate = self                             // locationManager의 delegate를 현재 클래스로 설정
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest   // 위치 정확도를 kCLLocationAccuracyBest로 설정
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation   // 위치 정확도를 kCLLocationAccuracyBest로 설정
         locationManager.requestWhenInUseAuthorization()             // 위치 서비스를 사용하기 위한 권한 요청
 
         // 위치 서비스가 활성화 되어있으면 위치 업데이트 시작, 현재 위치 좌표 출력
@@ -99,7 +99,7 @@ class CoreLocationEx: NSObject, ObservableObject, CLLocationManagerDelegate {
             case .notDetermined:
 
                // 권한 요청을 보내기 전에 desiredAccuracy 설정 필요 (정확도 기준)
-               locationManager.desiredAccuracy = kCLLocationAccuracyBest
+               locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
                
                // 권한 요청
                locationManager.requestWhenInUseAuthorization()
