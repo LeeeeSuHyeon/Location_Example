@@ -10,6 +10,8 @@ struct ARTest: View {
 }
 
 struct ARViewContainer: UIViewRepresentable {
+    
+    // AR 화면을 표시할 때 처음에 호출되는 메서드
     func makeUIView(context: Context) -> ARSCNView {
         let arView = ARSCNView(frame: .zero)
         
@@ -18,6 +20,7 @@ struct ARViewContainer: UIViewRepresentable {
         return arView
     }
 
+    // 화면이 업데이트 될 때 호출되는 메서드 
     func updateUIView(_ uiView: ARSCNView, context: Context) {
         // 업데이트 로직 추가
     }
