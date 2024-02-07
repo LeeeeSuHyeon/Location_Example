@@ -58,9 +58,9 @@
 				CBB253222B664AD600DD408C /* Location_ExampleApp.swift */,
 				CBB253242B664AD600DD408C /* ContentView.swift */,
 				CBB253302B664B0100DD408C /* CoreLocationEx.swift */,
+				CB6383C52B7110DC00A18255 /* ARTest.swift */,
 				CBB253262B664AD700DD408C /* Assets.xcassets */,
 				CBB253282B664AD700DD408C /* Preview Content */,
-				CB6383C52B7110DC00A18255 /* ARTest.swift */,
 			);
 			path = Location_Example;
 			sourceTree = "<group>";

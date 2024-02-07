@@ -4,9 +4,27 @@ import SceneKit
 import RealityKit
 
 struct ARTest: View {
+    // AR 기능 on/off 변수
+    @Binding var isPresented : Bool
+    
     var body: some View {
-        ARViewContainer()
-            .edgesIgnoringSafeArea(.all)
+        // 뷰의 오른쪽 상단에 버튼을 배치하기 위해 ZStack을 .topTrailing 정렬 사용
+        ZStack(alignment: .topTrailing){
+            ARViewContainer()
+                .edgesIgnoringSafeArea(.all)
+            
+            Button(){
+                isPresented.toggle()
+            } label: {
+                Image(systemName: "xmark.circle")
+                    .font(.largeTitle)
+                    .foregroundColor(.black)
+                    .background(.ultraThinMaterial) // .ultraThinMaterial 속성을 이용하여 버튼 뒤를 가리지 않도록 설정
+                    .clipShape(Circle())
+            }
+            .padding(24)
+        }
+        
     }
 }
 
