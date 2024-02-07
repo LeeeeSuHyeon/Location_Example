@@ -9,11 +9,11 @@ import SwiftUI
 import CoreLocation
 
 class CoreLocationEx: NSObject, ObservableObject, CLLocationManagerDelegate {
-    
-    // 위도, 경도, 고도가 변경될 때마다 화면과 연결하기 위해 @Published 속성 사용
-    @Published var latitude: Double = 0.0
-    @Published var longitude: Double = 0.0
-    @Published var altitude: Double = 0.0
+
+//    // 위도, 경도, 고도가 변경될 때마다 화면과 연결하기 위해 @Published 속성 사용
+//    @Published var latitude: Double = 0.0
+//    @Published var longitude: Double = 0.0
+//    @Published var altitude: Double = 0.0
 
     var locationManager = CLLocationManager()   // locationManager 인스턴스를 생성하여 위치 관련 작업을 수행
 
@@ -40,11 +40,11 @@ class CoreLocationEx: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     // 위치 정보가 업데이트 될 때 호출되는 메서드
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            latitude = location.coordinate.latitude
-            longitude = location.coordinate.longitude
-            altitude = location.altitude
-        }
+//        if let location = locations.last {
+//            latitude = location.coordinate.latitude
+//            longitude = location.coordinate.longitude
+//            altitude = location.altitude
+//        }
     }
 
     
