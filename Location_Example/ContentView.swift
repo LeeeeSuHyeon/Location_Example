@@ -49,28 +49,10 @@ struct ContentView: View {
     
     @State var isPresented: Bool = false
     
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
-        span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
-    )
-    
     var body: some View {
         VStack{
-            Map(coordinateRegion: $region, showsUserLocation: true)
-                .onAppear {
-                    // Map이 나타날 때 현재 위치를 표시
-                    if let location = coreLocation.locationManager.location?.coordinate {
-                        region.center = location
-                    }
-                }
-                .onChange(of: coreLocation.locationManager.location) { _ in
-                    // 위치가 업데이트될 때 지도의 중심을 업데이트
-                    if let location = coreLocation.locationManager.location?.coordinate {
-                        region.center = location
-                    }
-                }
-                .edgesIgnoringSafeArea(.all)
-            
+           
+            UseMap(coreLocation: coreLocation)
             
             Button {
                isPresented.toggle()

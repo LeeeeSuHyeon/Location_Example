@@ -7,11 +7,19 @@ struct ARTest: View {
     // AR 기능 on/off 변수
     @Binding var isPresented : Bool
     
+    // 전역으로 CoreLocationEx 인스턴스 생성
+    @ObservedObject var coreLocation = CoreLocationEx()
+    
     var body: some View {
         // 뷰의 오른쪽 상단에 버튼을 배치하기 위해 ZStack을 .topTrailing 정렬 사용
         ZStack(alignment: .topTrailing){
-            ARViewContainer()
-                .edgesIgnoringSafeArea(.all)
+            VStack{
+                ARViewContainer()
+                    .edgesIgnoringSafeArea(.all)
+                
+                UseMap(coreLocation: coreLocation)
+            }
+           
             
             Button(){
                 isPresented.toggle()
