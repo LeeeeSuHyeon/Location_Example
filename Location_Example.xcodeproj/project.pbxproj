@@ -283,6 +283,7 @@
 				DEVELOPMENT_TEAM = X7TYNR98TC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "AR 사용을 위한 카메라 권한 허용";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치 정보 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 정보 허용";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -314,6 +315,7 @@
 				DEVELOPMENT_TEAM = X7TYNR98TC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "AR 사용을 위한 카메라 권한 허용";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치 정보 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 정보 허용";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
