@@ -48,23 +48,28 @@ struct ContentView: View {
     @ObservedObject var coreLocation = CoreLocationEx()
     
     @State var isPresented: Bool = false
-    @State var start = "출발 위치"
-    @State var end = "도착 위치"
+    @State var start = ""
+    @State var end = ""
     
     var body: some View {
         VStack{
             HStack{
                 VStack{
                     TextField("출발 위치를 입력하시오.", text: $start)
-                    TextField("도착 위치를 입력하시오.", text: $start)
+                        .padding()
+                        .border(.black)
+                    TextField("도착 위치를 입력하시오.", text: $end)
+                        .padding()
+                        .border(.black)
                 }
+                .padding()
                 Button {
                    isPresented.toggle()
                 } label: {
                    Label("View in AR", systemImage: "arkit")
                 }
                 .buttonStyle(BorderedProminentButtonStyle())
-                .padding(24)
+                .padding()
     
                 // 3.
                 .fullScreenCover(isPresented: $isPresented, content: {
@@ -79,6 +84,7 @@ struct ContentView: View {
         
     }
 }
+
 
 #Preview {
     ContentView()
