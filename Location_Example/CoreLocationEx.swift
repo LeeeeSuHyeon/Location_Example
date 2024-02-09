@@ -14,8 +14,10 @@ class CoreLocationEx: NSObject, ObservableObject, CLLocationManagerDelegate {
 //    @Published var latitude: Double = 0.0
 //    @Published var longitude: Double = 0.0
 //    @Published var altitude: Double = 0.0
-
+    
+    @Published var location: CLLocation?
     var locationManager = CLLocationManager()   // locationManager 인스턴스를 생성하여 위치 관련 작업을 수행
+    
 
     // 초기화 메서드에서 ‘setupLocationManager’ 메서드를 호출하여 locationManager의 설정 초기화 
     override init() {
@@ -40,6 +42,15 @@ class CoreLocationEx: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     // 위치 정보가 업데이트 될 때 호출되는 메서드
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let newLocation = locations.last else { return }
+               DispatchQueue.main.async {
+                   self.location = newLocation
+               }
+        
+        // startUpdatingLocation()을 사용하여 사용자 위치를 가져왔다면
+       // 불필요한 업데이트를 방지하기 위해 stopUpdatingLocation을 호출
+       locationManager.stopUpdatingLocation()
+        
 //        if let location = locations.last {
 //            latitude = location.coordinate.latitude
 //            longitude = location.coordinate.longitude
