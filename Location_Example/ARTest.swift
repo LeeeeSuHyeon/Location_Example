@@ -47,7 +47,17 @@ struct ARViewContainer: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: ARView, context: Context) {
-        // 업데이트 로직 추가
+        // 1.
+        let anchorEntity = AnchorEntity(plane: .any)
+        
+        // 2.
+        guard let modelEntity = try? Entity.loadModel(named: "arrow") else { return } // 화살표 모델 이름으로 수정
+        
+        // 3.
+        anchorEntity.addChild(modelEntity)
+        
+        // 4.
+        uiView.scene.addAnchor(anchorEntity)
     }
 }
 
