@@ -38,20 +38,30 @@ struct ARTest: View {
 
 
 struct ARViewContainer: UIViewRepresentable {
-    func makeUIView(context: Context) -> ARView {
-        let arView = ARView(frame: .zero)
-        
-        // ARView 구성 및 설정
-        
-        return arView
-    }
+//    @Binding var modelName: String
+        // 2.
+        func makeUIView(context: Context) -> ARView {
+            // 2.a
+            let arView = ARView(frame: .zero)
+            
+            // 3.
+            let config = ARWorldTrackingConfiguration()
+                    // 3.a
+            config.planeDetection = [.horizontal,.vertical]
+                    // 3.b
+            config.environmentTexturing = .automatic
+            
+            // 4.
+            arView.session.run(config)
+            return arView
+        }
 
     func updateUIView(_ uiView: ARView, context: Context) {
         // 1.
         let anchorEntity = AnchorEntity(plane: .any)
         
         // 2.
-        guard let modelEntity = try? Entity.loadModel(named: "arrow") else { return } // 화살표 모델 이름으로 수정
+        guard let modelEntity = try? Entity.loadModel(named: "rightArrow") else { return } // 화살표 모델 이름으로 수정
         
         // 3.
         anchorEntity.addChild(modelEntity)
