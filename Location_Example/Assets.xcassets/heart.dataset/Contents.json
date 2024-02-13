@@ -1,0 +1,13 @@
+{
+  "data" : [
+    {
+      "filename" : "heart.usdc",
+      "idiom" : "universal",
+      "universal-type-identifier" : "com.pixar.universal-scene-description"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
