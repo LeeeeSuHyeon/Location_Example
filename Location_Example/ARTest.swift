@@ -1,6 +1,5 @@
 import SwiftUI
 import ARKit
-//import SceneKit
 import RealityKit
 
 struct ARTest: View {
@@ -10,7 +9,7 @@ struct ARTest: View {
     // 전역으로 CoreLocationEx 인스턴스 생성
     @ObservedObject var coreLocation = CoreLocationEx()
     
-    @State private var modelName = "usdz/rightArrow.usdz"
+    @State private var modelName : String =  "Usdz/rightArrow"
     
     var body: some View {
         // 뷰의 오른쪽 상단에 버튼을 배치하기 위해 ZStack을 .topTrailing 정렬 사용
@@ -19,7 +18,7 @@ struct ARTest: View {
                 ARViewContainer(modelName: $modelName)
                     .edgesIgnoringSafeArea(.all)
                 
-                UseMap(coreLocation: coreLocation)
+//                UseMap(coreLocation: coreLocation)
             }
            
             
@@ -63,8 +62,14 @@ struct ARViewContainer: UIViewRepresentable {
         let anchorEntity = AnchorEntity(plane: .any)
         
         // 2.
-        guard let modelEntity = try? Entity.loadModel(named: modelName) else { return } // 화살표 모델 이름으로 수정
-        print(modelEntity)
+        guard let modelURL = Bundle.main.url(forResource: modelName, withExtension: "usdz") else{
+            print("Error - Failed to find model file in bundle.")
+            return
+        }
+        guard let modelEntity = try? Entity.loadModel(contentsOf: modelURL) else {
+            print("Error - Failed to load model named \(modelName)")
+            return
+        }
         
 //        modelEntity.scale = [0.1, 0.1, 0.1]        // 엔티티 크기 조절
 //        modelEntity.transform.translation = SIMD3<Float>(1, 1, 1) // 엔티티 위치 조절
