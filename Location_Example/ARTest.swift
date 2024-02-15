@@ -9,7 +9,7 @@ struct ARTest: View {
     // 전역으로 CoreLocationEx 인스턴스 생성
     @ObservedObject var coreLocation = CoreLocationEx()
     
-    @State private var modelName : String =  "rightArrow"
+    @State private var modelName : String =  "CC0_-_Arrow_5"
     
     var body: some View {
         // 뷰의 오른쪽 상단에 버튼을 배치하기 위해 ZStack을 .topTrailing 정렬 사용
@@ -48,7 +48,7 @@ struct ARViewContainer: UIViewRepresentable {
             // 3.
             let config = ARWorldTrackingConfiguration()
                     // 3.a
-            config.planeDetection = [.horizontal,.vertical]
+            config.planeDetection = [.horizontal, .vertical]
                     // 3.b
             config.environmentTexturing = .automatic
             
@@ -75,6 +75,9 @@ struct ARViewContainer: UIViewRepresentable {
 //        
 //        modelEntity.scale = [0.1, 0.1, 0.1]        // 엔티티 크기 조절
 //        modelEntity.transform.translation = SIMD3<Float>(1, 1, 1) // 엔티티 위치 조절
+        
+        // 엔티티를 중앙으로 이동 
+        modelEntity.position = [0, 0, -2]
         
         
         // 모델 재질 설정

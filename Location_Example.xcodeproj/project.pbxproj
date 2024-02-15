@@ -15,6 +15,7 @@
 		CBB2532A2B664AD700DD408C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBB253292B664AD700DD408C /* Preview Assets.xcassets */; };
 		CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB253302B664B0100DD408C /* CoreLocationEx.swift */; };
 		CBC299232B7E4F7C0026C908 /* toy_biplane_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */; };
+		CBC299282B7E52F80026C908 /* CC0_-_Arrow_5.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +31,7 @@
 		CBB253292B664AD700DD408C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CBB253302B664B0100DD408C /* CoreLocationEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationEx.swift; sourceTree = "<group>"; };
 		CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_biplane_idle.usdz; sourceTree = "<group>"; };
-		CBC299262B7E4FFB0026C908 /* rightArrow.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = rightArrow.usdz; path = "../../../../lg/Downloads/uploads_files_2935081_cc0_Arrow+5/rightArrow.usdz"; sourceTree = "<group>"; };
+		CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "CC0_-_Arrow_5.usdz"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +80,7 @@
 				CBB253302B664B0100DD408C /* CoreLocationEx.swift */,
 				CB6383C52B7110DC00A18255 /* ARTest.swift */,
 				CB6383C72B73BFBA00A18255 /* UseMap.swift */,
-				CBC299262B7E4FFB0026C908 /* rightArrow.usdz */,
+				CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */,
 				CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */,
 				CBB253262B664AD700DD408C /* Assets.xcassets */,
 				CBB253282B664AD700DD408C /* Preview Content */,
@@ -155,6 +156,7 @@
 			files = (
 				CBB2532A2B664AD700DD408C /* Preview Assets.xcassets in Resources */,
 				CBC299232B7E4F7C0026C908 /* toy_biplane_idle.usdz in Resources */,
+				CBC299282B7E52F80026C908 /* CC0_-_Arrow_5.usdz in Resources */,
 				CBB253272B664AD700DD408C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
