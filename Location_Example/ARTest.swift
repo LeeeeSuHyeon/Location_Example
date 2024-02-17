@@ -9,16 +9,26 @@ struct ARTest: View {
     // 전역으로 CoreLocationEx 인스턴스 생성
     @ObservedObject var coreLocation = CoreLocationEx()
     
-    @State private var modelName : String =  "CC0_-_Arrow_5"
+    @State private var modelName : String =  "rightArrow"
+    
+    // ARViewContainer에 엔티티를 추가하기 위한 플래그
+    @State private var isEntityAdded = false
     
     var body: some View {
         // 뷰의 오른쪽 상단에 버튼을 배치하기 위해 ZStack을 .topTrailing 정렬 사용
         ZStack(alignment: .topTrailing){
             VStack{
-                ARViewContainer(modelName: $modelName)
-                    .edgesIgnoringSafeArea(.all)
-                
-//                UseMap(coreLocation: coreLocation)
+                ZStack{
+                    ARViewContainer(modelName: $modelName)
+                        .edgesIgnoringSafeArea(.all)
+                    
+                    Image(modelName)
+                        .resizable()
+                        .frame(width: 150, height:150)
+                        .tint(.blue)
+                        
+                }
+                 UseMap(coreLocation: coreLocation)
             }
            
             
@@ -35,6 +45,7 @@ struct ARTest: View {
         }
         
     }
+        
 }
 
 
@@ -58,55 +69,36 @@ struct ARViewContainer: UIViewRepresentable {
         }
 
     func updateUIView(_ uiView: ARView, context: Context) {
-        // 1.
-        let anchorEntity = AnchorEntity(plane: .any)
-        
-        // 2.
-        guard let modelEntity = try? Entity.loadModel(named: modelName) else { return }
-        
-//        guard let modelURL = Bundle.main.url(forResource: modelName, withExtension: "usdz") else{
-//            print("Error - Failed to find model file in bundle.")
-//            return
-//        }
-//        guard let modelEntity = try? Entity.loadModel(contentsOf: modelURL) else {
-//            print("Error - Failed to load model named \(modelName)")
-//            return
-//        }
-//        
-//        modelEntity.scale = [0.1, 0.1, 0.1]        // 엔티티 크기 조절
-//        modelEntity.transform.translation = SIMD3<Float>(1, 1, 1) // 엔티티 위치 조절
-        
-        // 엔티티를 중앙으로 이동 
-        modelEntity.position = [0, 0, -2]
-        
-        
-        // 모델 재질 설정
-//        let material = SimpleMaterial(color: .blue, isMetallic: false)
-//        modelEntity.model?.materials = [material]
 
-        
-        // 3.
-        anchorEntity.addChild(modelEntity)
-        
-        // 4.
-        uiView.scene.addAnchor(anchorEntity)
+        // 코디네이터가 존재하고 엔티티가 추가되지 않았을 때만 실행
+        if let cameraTransform = uiView.session.currentFrame?.camera.transform,
+           !context.coordinator.isEntityAdded {
+            
+            // 카메라의 변환 행렬에서 카메라의 위치를 추출
+            let cameraPosition = simd_make_float3(cameraTransform.columns.3)
+            
+            // AnchorEntity를 생성하고 카메라의 위치에 배치
+            let anchorEntity = AnchorEntity(world: cameraPosition)
+            
+            // USDZ 파일을 로드하고 엔티티를 추가
+            if let modelEntity = try? Entity.loadModel(named: modelName) {
+                anchorEntity.addChild(modelEntity)
+                uiView.scene.addAnchor(anchorEntity)
+                
+                // 엔티티가 추가되었음을 표시
+                context.coordinator.isEntityAdded = true
+            }
+        }
     }
+
+    
+    // Coordinator 클래스 생성
+        func makeCoordinator() -> Coordinator {
+            Coordinator()
+        }
+        
+        class Coordinator {
+            // 엔티티 추가 여부 플래그
+            var isEntityAdded = false
+        }
 }
-
-
-//struct ARViewContainer: UIViewRepresentable {
-//    
-//    // AR 화면을 표시할 때 처음에 호출되는 메서드
-//    func makeUIView(context: Context) -> ARSCNView {
-//        let arView = ARSCNView(frame: .zero)
-//        
-//        // ARView 구성 및 설정
-//        
-//        return arView
-//    }
-//
-//    // 화면이 업데이트 될 때 호출되는 메서드 
-//    func updateUIView(_ uiView: ARSCNView, context: Context) {
-//        // 업데이트 로직 추가
-//    }
-//}
