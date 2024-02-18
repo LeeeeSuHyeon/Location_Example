@@ -16,14 +16,15 @@ let address : [String : [Float]] = ["AI공학관" : [37.455189, 127.133435, 61.2
 // 검색 위치 정보 딕셔너리 [위치명 : CLLocation]
 let addr: [String: CLLocation] = [
     "AI공학관 105호": CLLocation(coordinate: CLLocationCoordinate2D(latitude: 37.455189, longitude: 127.133435), altitude: 61.228996, horizontalAccuracy: 1.0, verticalAccuracy: 1.0, timestamp: Date()),
-    "중앙도서관 노트북열람실": CLLocation(coordinate: CLLocationCoordinate2D(latitude: 37.452561, longitude: 127.132950), altitude: 81.299942, horizontalAccuracy: 1.0, verticalAccuracy: 1.0, timestamp: Date())
+    "중도": CLLocation(coordinate: CLLocationCoordinate2D(latitude: 37.452561, longitude: 127.132950), altitude: 81.299942, horizontalAccuracy: 1.0, verticalAccuracy: 1.0, timestamp: Date())
 ]
-
 
 struct ContentView: View {
     
     // 전역으로 CoreLocationEx 인스턴스 생성
     @ObservedObject var coreLocation = CoreLocationEx()
+    
+    var myMap = UseMap()
     
     @State var isPresented: Bool = false
     @State var start = ""
@@ -46,7 +47,7 @@ struct ContentView: View {
                 VStack{
                     // 위치 검색 버튼
                     Button {
-                        Search(end)
+                        Search(myMap, end)
                     } label: {
                         Text("Search")
                     }
@@ -71,18 +72,21 @@ struct ContentView: View {
             }
                 
             UseMap(coreLocation: coreLocation)
-            
-
         }
-        
     }
 }
 
-func Search(_ end : String){
-    let search = addr[end]
-    print(search ?? "\(end) search 없음")
-    print(search?.coordinate ?? "\(end) search.coordinate 없음")
+func Search(_ myMap : UseMap, _ end : String){
+    guard let search = addr[end] else {
+        return
+    }
+    print(search)
+    print(search.coordinate)
+    
+    myMap.viewModel.setMapView(coordinate: search.coordinate, addr: end)
 }
+
+
 
 
 #Preview {

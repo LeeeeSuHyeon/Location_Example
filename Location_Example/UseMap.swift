@@ -9,18 +9,53 @@ import Foundation
 import SwiftUI
 import MapKit
 
+// Map 뷰의 annotationItems 매개변수에 전달된 배열의 요소는 Identifiable 프로토콜을 준수해야 함
+struct Address : Identifiable {
+    let id = UUID()
+    let name : String
+    let address : CLLocationCoordinate2D
+}
+
+class UseMapViewModel: ObservableObject {
+    var annotations = [Address]()
+
+    func setMapView(coordinate: CLLocationCoordinate2D, addr: String) {
+        print("called setMapView()")
+        let newAddress = Address(name: addr, address: coordinate)
+        annotations.append(newAddress)
+        print(annotations)
+    }
+}
+
+
 struct UseMap : View {
     
     // 전역으로 CoreLocationEx 인스턴스 생성
     @ObservedObject var coreLocation = CoreLocationEx()
+    
+    @ObservedObject var viewModel = UseMapViewModel()
+    
     
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
     )
     
-    var body : some View{
-        Map(coordinateRegion: $region, showsUserLocation: true)
+    var body : some View {
+        
+        let annotations = viewModel.annotations
+        
+        // annotationContent 매개변수가 필요하며, 이는 맵 뷰에서 각 애노테이션을 어떻게 표시할지에 대한 클로저
+        Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: annotations) { address in
+            MapAnnotation(coordinate: address.address){
+                VStack{
+                    Image(systemName: "pin.circle.fill")
+                        .foregroundColor(.red)
+                    Text(address.name)
+                }
+            }
+        }
+
             .onReceive(coreLocation.$location){ newLocation in
                 if let location = newLocation?.coordinate {
                     region.center = location
@@ -40,6 +75,19 @@ struct UseMap : View {
 //            }
             .edgesIgnoringSafeArea(.all)
     }
+    
+    
+//    // MARK : 검색한 위치로 이동 & marker 추가
+//    func setMapView(coordinate: CLLocationCoordinate2D, addr: String) {
+//        print("called setMapView()")
+//        region.center = coordinate
+//        let addr = Address(name: addr, address: coordinate)
+//        self.annotations.append(addr)
+////        let annotation = MKPointAnnotation()
+////        annotation.coordinate = coordinate
+////        annotation.title = addr
+//        
+//    }
 
 }
 
