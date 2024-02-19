@@ -23,8 +23,9 @@ struct ContentView: View {
     
     // 전역으로 CoreLocationEx 인스턴스 생성
     @ObservedObject var coreLocation = CoreLocationEx()
+    @ObservedObject var mapViewModel = UseMapViewModel()
     
-    var myMap = UseMap()
+    @State var myMap = UseMap()
     
     @State var isPresented: Bool = false
     @State var start = ""
@@ -71,7 +72,13 @@ struct ContentView: View {
 
             }
                 
-            UseMap(coreLocation: coreLocation)
+            myMap
+                .onReceive(mapViewModel.$annotations) { _ in
+                   // annotations가 업데이트되면 myMap을 다시 설정하여 뷰를 다시 로드
+                   myMap = UseMap()
+               }
+               .environmentObject(coreLocation) // CoreLocationEx를 UseMap에 전달
+               .environmentObject(mapViewModel) // UseMapViewModel을 UseMap에 전달
         }
     }
 }

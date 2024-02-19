@@ -17,10 +17,10 @@ struct Address : Identifiable {
 }
 
 class UseMapViewModel: ObservableObject {
-    var annotations = [Address]()
+    @Published var annotations = [Address]()
 
     func setMapView(coordinate: CLLocationCoordinate2D, addr: String) {
-        print("called setMapView()")
+        print("called UseMapViewModel()")
         let newAddress = Address(name: addr, address: coordinate)
         annotations.append(newAddress)
         print(annotations)
@@ -43,38 +43,50 @@ struct UseMap : View {
     
     var body : some View {
         
-        let annotations = viewModel.annotations
         
-        // annotationContent 매개변수가 필요하며, 이는 맵 뷰에서 각 애노테이션을 어떻게 표시할지에 대한 클로저
-        Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: annotations) { address in
-            MapAnnotation(coordinate: address.address){
-                VStack{
-                    Image(systemName: "pin.circle.fill")
-                        .foregroundColor(.red)
-                    Text(address.name)
+            if viewModel.annotations.isEmpty {
+                Map(coordinateRegion: $region, showsUserLocation: true)
+                    .onReceive(coreLocation.$location) { newLocation in
+                        if let location = newLocation?.coordinate {
+                            // Map이 나타날 때 현재 위치를 표시
+                            region.center = location
+                        }
+                    }
+                    .onAppear {
+                        if let location = coreLocation.locationManager.location?.coordinate {
+                            region.center = location
+                        }
+                    }
+                //            .onChange(of: coreLocation.locationManager.location) { _ in
+                //                // 위치가 업데이트될 때 지도의 중심을 업데이트
+                //                if let location = coreLocation.locationManager.location?.coordinate {
+                //                    region.center = location
+                //                }
+                //            }
+                    .edgesIgnoringSafeArea(.all)
+            } else {
+                // annotationContent 매개변수가 필요하며, 이는 맵 뷰에서 각 애노테이션을 어떻게 표시할지에 대한 클로저
+                Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: viewModel.annotations) { address in
+                    MapPin(coordinate: address.address, tint: .red)
+               }
+                .onAppear{
+                    print("else Map - onAppear")
                 }
+                .mapControlVisibility(.hidden)
+//                .onReceive(coreLocation.$location) { newLocation in
+//                    if let location = newLocation?.coordinate {
+//                        region.center = location
+//                    }
+//                }
+//                .onAppear {
+//                    if let location = coreLocation.locationManager.location?.coordinate {
+//                        region.center = location
+//                    }
+//                }
+//                .edgesIgnoringSafeArea(.all)
             }
         }
-
-            .onReceive(coreLocation.$location){ newLocation in
-                if let location = newLocation?.coordinate {
-                    region.center = location
-                }
-            }
-            .onAppear {
-                // Map이 나타날 때 현재 위치를 표시
-                if let location = coreLocation.locationManager.location?.coordinate {
-                    region.center = location
-                }
-            }
-//            .onChange(of: coreLocation.locationManager.location) { _ in
-//                // 위치가 업데이트될 때 지도의 중심을 업데이트
-//                if let location = coreLocation.locationManager.location?.coordinate {
-//                    region.center = location
-//                }
-//            }
-            .edgesIgnoringSafeArea(.all)
-    }
+    
     
     
 //    // MARK : 검색한 위치로 이동 & marker 추가
