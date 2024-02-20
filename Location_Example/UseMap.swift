@@ -71,6 +71,9 @@ struct UseMap : View {
                }
                 .onAppear{
                     print("else Map - onAppear")
+                    if let location = viewModel.annotations.last?.address {
+                        region.center = location
+                    }
                 }
                 .mapControlVisibility(.hidden)
 //                .onReceive(coreLocation.$location) { newLocation in
