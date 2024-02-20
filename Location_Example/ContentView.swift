@@ -9,13 +9,13 @@
 import SwiftUI
 import MapKit
 
-// 검색 위치 정보 딕셔너리 [위치명 : [위도, 경도, 고도]]
-let address : [String : [Float]] = ["AI공학관" : [37.455189, 127.133435, 61.228996],
-                                    "중앙도서관" : [37.452561, 127.132950, 81.299942]]
+//// 검색 위치 정보 딕셔너리 [위치명 : [위도, 경도, 고도]]
+//let address : [String : [Float]] = ["AI공학관" : [37.455189, 127.133435, 61.228996],
+//                                    "중앙도서관" : [37.452561, 127.132950, 81.299942]]
 
 // 검색 위치 정보 딕셔너리 [위치명 : CLLocation]
 let addr: [String: CLLocation] = [
-    "AI공학관 105호": CLLocation(coordinate: CLLocationCoordinate2D(latitude: 37.455189, longitude: 127.133435), altitude: 61.228996, horizontalAccuracy: 1.0, verticalAccuracy: 1.0, timestamp: Date()),
+    "AI": CLLocation(coordinate: CLLocationCoordinate2D(latitude: 37.455189, longitude: 127.133435), altitude: 61.228996, horizontalAccuracy: 1.0, verticalAccuracy: 1.0, timestamp: Date()),
     "중도": CLLocation(coordinate: CLLocationCoordinate2D(latitude: 37.452561, longitude: 127.132950), altitude: 81.299942, horizontalAccuracy: 1.0, verticalAccuracy: 1.0, timestamp: Date())
 ]
 

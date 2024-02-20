@@ -67,7 +67,7 @@ struct UseMap : View {
             } else {
                 // annotationContent 매개변수가 필요하며, 이는 맵 뷰에서 각 애노테이션을 어떻게 표시할지에 대한 클로저
                 Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: viewModel.annotations) { address in
-                    MapPin(coordinate: address.address, tint: .red)
+                    MapMarker(coordinate: address.address, tint: .red)
                }
                 .onAppear{
                     print("else Map - onAppear")
