@@ -9,7 +9,7 @@ struct ARTest: View {
     // 전역으로 CoreLocationEx 인스턴스 생성
     @ObservedObject var coreLocation = CoreLocationEx()
     
-    @State private var modelName : String =  "rightArrow"
+    @State private var modelName : String =  "CC0_-_Arrow_5"
     
     // ARViewContainer에 엔티티를 추가하기 위한 플래그
     @State private var isEntityAdded = false
@@ -68,26 +68,40 @@ struct ARViewContainer: UIViewRepresentable {
             return arView
         }
 
+//    func updateUIView(_ uiView: ARView, context: Context) {
+//
+//        // 코디네이터가 존재하고 엔티티가 추가되지 않았을 때만 실행
+//        if let cameraTransform = uiView.session.currentFrame?.camera.transform,
+//           !context.coordinator.isEntityAdded {
+//            
+//            // 카메라의 변환 행렬에서 카메라의 위치를 추출
+//            let cameraPosition = simd_make_float3(cameraTransform.columns.3)
+//            
+//            // AnchorEntity를 생성하고 카메라의 위치에 배치
+//            let anchorEntity = AnchorEntity(world: cameraPosition)
+//            
+//            // USDZ 파일을 로드하고 엔티티를 추가
+//            if let modelEntity = try? Entity.loadModel(named: modelName) {
+//                anchorEntity.addChild(modelEntity)
+//                uiView.scene.addAnchor(anchorEntity)
+//                
+//                // 엔티티가 추가되었음을 표시
+//                context.coordinator.isEntityAdded = true
+//            }
+//        }
+    
     func updateUIView(_ uiView: ARView, context: Context) {
-
-        // 코디네이터가 존재하고 엔티티가 추가되지 않았을 때만 실행
-        if let cameraTransform = uiView.session.currentFrame?.camera.transform,
-           !context.coordinator.isEntityAdded {
+            // 5.a
+            let anchorEntity = AnchorEntity(plane: .any)
             
-            // 카메라의 변환 행렬에서 카메라의 위치를 추출
-            let cameraPosition = simd_make_float3(cameraTransform.columns.3)
+            // 6.
+            guard let modelEntity = try? Entity.loadModel(named: modelName) else { return }
             
-            // AnchorEntity를 생성하고 카메라의 위치에 배치
-            let anchorEntity = AnchorEntity(world: cameraPosition)
+            // 7.
+            anchorEntity.addChild(modelEntity)
             
-            // USDZ 파일을 로드하고 엔티티를 추가
-            if let modelEntity = try? Entity.loadModel(named: modelName) {
-                anchorEntity.addChild(modelEntity)
-                uiView.scene.addAnchor(anchorEntity)
-                
-                // 엔티티가 추가되었음을 표시
-                context.coordinator.isEntityAdded = true
-            }
+            // 8.
+            uiView.scene.addAnchor(anchorEntity)
         }
     }
 
@@ -101,4 +115,5 @@ struct ARViewContainer: UIViewRepresentable {
             // 엔티티 추가 여부 플래그
             var isEntityAdded = false
         }
-}
+
+
