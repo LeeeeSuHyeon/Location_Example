@@ -65,6 +65,21 @@ struct ARViewContainer: UIViewRepresentable {
             
             // 4.
             arView.session.run(config)
+            
+            // 위도 및 경도를 CLLocation으로 변환
+            let location = CLLocation(latitude: latitude, longitude: longitude)
+            
+            // CLLocation을 ARAnchor로 변환
+            let anchor = ARGeoAnchor(coordinate: location.coordinate)
+            
+            // ARView에 ARAnchor 추가
+            arView.scene.addAnchor(anchor)
+            
+            // 엔티티 생성 및 추가
+            let entity = ModelEntity(mesh: .generateSphere(radius: 0.1), materials: [SimpleMaterial(color: .red, isMetallic: false)])
+            anchor.addChild(entity)
+                    
+                    
             return arView
         }
 
