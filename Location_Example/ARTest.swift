@@ -50,6 +50,12 @@ struct ARTest: View {
 
 
 struct ARViewContainer: UIViewRepresentable {
+    
+    // 엔티티의 위도 및 경도
+    let latitude: CLLocationDegrees = 37.455008
+    let longitude: CLLocationDegrees = 127.127818
+    
+    
     @Binding var modelName: String
         // 2.
         func makeUIView(context: Context) -> ARView {
@@ -72,13 +78,19 @@ struct ARViewContainer: UIViewRepresentable {
             // CLLocation을 ARAnchor로 변환
             let anchor = ARGeoAnchor(coordinate: location.coordinate)
             
-            // ARView에 ARAnchor 추가
-            arView.scene.addAnchor(anchor)
+            // ARAnchor를 ARView의 세션에 추가
+            arView.session.add(anchor: anchor)
             
             // 엔티티 생성 및 추가
             let entity = ModelEntity(mesh: .generateSphere(radius: 0.1), materials: [SimpleMaterial(color: .red, isMetallic: false)])
-            anchor.addChild(entity)
-                    
+            
+            // ARAnchor에 엔티티를 연결
+            let anchorEntity = AnchorEntity(anchor: anchor)
+            anchorEntity.addChild(entity)
+            
+            
+            // ARView의 scene에 앵커 엔티티 추가
+            arView.scene.addAnchor(anchorEntity)
                     
             return arView
         }
