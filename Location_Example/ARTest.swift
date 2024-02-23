@@ -52,8 +52,8 @@ struct ARTest: View {
 struct ARViewContainer: UIViewRepresentable {
     
     // 엔티티의 위도 및 경도
-    let latitude: CLLocationDegrees = 37.455008
-    let longitude: CLLocationDegrees = 127.127818
+    let latitude: [CLLocationDegrees] = [37.455008, 37.455020, 37.455030, 37.455040]
+    let longitude: [CLLocationDegrees] = [127.127818, 127.127830, 127.127840, 127.127850]
     
     
     @Binding var modelName: String
@@ -72,25 +72,29 @@ struct ARViewContainer: UIViewRepresentable {
             // 4.
             arView.session.run(config)
             
-            // 위도 및 경도를 CLLocation으로 변환
-            let location = CLLocation(latitude: latitude, longitude: longitude)
+            for i in 0...latitude.count{
+                // 위도 및 경도를 CLLocation으로 변환
+                let location = CLLocation(latitude: latitude[i], longitude: longitude[i])
+                
+                // CLLocation을 ARAnchor로 변환
+                let anchor = ARGeoAnchor(coordinate: location.coordinate)
+                
+                // ARAnchor를 ARView의 세션에 추가
+                arView.session.add(anchor: anchor)
+                
+                // 엔티티 생성 및 추가
+                let entity = ModelEntity(mesh: .generateSphere(radius: 0.1), materials: [SimpleMaterial(color: .red, isMetallic: false)])
+                
+                // ARAnchor에 엔티티를 연결
+                let anchorEntity = AnchorEntity(anchor: anchor)
+                anchorEntity.addChild(entity)
+                
+                
+                // ARView의 scene에 앵커 엔티티 추가
+                arView.scene.addAnchor(anchorEntity)
+            }
             
-            // CLLocation을 ARAnchor로 변환
-            let anchor = ARGeoAnchor(coordinate: location.coordinate)
-            
-            // ARAnchor를 ARView의 세션에 추가
-            arView.session.add(anchor: anchor)
-            
-            // 엔티티 생성 및 추가
-            let entity = ModelEntity(mesh: .generateSphere(radius: 0.1), materials: [SimpleMaterial(color: .red, isMetallic: false)])
-            
-            // ARAnchor에 엔티티를 연결
-            let anchorEntity = AnchorEntity(anchor: anchor)
-            anchorEntity.addChild(entity)
-            
-            
-            // ARView의 scene에 앵커 엔티티 추가
-            arView.scene.addAnchor(anchorEntity)
+           
                     
             return arView
         }
