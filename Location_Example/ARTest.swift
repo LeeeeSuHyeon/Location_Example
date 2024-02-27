@@ -11,16 +11,32 @@ struct ARTest: View {
     
     @State private var modelName : String =  "CC0_-_Arrow_5"
     
-    // ARViewContainer에 엔티티를 추가하기 위한 플래그
-    @State private var isEntityAdded = false
+    // 집 - 엔티티의 위도 및 경도
+    let latitude: [CLLocationDegrees] = [37.4550002, 37.454986572265625, 37.455015, 37.455040, 37.455004, 37.455008, 37.455008, 37.455008]
+    let longitude: [CLLocationDegrees] = [127.127829002, 127.12797670696119, 127.127904, 127.127850, 127.127829, 127.127830, 127.127840, 127.127850]
+    let targetLocation = CLLocation(latitude: 37.455, longitude: 127.1280)
+    
+    
+    // 사용자가 설정한 위치
+    @State private var userLocation: CLLocation?
+    
     
     var body: some View {
         // 뷰의 오른쪽 상단에 버튼을 배치하기 위해 ZStack을 .topTrailing 정렬 사용
         ZStack(alignment: .topTrailing){
             VStack{
                 ZStack{
-                    ARViewContainer(modelName: $modelName)
+                    if let userLocation = userLocation {
+                        ARViewContainer(
+                            currentLocation: userLocation,
+                            targetLocation: targetLocation,
+                            modelName: $modelName
+                        )
                         .edgesIgnoringSafeArea(.all)
+                    } else {
+                        Text("Loading...")
+                    }
+                    
                     
 //                    Image(modelName)
 //                        .resizable()
@@ -43,6 +59,13 @@ struct ARTest: View {
             }
             .padding(24)
         }
+        .onAppear {
+            // 사용자의 현재 위치를 가져오기 위해 CoreLocationEx 인스턴스의 메서드를 호출합니다.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                // 사용자의 현재 위치를 업데이트합니다.
+                userLocation = coreLocation.location
+            }
+        }
         
     }
         
@@ -51,17 +74,23 @@ struct ARTest: View {
 
 struct ARViewContainer: UIViewRepresentable {
     
-    // 집 - 엔티티의 위도 및 경도
-//    let latitude: [CLLocationDegrees] = [37.455002, 37.455010, 37.455015, 37.455040, 37.455004, 37.455008, 37.455008, 37.455008]
-//    let longitude: [CLLocationDegrees] = [127.127835, 127.127889, 127.127904, 127.127850, 127.127829, 127.127830, 127.127840, 127.127850]
+    // 현재 위치
+    let currentLocation: CLLocation
+    // 목표 위치
+    let targetLocation: CLLocation
+    
+//    // 집 - 엔티티의 위도 및 경도
+//    let latitude: [CLLocationDegrees] = [37.4550002, 37.454986572265625, 37.455015, 37.455040, 37.455004, 37.455008, 37.455008, 37.455008]
+//    let longitude: [CLLocationDegrees] = [127.127829002, 127.12797670696119, 127.127904, 127.127850, 127.127829, 127.127830, 127.127840, 127.127850]
     
     
     // AI관 - 엔티티의 위도 및 경
-    let latitude: [CLLocationDegrees] = [37.455062, 37.455102, 37.455079, 37.455100, 37.455077, 37.455122, 37.455072, 37.455077]
-    let longitude: [CLLocationDegrees] = [127.133291, 127.133282, 127.133212, 127.133515, 127.133598, 127.133613, 127.133331, 127.133346]
+//    let latitude: [CLLocationDegrees] = [37.455062, 37.455102, 37.455079, 37.455100, 37.455077, 37.455122, 37.455072, 37.455077]
+//    let longitude: [CLLocationDegrees] = [127.133291, 127.133282, 127.133212, 127.133515, 127.133598, 127.133613, 127.133331, 127.133346]
     
     
     @Binding var modelName: String
+    
         // 2.
         func makeUIView(context: Context) -> ARView {
             // 2.a
@@ -76,9 +105,29 @@ struct ARViewContainer: UIViewRepresentable {
             
             // 4.
             arView.session.run(config)
+            
+            
+            // 엔티티 추가
+            addEntity(arView: arView)
                     
             return arView
         }
+    
+    func addEntity(arView: ARView) {
+        // 현재 위치 좌표와 목표 위치 좌표 계산
+        let targetPosition = SIMD3<Float>(
+            Float(targetLocation.coordinate.longitude - currentLocation.coordinate.longitude),
+            0, // Assuming flat ground, no altitude difference
+            Float(targetLocation.coordinate.latitude - currentLocation.coordinate.latitude)
+        )
+        
+        // 엔티티 생성 및 배치
+        let entity = ModelEntity(mesh: .generateSphere(radius: 0.1), materials: [SimpleMaterial(color: .red, isMetallic: true)])
+        let anchor = AnchorEntity(world: targetPosition)
+        anchor.addChild(entity)
+        arView.scene.addAnchor(anchor)
+    }
+
 
 //    func updateUIView(_ uiView: ARView, context: Context) {
 //
@@ -107,7 +156,10 @@ struct ARViewContainer: UIViewRepresentable {
 //            let anchorEntity = AnchorEntity(plane: .any)
 //
 //            // 6.
-//            guard let modelEntity = try? Entity.loadModel(named: modelName) else { return }
+//        guard let modelEntity = try? Entity.loadModel(named: modelName) else {
+//            print("Failed to load model entity")
+//            return
+//        }
 //
 //            // 7.
 //            anchorEntity.addChild(modelEntity)
@@ -115,39 +167,33 @@ struct ARViewContainer: UIViewRepresentable {
 //            // 8.
 //            uiView.scene.addAnchor(anchorEntity)
         
-            for i in 0..<latitude.count{
-                // 위도 및 경도를 CLLocation으로 변환
-                let location = CLLocation(latitude: latitude[i], longitude: longitude[i])
-                
-                // CLLocation을 ARAnchor로 변환
-                let anchor = ARGeoAnchor(coordinate: location.coordinate)
-                
-                // ARAnchor를 ARView의 세션에 추가
-                arView.session.add(anchor: anchor)
-                
-                // 엔티티 생성 및 추가
-                let entity = ModelEntity(mesh: .generateSphere(radius: 0.1), materials: [SimpleMaterial(color: .red, isMetallic: false)])
-                
-                // ARAnchor에 엔티티를 연결
-                let anchorEntity = AnchorEntity(anchor: anchor)
-                anchorEntity.addChild(entity)
-                
-                
-                // ARView의 scene에 앵커 엔티티 추가
-                arView.scene.addAnchor(anchorEntity)
-            }
+        
+        
+//            for i in 0..<latitude.count{
+//                // 위도 및 경도를 CLLocation으로 변환
+//                let location = CLLocation(latitude: latitude[i], longitude: longitude[i])
+//                
+//                // CLLocation을 ARAnchor로 변환
+//                let anchor = ARGeoAnchor(name : "arrow", coordinate: location.coordinate)
+//                
+//                // ARAnchor를 ARView의 세션에 추가
+//                arView.session.add(anchor: anchor)
+//                
+//                
+//                // 엔티티 생성 및 추가
+//                guard let modelEntity = try? ModelEntity(mesh: .generateSphere(radius: 0.1), materials: [SimpleMaterial(color: .red, isMetallic: false)]) else {
+//                    print("entity - Error")
+//                    return
+//                }
+//
+//                // ARAnchor에 엔티티를 연결
+//                let anchorEntity = AnchorEntity(anchor: anchor)
+//                anchorEntity.addChild(modelEntity)
+//                
+//                
+//                // ARView의 scene에 앵커 엔티티 추가
+//                arView.scene.addAnchor(anchorEntity)
+//            }
         }
     }
-
-    
-    // Coordinator 클래스 생성
-        func makeCoordinator() -> Coordinator {
-            Coordinator()
-        }
-        
-        class Coordinator {
-            // 엔티티 추가 여부 플래그
-            var isEntityAdded = false
-        }
-
 
