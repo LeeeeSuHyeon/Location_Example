@@ -14,7 +14,7 @@ struct ARTest: View {
     // 집 - 엔티티의 위도 및 경도
     let latitude: [CLLocationDegrees] = [37.4550002, 37.454986572265625, 37.455015, 37.455040, 37.455004, 37.455008, 37.455008, 37.455008]
     let longitude: [CLLocationDegrees] = [127.127829002, 127.12797670696119, 127.127904, 127.127850, 127.127829, 127.127830, 127.127840, 127.127850]
-    let targetLocation = CLLocation(latitude: 37.455, longitude: 127.1280)
+    let targetLocation = CLLocation(latitude: 37.4550002, longitude: 127.127829002)
     
     
     // 사용자가 설정한 위치
@@ -36,12 +36,6 @@ struct ARTest: View {
                     } else {
                         Text("Loading...")
                     }
-                    
-                    
-//                    Image(modelName)
-//                        .resizable()
-//                        .frame(width: 150, height:150)
-//                        .tint(.blue)
                         
                 }
 //                 UseMap(coreLocation: coreLocation)
