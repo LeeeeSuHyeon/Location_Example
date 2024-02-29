@@ -12,32 +12,27 @@ struct ARTest: View {
     @State private var modelName : String =  "CC0_-_Arrow_5"
     
     // 집 - 엔티티의 위도 및 경도
-    let latitude: [CLLocationDegrees] = [37.4550002, 37.454986572265625, 37.455015, 37.455040, 37.455004, 37.455008, 37.455008, 37.455008]
-    let longitude: [CLLocationDegrees] = [127.127829002, 127.12797670696119, 127.127904, 127.127850, 127.127829, 127.127830, 127.127840, 127.127850]
-    let targetLocation = CLLocation(latitude: 37.4550002, longitude: 127.127829002)
+    let latitude: [CLLocationDegrees] = [37.455008, 37.455008, 37.455008, 37.4550075, 37.4550075, 37.4550075, 37.455007, 37.455007, 37.455007]
+    let longitude: [CLLocationDegrees] = [127.127830, 127.127820, 127.127825, 127.127825, 127.127830, 127.127820,127.127830,127.127825,127.127820]
+    let targetLocation = CLLocation(latitude: 37.45502080771848, longitude: 127.12796925578931)
     
     
     // 사용자가 설정한 위치
-    @State private var userLocation: CLLocation?
+//    @State private var userLocation: CLLocation?
     
     
     var body: some View {
         // 뷰의 오른쪽 상단에 버튼을 배치하기 위해 ZStack을 .topTrailing 정렬 사용
         ZStack(alignment: .topTrailing){
             VStack{
-                ZStack{
-                    if let userLocation = userLocation {
-                        ARViewContainer(
-                            currentLocation: userLocation,
-                            targetLocation: targetLocation,
-                            modelName: $modelName
-                        )
-                        .edgesIgnoringSafeArea(.all)
-                    } else {
-                        Text("Loading...")
-                    }
-                        
-                }
+                ARViewContainer(
+                    targetLocation: targetLocation,
+                    targetLatitude: latitude,
+                    targetLongitude: longitude,
+                    modelName: $modelName
+                )
+                .edgesIgnoringSafeArea(.all)
+
 //                 UseMap(coreLocation: coreLocation)
             }
            
@@ -53,13 +48,6 @@ struct ARTest: View {
             }
             .padding(24)
         }
-        .onAppear {
-            // 사용자의 현재 위치를 가져오기 위해 CoreLocationEx 인스턴스의 메서드를 호출합니다.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                // 사용자의 현재 위치를 업데이트합니다.
-                userLocation = coreLocation.location
-            }
-        }
         
     }
         
@@ -68,10 +56,11 @@ struct ARTest: View {
 
 struct ARViewContainer: UIViewRepresentable {
     
-    // 현재 위치
-    let currentLocation: CLLocation
     // 목표 위치
     let targetLocation: CLLocation
+    let targetLatitude : [CLLocationDegrees]
+    let targetLongitude : [CLLocationDegrees]
+    
     
 //    // 집 - 엔티티의 위도 및 경도
 //    let latitude: [CLLocationDegrees] = [37.4550002, 37.454986572265625, 37.455015, 37.455040, 37.455004, 37.455008, 37.455008, 37.455008]
@@ -108,42 +97,27 @@ struct ARViewContainer: UIViewRepresentable {
         }
     
     func addEntity(arView: ARView) {
-        // 현재 위치 좌표와 목표 위치 좌표 계산
-        let targetPosition = SIMD3<Float>(
-            Float(targetLocation.coordinate.longitude - currentLocation.coordinate.longitude),
-            0, // Assuming flat ground, no altitude difference
-            Float(targetLocation.coordinate.latitude - currentLocation.coordinate.latitude)
-        )
+        print("addEntity - called")
         
-        // 엔티티 생성 및 배치
-        let entity = ModelEntity(mesh: .generateSphere(radius: 0.1), materials: [SimpleMaterial(color: .red, isMetallic: true)])
-        let anchor = AnchorEntity(world: targetPosition)
-        anchor.addChild(entity)
-        arView.scene.addAnchor(anchor)
+        for i in 0..<targetLatitude.count {
+               let targetPosition = SIMD3<Float>(
+                   Float(targetLongitude[i]),
+                   0, // Assuming flat ground, no altitude difference
+                   Float(targetLatitude[i])
+               )
+               
+               // 엔티티 생성 및 배치
+               let entity = ModelEntity(mesh: .generateSphere(radius: 0.1), materials: [SimpleMaterial(color: .red, isMetallic: true)])
+               let anchor = AnchorEntity(world: targetPosition)
+               anchor.addChild(entity)
+               arView.scene.addAnchor(anchor)
+           }
+        print("anchor : ", arView.scene.anchors.count)
+
     }
 
 
-//    func updateUIView(_ uiView: ARView, context: Context) {
-//
-//        // 코디네이터가 존재하고 엔티티가 추가되지 않았을 때만 실행
-//        if let cameraTransform = uiView.session.currentFrame?.camera.transform,
-//           !context.coordinator.isEntityAdded {
-//
-//            // 카메라의 변환 행렬에서 카메라의 위치를 추출
-//            let cameraPosition = simd_make_float3(cameraTransform.columns.3)
-//
-//            // AnchorEntity를 생성하고 카메라의 위치에 배치
-//            let anchorEntity = AnchorEntity(world: cameraPosition)
-//
-//            // USDZ 파일을 로드하고 엔티티를 추가
-//            if let modelEntity = try? Entity.loadModel(named: modelName) {
-//                anchorEntity.addChild(modelEntity)
-//                uiView.scene.addAnchor(anchorEntity)
-//
-//                // 엔티티가 추가되었음을 표시
-//                context.coordinator.isEntityAdded = true
-//            }
-//        }
+
     
     func updateUIView(_ arView: ARView, context: Context) {
 //            // 5.a
@@ -189,5 +163,6 @@ struct ARViewContainer: UIViewRepresentable {
 //                arView.scene.addAnchor(anchorEntity)
 //            }
         }
+        
     }
 
