@@ -1,5 +1,6 @@
 import SwiftUI
 import CoreMotion
+import Alamofire
 
 // - ObservableObject를 준수하여 데이터 바인딩을 가능하게 함
 // - 데이터의 변경 사항을 SwiftUI에 알릴 수 있음
@@ -15,9 +16,9 @@ class MotionManager: ObservableObject {
     // MotionManger 클래스의 초기화 메서드
     init() {
         // 가속도 데이터 업데이트 간격 설정 (1초)
-        motionManager.accelerometerUpdateInterval = 1
-        motionManager.gyroUpdateInterval = 1
-        motionManager.magnetometerUpdateInterval = 1
+        motionManager.accelerometerUpdateInterval = 2
+        motionManager.gyroUpdateInterval = 2
+        motionManager.magnetometerUpdateInterval = 2
         
         // Acceleromter 가속도 데이터 감지 시작
         // 이 메서드는 가속도 데이터가 업데이트될 때마다 제공된 클로저를 호출
@@ -50,6 +51,8 @@ struct CoreMotionEx: View {
     // 전역으로 CoreLocationEx 인스턴스 생성
     @ObservedObject var coreLocation = CoreLocationEx()
     
+    // post 요청 후 받을 data
+    @State private var responseData: String = ""
 
     var body: some View {
         VStack {
@@ -78,6 +81,52 @@ struct CoreMotionEx: View {
                 Text("altitude : \(location.altitude)")
             } else {
                 Text("No location - altitude data")
+            }
+        }
+        .onAppear{
+            // 2초에 한 번씩 postData 함수 호출
+            Timer.scheduledTimer(withTimeInterval: 2, repeats: true){ timer in
+                
+                var date = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                let dateString = dateFormatter.string(from: date)
+                
+                
+                var param = coreMotionRequest(
+                    accValueX: Double(motionManager.acceleration?.x ?? 0),
+                    accValueY: Double(motionManager.acceleration?.y ?? 0),
+                    accValueZ: Double(motionManager.acceleration?.z ?? 0),
+                    gyroValueX: Double(motionManager.gryo?.rotationRate.x ?? 0),
+                    gyroValueY: Double(motionManager.gryo?.rotationRate.y ?? 0),
+                    gyroValueZ: Double(motionManager.gryo?.rotationRate.z ?? 0),
+                    magValueX: Double(motionManager.magentometer?.x ?? 0),
+                    magValueY: Double(motionManager.magentometer?.y ?? 0),
+                    magValueZ: Double(motionManager.magentometer?.z ?? 0),
+                    apValue: Double(coreLocation.location?.altitude ?? 0),
+                    timer: date)
+                postData(parameter : param)
+            }
+        }
+    }
+    
+    func postData(parameter : coreMotionRequest) {
+        // API 요청을 보낼 URL 생성
+        guard let url = URL(string: "https://e557-210-119-237-40.ngrok-free.app/save/data") else {
+            print("Invalid URL")
+            return
+        }
+        
+        // Alamofire를 사용하여 GET 요청 생성
+        AF.request(url, method: .post, parameters: parameter, encoder: JSONParameterEncoder.default).responseString { response in
+            // 에러 처리
+            switch response.result {
+            case .success(let value):
+                // 성공적인 응답 처리
+                self.responseData = value
+            case .failure(let error):
+                // 에러 응답 처리
+                print("Error: \(error.localizedDescription)")
             }
         }
     }
