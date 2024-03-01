@@ -4,6 +4,7 @@ import CoreMotion
 // - ObservableObject를 준수하여 데이터 바인딩을 가능하게 함
 // - 데이터의 변경 사항을 SwiftUI에 알릴 수 있음
 class MotionManager: ObservableObject {
+    
     private let motionManager = CMMotionManager() //  인스턴스를 사용하여 기기의 모션 데이터를 캡처하고 관리
     
     // @Published로 표시되어 있어 데이터가 변경될 때 SwiftUI에게 알리고 해당 데이터를 관리
@@ -45,6 +46,10 @@ struct CoreMotionEx: View {
 
     // MotionManager의 인스턴스를 생성하고, @ObservedObject 속성으로 표시하여 해당 인스턴스의 변경 사항을 관찰
     @ObservedObject var motionManager = MotionManager()
+    
+    // 전역으로 CoreLocationEx 인스턴스 생성
+    @ObservedObject var coreLocation = CoreLocationEx()
+    
 
     var body: some View {
         VStack {
@@ -67,6 +72,12 @@ struct CoreMotionEx: View {
                 Text("X : \(magentometer.x), Y: \(magentometer.y), Z: \(magentometer.z)")
             } else {
                 Text("No magnetometer data")
+            }
+            
+            if let location = coreLocation.location {
+                Text("altitude : \(location.altitude)")
+            } else {
+                Text("No location - altitude data")
             }
         }
     }

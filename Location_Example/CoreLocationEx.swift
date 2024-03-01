@@ -46,11 +46,10 @@ class CoreLocationEx: NSObject, ObservableObject, CLLocationManagerDelegate {
                DispatchQueue.main.async {
                    self.location = newLocation
                }
-        
-        print(locations.last?.coordinate.latitude, locations.last?.coordinate.longitude)
+
         // startUpdatingLocation()을 사용하여 사용자 위치를 가져왔다면
        // 불필요한 업데이트를 방지하기 위해 stopUpdatingLocation을 호출
-       locationManager.stopUpdatingLocation()
+//       locationManager.stopUpdatingLocation()
         
 //        if let location = locations.last {
 //            latitude = location.coordinate.latitude

@@ -82,11 +82,11 @@
 				CBB253302B664B0100DD408C /* CoreLocationEx.swift */,
 				CB6383C52B7110DC00A18255 /* ARTest.swift */,
 				CB6383C72B73BFBA00A18255 /* UseMap.swift */,
+				CBAC22C32B90BB6200A79A61 /* CoreMotionEx.swift */,
 				CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */,
 				CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */,
 				CBB253262B664AD700DD408C /* Assets.xcassets */,
 				CBB253282B664AD700DD408C /* Preview Content */,
-				CBAC22C32B90BB6200A79A61 /* CoreMotionEx.swift */,
 			);
 			path = Location_Example;
 			sourceTree = "<group>";
