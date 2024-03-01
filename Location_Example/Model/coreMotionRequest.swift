@@ -18,5 +18,5 @@ struct coreMotionRequest : Encodable {
     var magValueY : Double
     var magValueZ : Double
     var apValue : Double
-    var timer : Date
+    var time : String
 }

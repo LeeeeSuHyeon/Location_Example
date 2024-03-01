@@ -85,7 +85,7 @@ struct CoreMotionEx: View {
         }
         .onAppear{
             // 2초에 한 번씩 postData 함수 호출
-            Timer.scheduledTimer(withTimeInterval: 2, repeats: true){ timer in
+            Timer.scheduledTimer(withTimeInterval: 1.6, repeats: true){ timer in
                 
                 var date = Date()
                 let dateFormatter = DateFormatter()
@@ -104,7 +104,8 @@ struct CoreMotionEx: View {
                     magValueY: Double(motionManager.magentometer?.y ?? 0),
                     magValueZ: Double(motionManager.magentometer?.z ?? 0),
                     apValue: Double(coreLocation.location?.altitude ?? 0),
-                    timer: date)
+                    time: dateString)
+                print("dataString : ", dateString)
                 postData(parameter : param)
             }
         }
@@ -112,7 +113,7 @@ struct CoreMotionEx: View {
     
     func postData(parameter : coreMotionRequest) {
         // API 요청을 보낼 URL 생성
-        guard let url = URL(string: "https://e557-210-119-237-40.ngrok-free.app/save/data") else {
+        guard let url = URL(string: "https://c896-210-119-237-40.ngrok-free.app/save/data") else {
             print("Invalid URL")
             return
         }
