@@ -14,7 +14,7 @@ struct Location_ExampleApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CoreMotionEx()
         }
     }
 }

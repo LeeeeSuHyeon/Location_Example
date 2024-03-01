@@ -14,7 +14,6 @@ struct ARTest: View {
     // 집 - 엔티티의 위도 및 경도
     let latitude: [CLLocationDegrees] = [37.455008, 37.455008, 37.455008, 37.4550075, 37.4550075, 37.4550075, 37.455007, 37.455007, 37.455007]
     let longitude: [CLLocationDegrees] = [127.127830, 127.127820, 127.127825, 127.127825, 127.127830, 127.127820,127.127830,127.127825,127.127820]
-    let targetLocation = CLLocation(latitude: 37.45502080771848, longitude: 127.12796925578931)
     
     
     // 사용자가 설정한 위치
@@ -26,7 +25,6 @@ struct ARTest: View {
         ZStack(alignment: .topTrailing){
             VStack{
                 ARViewContainer(
-                    targetLocation: targetLocation,
                     targetLatitude: latitude,
                     targetLongitude: longitude,
                     modelName: $modelName
@@ -57,7 +55,6 @@ struct ARTest: View {
 struct ARViewContainer: UIViewRepresentable {
     
     // 목표 위치
-    let targetLocation: CLLocation
     let targetLatitude : [CLLocationDegrees]
     let targetLongitude : [CLLocationDegrees]
     
