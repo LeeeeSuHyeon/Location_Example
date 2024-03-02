@@ -19,6 +19,7 @@
 		CBC299232B7E4F7C0026C908 /* toy_biplane_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */; };
 		CBC299282B7E52F80026C908 /* CC0_-_Arrow_5.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */; };
 		CBD4B2652B91898200075BA8 /* coreMotionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4B2642B91898200075BA8 /* coreMotionRequest.swift */; };
+		CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4B2662B93337700075BA8 /* NaverMap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_biplane_idle.usdz; sourceTree = "<group>"; };
 		CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "CC0_-_Arrow_5.usdz"; sourceTree = "<group>"; };
 		CBD4B2642B91898200075BA8 /* coreMotionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coreMotionRequest.swift; sourceTree = "<group>"; };
+		CBD4B2662B93337700075BA8 /* NaverMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,16 +98,17 @@
 			isa = PBXGroup;
 			children = (
 				CBD4B2632B91893500075BA8 /* Model */,
-				CBB253222B664AD600DD408C /* Location_ExampleApp.swift */,
+				CB6383C52B7110DC00A18255 /* ARTest.swift */,
+				CBB253262B664AD700DD408C /* Assets.xcassets */,
+				CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */,
 				CBB253242B664AD600DD408C /* ContentView.swift */,
 				CBB253302B664B0100DD408C /* CoreLocationEx.swift */,
-				CB6383C52B7110DC00A18255 /* ARTest.swift */,
-				CB6383C72B73BFBA00A18255 /* UseMap.swift */,
 				CBAC22C32B90BB6200A79A61 /* CoreMotionEx.swift */,
-				CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */,
-				CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */,
-				CBB253262B664AD700DD408C /* Assets.xcassets */,
+				CBB253222B664AD600DD408C /* Location_ExampleApp.swift */,
 				CBB253282B664AD700DD408C /* Preview Content */,
+				CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */,
+				CB6383C72B73BFBA00A18255 /* UseMap.swift */,
+				CBD4B2662B93337700075BA8 /* NaverMap.swift */,
 			);
 			path = Location_Example;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				CBD4B2652B91898200075BA8 /* coreMotionRequest.swift in Sources */,
 				CB6383C82B73BFBA00A18255 /* UseMap.swift in Sources */,
 				CBB253252B664AD600DD408C /* ContentView.swift in Sources */,
+				CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */,
 				CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */,
 				CBAC22C42B90BB6200A79A61 /* CoreMotionEx.swift in Sources */,
 				CB6383C62B7110DC00A18255 /* ARTest.swift in Sources */,
