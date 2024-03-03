@@ -29,6 +29,7 @@
 		CB16AC752B7A6FC800DAAE3F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		CB16AC772B7A70BA00DAAE3F /* libswiftMetal.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftMetal.tbd; path = usr/lib/swift/libswiftMetal.tbd; sourceTree = SDKROOT; };
 		CB16AC792B7A70DE00DAAE3F /* libswiftMetalKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftMetalKit.tbd; path = usr/lib/swift/libswiftMetalKit.tbd; sourceTree = SDKROOT; };
+		CB3FA7782B946B1A005D770E /* Location-Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Location-Example-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CB6383C52B7110DC00A18255 /* ARTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARTest.swift; sourceTree = "<group>"; };
 		CB6383C72B73BFBA00A18255 /* UseMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseMap.swift; sourceTree = "<group>"; };
 		CBAC22C32B90BB6200A79A61 /* CoreMotionEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionEx.swift; sourceTree = "<group>"; };
@@ -97,6 +98,7 @@
 		CBB253212B664AD600DD408C /* Location_Example */ = {
 			isa = PBXGroup;
 			children = (
+				CB3FA7782B946B1A005D770E /* Location-Example-Info.plist */,
 				CBD4B2632B91893500075BA8 /* Model */,
 				CB6383C52B7110DC00A18255 /* ARTest.swift */,
 				CBB253262B664AD700DD408C /* Assets.xcassets */,
@@ -390,6 +392,7 @@
 				DEVELOPMENT_TEAM = X7TYNR98TC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Location-Example-Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "AR 사용을 위한 카메라 권한 허용";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치 정보 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 정보 허용";
@@ -427,6 +430,7 @@
 				DEVELOPMENT_TEAM = X7TYNR98TC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Location-Example-Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "AR 사용을 위한 카메라 권한 허용";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치 정보 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치 정보 허용";

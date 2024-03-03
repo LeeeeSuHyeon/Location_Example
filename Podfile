@@ -9,4 +9,6 @@ target 'Location_Example' do
 
  pod 'Alamofire'
 
+ pod 'NMapsMap'
+
 end
