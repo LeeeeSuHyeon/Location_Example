@@ -59,7 +59,7 @@ struct NaMapView: UIViewRepresentable {
             NMGLatLng(lat: 37.452468, lng: 127.132850) // 중도 입구
         ])
         
-        pathOverlay.width = 10 // 경로 두께 설정
+        pathOverlay.width = 5 // 경로 두께 설정
         pathOverlay.outlineWidth = 2.5 // 테두리 두께
         
         pathOverlay.patternIcon = NMFOverlayImage(name: "path_pattern") // 경로 패턴 지정
