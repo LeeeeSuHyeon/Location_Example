@@ -7,25 +7,14 @@
 
 // 위치 환경 구축
 import SwiftUI
-import MapKit
 
-//// 검색 위치 정보 딕셔너리 [위치명 : [위도, 경도, 고도]]
-//let address : [String : [Float]] = ["AI공학관" : [37.455189, 127.133435, 61.228996],
-//                                    "중앙도서관" : [37.452561, 127.132950, 81.299942]]
-
-// 검색 위치 정보 딕셔너리 [위치명 : CLLocation]
-let addr: [String: CLLocation] = [
-    "AI": CLLocation(coordinate: CLLocationCoordinate2D(latitude: 37.455189, longitude: 127.133435), altitude: 61.228996, horizontalAccuracy: 1.0, verticalAccuracy: 1.0, timestamp: Date()),
-    "중도": CLLocation(coordinate: CLLocationCoordinate2D(latitude: 37.452561, longitude: 127.132950), altitude: 81.299942, horizontalAccuracy: 1.0, verticalAccuracy: 1.0, timestamp: Date())
-]
 
 struct ContentView: View {
     
     // 전역으로 CoreLocationEx 인스턴스 생성
     @ObservedObject var coreLocation = CoreLocationEx()
-    @ObservedObject var mapViewModel = UseMapViewModel()
     
-    @State var myMap = UseMap()
+    var myMap = NaverMap()
     
     @State var isPresented: Bool = false
     @State var start = ""
@@ -48,7 +37,7 @@ struct ContentView: View {
                 VStack{
                     // 위치 검색 버튼
                     Button {
-                        Search(myMap, end)
+//                        Search(myMap, end)
                     } label: {
                         Text("Search")
                     }
@@ -69,28 +58,12 @@ struct ContentView: View {
                        ARTest(isPresented: $isPresented)
                     })
                 }
-
             }
-                
             myMap
-                .onReceive(mapViewModel.$annotations) { _ in
-                   // annotations가 업데이트되면 myMap을 다시 설정하여 뷰를 다시 로드
-                   myMap = UseMap()
-               }
-               .environmentObject(coreLocation) // CoreLocationEx를 UseMap에 전달
-               .environmentObject(mapViewModel) // UseMapViewModel을 UseMap에 전달
+                
+            
         }
     }
-}
-
-func Search(_ myMap : UseMap, _ end : String){
-    guard let search = addr[end] else {
-        return
-    }
-    print(search)
-    print(search.coordinate)
-    
-    myMap.viewModel.setMapView(coordinate: search.coordinate, addr: end)
 }
 
 
