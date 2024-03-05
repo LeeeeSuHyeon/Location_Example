@@ -58,10 +58,10 @@ struct ARViewContainer: UIViewRepresentable {
         let scene = SCNScene()
         
         // Scene에 3D 객체 추가
-       let boxGeometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
-       let boxNode = SCNNode(geometry: boxGeometry)
-       boxNode.position = SCNVector3(0, 0, -0.5)
-       scene.rootNode.addChildNode(boxNode)
+        let boxGeometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+        let boxNode = SCNNode(geometry: boxGeometry)
+        boxNode.position = SCNVector3(0, 0, -0.5)
+        scene.rootNode.addChildNode(boxNode)
 
         // ARScene을 ARSCNView에 할당
        arView.scene = scene
