@@ -11,9 +11,15 @@ import NMapsMap
 
 struct NaverMap: View {
     
+    // 전역으로 CoreLocationEx 인스턴스 생성
+    @ObservedObject var coreLocation: CoreLocationEx
+    
     var body: some View {
-        NaMapView()
+        NaMapView(coreLocation : coreLocation)
             .edgesIgnoringSafeArea(.all)
+            .onAppear{
+                print("NaMapView Called - coreLocation \(coreLocation.location)")
+            }
     }
 }
 
@@ -21,8 +27,7 @@ struct NaverMap: View {
 
 struct NaMapView: UIViewRepresentable {
     
-    // 전역으로 CoreLocationEx 인스턴스 생성
-    @ObservedObject var coreLocation = CoreLocationEx()
+    @ObservedObject var coreLocation: CoreLocationEx
     
     func makeUIView(context: Context) -> NMFNaverMapView {
         let mapView = NMFNaverMapView() // 지도 객체 생성
@@ -74,10 +79,6 @@ struct NaMapView: UIViewRepresentable {
 
 //        pathOverlay.mapView = nil // 경로 삭제
         
-        return mapView
-    }
-
-    func updateUIView(_ mapView: NMFNaverMapView, context: Context) {
         
         // 위치 정보가 제대로 전달되었는지 확인하고 전달된 경우에만 위도와 경도를 사용합니다.
         if let location = coreLocation.location {
@@ -90,8 +91,15 @@ struct NaMapView: UIViewRepresentable {
             
             let cameraUpdate =  NMFCameraUpdate(scrollTo: NMGLatLng(lat: latitude, lng: longitude)) // 현재 위치로 카메라 위치 변경,
             mapView.mapView.moveCamera(cameraUpdate)
+            print("position : ", coreLocation.location)
             
 
         }
+        
+        return mapView
+    }
+
+    func updateUIView(_ mapView: NMFNaverMapView, context: Context) {
+        
     }
 }

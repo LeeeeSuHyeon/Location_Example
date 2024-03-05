@@ -14,8 +14,7 @@ struct ContentView: View {
     // 전역으로 CoreLocationEx 인스턴스 생성
     @ObservedObject var coreLocation = CoreLocationEx()
     
-    var myMap = NaverMap()
-    
+    @State var myMap : NaverMap?
     @State var isPresented: Bool = false
     @State var start = ""
     @State var end = ""
@@ -55,14 +54,23 @@ struct ContentView: View {
         
                     // 3.
                     .fullScreenCover(isPresented: $isPresented, content: {
-                       ARTest(isPresented: $isPresented)
+                        ARTest(isPresented: $isPresented, coreLocation: coreLocation)
                     })
                 }
+                .onAppear() {
+                    // ContentView가 로드되고 나면 coreLocation을 참조하여 NaverMap을 생성
+                    myMap = NaverMap(coreLocation: coreLocation)
+                }
             }
-            myMap
-                
-            
+            if coreLocation.location != nil {
+                NaMapView(coreLocation: coreLocation)
+                    .edgesIgnoringSafeArea(.all)
+            }
+            else {
+                ProgressView() // 혹은 다른 로딩 인디케이터를 사용할 수 있습니다.
+            }
         }
+
     }
 }
 
