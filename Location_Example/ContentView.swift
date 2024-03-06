@@ -81,12 +81,3 @@ struct ContentView: View {
     ContentView()
 }
 
-
-//VStack{
-//    Text("위도 : \(coreLocation.locationManager.location?.coordinate.latitude ?? 0.0)")
-//    Text("경도 : \(coreLocation.locationManager.location?.coordinate.longitude ?? 0.0)")
-//    Text("고도 : \(coreLocation.locationManager.location?.altitude ?? 0.0)")
-//    Text("수평 정확도 : \(coreLocation.locationManager.location?.verticalAccuracy ?? 0.0)")
-//    Text("수직 정확도 : \(coreLocation.locationManager.location?.horizontalAccuracy ?? 0.0)")
-//}
-//.padding()
