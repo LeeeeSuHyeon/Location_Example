@@ -115,15 +115,16 @@ struct ARViewContainer: UIViewRepresentable {
         }
         print("drawRoute - relativeRoute : \(relativeRoute)")
         
-        // x가 음수먼 왼쪽? z가 앞쪽 y 는 위아래인듯 
-        let ex : [SCNVector3] = [SCNVector3(x: -0.0, y: -0.0, z: -1.0),
-                                 SCNVector3(x: -0.0, y: -0.0, z: -2.0),
-                                 SCNVector3(x: -0.0, y: -0.0, z: -3.0),
-                                 SCNVector3(x: -0.0, y: -0.0, z: -4.0)]
+        // x가 음수먼 왼쪽? z가 앞쪽 y 는 위아래인듯
+        let ex : [SCNVector3] = [SCNVector3(x: -1.0, y: -0.0, z: -0.0),
+                                 SCNVector3(x: 1.0, y: -0.0, z: -0.0),
+                                 SCNVector3(x: -1.0, y: -0.0, z: -0.3),
+                                 SCNVector3(x: 1.0, y: -0.0, z: -0.3)]
         
         // 상대적인 좌표를 사용하여 경로 노드에 선을 추가
-        let pathLine = SCNNode(geometry: SCNGeometry.line(from: ex))
+        let pathLine = SCNNode(geometry: SCNGeometry.line(from: ex, thickness: 10))
         routeNode.addChildNode(pathLine)
+        
         
         // Scene에 경로 노드 추가
         scene.rootNode.addChildNode(routeNode)
@@ -131,31 +132,104 @@ struct ARViewContainer: UIViewRepresentable {
 }
 
 extension SCNGeometry {
-    // 상대적인 좌표들을 이어서 선을 만드는 메서드
-    static func line(from points: [SCNVector3]) -> SCNGeometry {
-        let sources = SCNGeometrySource(vertices: points)
-        var indices: [Int32] = []
-        for i in 0..<points.count {
-            indices.append(Int32(i))
-        }
-        let element = SCNGeometryElement(indices: indices, primitiveType: .line)
+    static func line(from points: [SCNVector3], thickness: CGFloat) -> SCNGeometry {
+        var vertices: [SCNVector3] = [] // 사각형의 꼭지점을 저장할 배열
+        var normals: [SCNVector3] = [] // 법선 벡터를 저장할 배열
+        var indices: [Int32] = [] // 정점 인덱스를 저장할 배열
 
-        // 두께와 색상을 적용하여 머티리얼을 생성합니다.
+        // 직사각형의 정점과 법선 벡터를 계산합니다.
+        for i in 0..<points.count {
+            let point = points[i]
+
+            // 직선 세그먼트에 대한 수직 벡터를 계산합니다.
+            let nextPoint = points[(i + 1) % points.count]
+            let diffVector = nextPoint - point
+            let perpendicularVector = SCNVector3(-diffVector.z, 0, diffVector.x).normalized()
+
+            // 직사각형의 네 꼭지점을 계산합니다.
+            let halfThickness = Float(thickness) / 2.0
+            let topLeft = point + perpendicularVector * halfThickness
+            let topRight = nextPoint + perpendicularVector * halfThickness
+            let bottomLeft = point - perpendicularVector * halfThickness
+            let bottomRight = nextPoint - perpendicularVector * halfThickness
+
+            // 정점을 추가합니다.
+            vertices.append(contentsOf: [topLeft, topRight, bottomRight, bottomLeft])
+            
+            // 법선을 추가합니다.
+            normals.append(contentsOf: [SCNVector3(0, 1, 0), SCNVector3(0, 1, 0), SCNVector3(0, 1, 0), SCNVector3(0, 1, 0)])
+
+            // 정점 인덱스를 추가합니다.
+            let baseIndex = Int32(i * 4)
+            indices.append(contentsOf: [baseIndex, baseIndex + 1, baseIndex + 2, baseIndex, baseIndex + 2, baseIndex + 3])
+        }
+
+        // Geometry sources를 생성합니다.
+        let vertexSource = SCNGeometrySource(vertices: vertices)
+        let normalSource = SCNGeometrySource(normals: normals)
+
+        // Geometry element를 생성합니다.
+        let element = SCNGeometryElement(indices: indices, primitiveType: .triangles)
+
+        // Geometry를 생성합니다.
+        let geometry = SCNGeometry(sources: [vertexSource, normalSource], elements: [element])
+        
+        // Geometry에 적절한 머티리얼을 설정합니다.
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.blue
-        
-        // 두꺼운 선을 위한 머티리얼을 설정합니다.
-        material.isDoubleSided = true
-        material.lightingModel = .constant
-        material.emission.contents = UIColor.blue
-        material.transparency = 0.8 // 불투명도
-        
-        // 머티리얼을 사용하여 두꺼운 선의 형태를 정의합니다.
-        let geometry = SCNGeometry(sources: [sources], elements: [element])
+        material.diffuse.contents = UIColor.blue // 원하는 색상을 설정합니다.
+
         geometry.materials = [material]
         
-        // 두꺼운 선의 머티리얼을 설정합니다.
         return geometry
     }
+
+    
+    
+    
+//    // 상대적인 좌표들을 이어서 선을 만드는 메서드
+//    static func line(from points: [SCNVector3], tickness : CGFloat) -> SCNGeometry {
+//        let sources = SCNGeometrySource(vertices: points)
+//        var indices: [Int32] = []
+//        for i in 0..<points.count {
+//            indices.append(Int32(i))
+//        }
+//        let element = SCNGeometryElement(indices: indices, primitiveType: .line)
+//
+//        // 두께와 색상을 적용하여 머티리얼을 생성합니다.
+//        let material = SCNMaterial()
+//        material.diffuse.contents = UIColor.blue
+//        
+//        // 두꺼운 선을 위한 머티리얼을 설정합니다.
+//        material.isDoubleSided = true
+//        material.lightingModel = .constant
+//        material.emission.contents = UIColor.red
+//        material.transparency = 0.7 // 불투명도
+//        
+//        // 머티리얼을 사용하여 두꺼운 선의 형태를 정의합니다.
+//        let geometry = SCNGeometry(sources: [sources], elements: [element])
+//        geometry.materials = [material]
+//        
+//        // 두꺼운 선의 머티리얼을 설정합니다.
+//        return geometry
+//    }
 }
 
+// 벡터 덧셈 및 곱셈을 추가하는 확장
+extension SCNVector3 {
+    static func +(lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
+        return SCNVector3(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z)
+    }
+    
+    static func -(lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
+        return SCNVector3(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z)
+    }
+
+    static func *(lhs: SCNVector3, rhs: Float) -> SCNVector3 {
+        return SCNVector3(lhs.x * rhs, lhs.y * rhs, lhs.z * rhs)
+    }
+
+    func normalized() -> SCNVector3 {
+        let length = sqrt(x * x + y * y + z * z)
+        return SCNVector3(x / length, y / length, z / length)
+    }
+}
