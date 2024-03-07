@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00F8517A4D59C468F9E49981 /* Pods_Location_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8347742CEAFF71F123DF26A0 /* Pods_Location_Example.framework */; };
+		CB35B9972B9980AC00BD38BD /* PathData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB35B9962B9980AC00BD38BD /* PathData.swift */; };
 		CB6383C62B7110DC00A18255 /* ARTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C52B7110DC00A18255 /* ARTest.swift */; };
 		CB6383C82B73BFBA00A18255 /* UseMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C72B73BFBA00A18255 /* UseMap.swift */; };
 		CBAC22C42B90BB6200A79A61 /* CoreMotionEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC22C32B90BB6200A79A61 /* CoreMotionEx.swift */; };
@@ -29,6 +30,7 @@
 		CB16AC752B7A6FC800DAAE3F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		CB16AC772B7A70BA00DAAE3F /* libswiftMetal.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftMetal.tbd; path = usr/lib/swift/libswiftMetal.tbd; sourceTree = SDKROOT; };
 		CB16AC792B7A70DE00DAAE3F /* libswiftMetalKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftMetalKit.tbd; path = usr/lib/swift/libswiftMetalKit.tbd; sourceTree = SDKROOT; };
+		CB35B9962B9980AC00BD38BD /* PathData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathData.swift; sourceTree = "<group>"; };
 		CB3FA7782B946B1A005D770E /* Location-Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Location-Example-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CB6383C52B7110DC00A18255 /* ARTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARTest.swift; sourceTree = "<group>"; };
 		CB6383C72B73BFBA00A18255 /* UseMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseMap.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				CBB253262B664AD700DD408C /* Assets.xcassets */,
 				CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */,
 				CBB253282B664AD700DD408C /* Preview Content */,
+				CB35B9962B9980AC00BD38BD /* PathData.swift */,
 			);
 			path = Location_Example;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				CBB253252B664AD600DD408C /* ContentView.swift in Sources */,
 				CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */,
 				CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */,
+				CB35B9972B9980AC00BD38BD /* PathData.swift in Sources */,
 				CBAC22C42B90BB6200A79A61 /* CoreMotionEx.swift in Sources */,
 				CB6383C62B7110DC00A18255 /* ARTest.swift in Sources */,
 				CBB253232B664AD600DD408C /* Location_ExampleApp.swift in Sources */,

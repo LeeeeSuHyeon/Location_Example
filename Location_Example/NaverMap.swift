@@ -52,17 +52,30 @@ struct NaMapView: UIViewRepresentable {
         
         // 경로 표시
         let pathOverlay = NMFPath()
-        pathOverlay.path = NMGLineString(points: [
-            NMGLatLng(lat: 37.450501, lng: 127.129618), // 가천관 입구
-            NMGLatLng(lat: 37.450864, lng: 127.129756),   // 가천관 대각 쪽
-            NMGLatLng(lat: 37.450912, lng: 127.130210), // 가천관 옆 입구 삼거리 앞
-            NMGLatLng(lat: 37.451217, lng: 127.130801), // 오르막 쪽
-            NMGLatLng(lat: 37.451869, lng: 127.131138),  // 동산 삼거리 횡단보드 전
-            NMGLatLng(lat: 37.451834, lng: 127.131236), // 횡단보드 건너고
-            NMGLatLng(lat: 37.452233, lng: 127.131658), // 교대 앞
-            NMGLatLng(lat: 37.452656, lng: 127.132799), // 중도 앞
-            NMGLatLng(lat: 37.452468, lng: 127.132850) // 중도 입구
-        ])
+        
+        
+//        pathOverlay.path = NMGLineString(points: [
+//            NMGLatLng(lat: 37.450501, lng: 127.129618), // 가천관 입구
+//            NMGLatLng(lat: 37.450864, lng: 127.129756),   // 가천관 대각 쪽
+//            NMGLatLng(lat: 37.450912, lng: 127.130210), // 가천관 옆 입구 삼거리 앞
+//            NMGLatLng(lat: 37.451217, lng: 127.130801), // 오르막 쪽
+//            NMGLatLng(lat: 37.451869, lng: 127.131138),  // 동산 삼거리 횡단보드 전
+//            NMGLatLng(lat: 37.451834, lng: 127.131236), // 횡단보드 건너고
+//            NMGLatLng(lat: 37.452233, lng: 127.131658), // 교대 앞
+//            NMGLatLng(lat: 37.452656, lng: 127.132799), // 중도 앞
+//            NMGLatLng(lat: 37.452468, lng: 127.132850) // 중도 입구
+//        ])
+        let route = PathData().route
+        
+        var pathPoints: [NMGLatLng] = []
+        for coordinate in route {
+            let latLng = NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude)
+            pathPoints.append(latLng)
+        }
+
+        pathOverlay.path = NMGLineString(points: pathPoints)
+        
+        
         
         pathOverlay.width = 5 // 경로 두께 설정
         pathOverlay.outlineWidth = 2.5 // 테두리 두께

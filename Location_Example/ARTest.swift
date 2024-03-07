@@ -41,16 +41,7 @@ struct ARViewContainer: UIViewRepresentable {
     
     @ObservedObject var coreLocation: CoreLocationEx
     
-    let route : [CLLocationCoordinate2D] = [
-        CLLocationCoordinate2D(latitude: 37.455086, longitude: 127.133315),
-        CLLocationCoordinate2D(latitude: 37.455179, longitude: 127.132041),
-        CLLocationCoordinate2D(latitude: 37.454974, longitude: 127.131895),
-        CLLocationCoordinate2D(latitude: 37.455043, longitude: 127.131246),
-        CLLocationCoordinate2D(latitude: 37.455486, longitude: 127.129632),
-        CLLocationCoordinate2D(latitude: 37.454869, longitude: 127.128768),
-        CLLocationCoordinate2D(latitude: 37.454814, longitude: 127.127927),
-        CLLocationCoordinate2D(latitude: 37.455010, longitude: 127.127867)
-    ]
+    let route = PathData().route
     
 //    @Binding var modelName: String
     
@@ -107,7 +98,7 @@ struct ARViewContainer: UIViewRepresentable {
             
             // 경로 노드의 위치 설정
             let routeNodePosition = SCNVector3(x: Float(distance * cos(direction)),
-                                               y: 0,
+                                               y: -3,
                                                z: Float(-distance * sin(direction)))
             
             // 상대적 위치 배열에 추가
@@ -117,12 +108,11 @@ struct ARViewContainer: UIViewRepresentable {
         
         // x가 음수먼 왼쪽? z가 앞쪽 y 는 위아래인듯
         let ex : [SCNVector3] = [SCNVector3(x: -1.0, y: -0.0, z: -0.0),
-                                 SCNVector3(x: 1.0, y: -0.0, z: -0.0),
-                                 SCNVector3(x: -1.0, y: -0.0, z: -0.3),
-                                 SCNVector3(x: 1.0, y: -0.0, z: -0.3)]
+                                 SCNVector3(x: 1.0, y: -0.0, z: -0.0)
+                                ]
         
         // 상대적인 좌표를 사용하여 경로 노드에 선을 추가
-        let pathLine = SCNNode(geometry: SCNGeometry.line(from: ex, thickness: 10))
+        let pathLine = SCNNode(geometry: SCNGeometry.line(from: relativeRoute, thickness: 0.5))
         routeNode.addChildNode(pathLine)
         
         
@@ -182,36 +172,6 @@ extension SCNGeometry {
         
         return geometry
     }
-
-    
-    
-    
-//    // 상대적인 좌표들을 이어서 선을 만드는 메서드
-//    static func line(from points: [SCNVector3], tickness : CGFloat) -> SCNGeometry {
-//        let sources = SCNGeometrySource(vertices: points)
-//        var indices: [Int32] = []
-//        for i in 0..<points.count {
-//            indices.append(Int32(i))
-//        }
-//        let element = SCNGeometryElement(indices: indices, primitiveType: .line)
-//
-//        // 두께와 색상을 적용하여 머티리얼을 생성합니다.
-//        let material = SCNMaterial()
-//        material.diffuse.contents = UIColor.blue
-//        
-//        // 두꺼운 선을 위한 머티리얼을 설정합니다.
-//        material.isDoubleSided = true
-//        material.lightingModel = .constant
-//        material.emission.contents = UIColor.red
-//        material.transparency = 0.7 // 불투명도
-//        
-//        // 머티리얼을 사용하여 두꺼운 선의 형태를 정의합니다.
-//        let geometry = SCNGeometry(sources: [sources], elements: [element])
-//        geometry.materials = [material]
-//        
-//        // 두꺼운 선의 머티리얼을 설정합니다.
-//        return geometry
-//    }
 }
 
 // 벡터 덧셈 및 곱셈을 추가하는 확장
