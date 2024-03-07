@@ -62,6 +62,8 @@ struct ARViewContainer: UIViewRepresentable {
         // 3.
         let config = ARWorldTrackingConfiguration()
         
+        config.planeDetection = [.horizontal, .vertical]
+        
         // 4.
         arView.session.run(config)
                 
@@ -72,7 +74,14 @@ struct ARViewContainer: UIViewRepresentable {
     
     func updateUIView(_ arView: ARSCNView, context: Context) {
         
+        // 이전에 추가된 경로 노드를 모두 제거합니다.
+        arView.scene.rootNode.enumerateChildNodes { (node, _) in
+            node.removeFromParentNode()
         }
+        
+        let scene = arView.scene
+        drawRoute(on: scene, userLocation: coreLocation.location!, routeCoordinates: route)
+    }
     
     func drawRoute(on scene: SCNScene, userLocation: CLLocation, routeCoordinates: [CLLocationCoordinate2D]) {
         // 경로를 표시할 노드 생성
@@ -82,7 +91,7 @@ struct ARViewContainer: UIViewRepresentable {
         var relativeRoute = [SCNVector3]()
         
         // 사용자의 현재 위치를 SCNVector3로 변환 (x : 수평(경도), y : 수직(위도), z : 깊이(거리)) -> 일반적인 좌표쳬계와 다르게 해석됨
-        let userPosition = SCNVector3(x: Float(userLocation.coordinate.longitude), y: 0, z: Float(-userLocation.coordinate.latitude))
+//        let userPosition = SCNVector3(x: Float(userLocation.coordinate.longitude), y: 0, z: Float(-userLocation.coordinate.latitude))
         
         // 경로 노드에 경로의 각 좌표를 추가
         for coordinate in routeCoordinates {
@@ -106,13 +115,8 @@ struct ARViewContainer: UIViewRepresentable {
         }
         print("drawRoute - relativeRoute : \(relativeRoute)")
         
-        // x가 음수먼 왼쪽? z가 앞쪽 y 는 위아래인듯
-        let ex : [SCNVector3] = [SCNVector3(x: -1.0, y: -0.0, z: -0.0),
-                                 SCNVector3(x: 1.0, y: -0.0, z: -0.0)
-                                ]
-        
         // 상대적인 좌표를 사용하여 경로 노드에 선을 추가
-        let pathLine = SCNNode(geometry: SCNGeometry.line(from: relativeRoute, thickness: 0.5))
+        let pathLine = SCNNode(geometry: SCNGeometry.line(from: relativeRoute, thickness: 0.8))
         routeNode.addChildNode(pathLine)
         
         
@@ -128,7 +132,7 @@ extension SCNGeometry {
         var indices: [Int32] = [] // 정점 인덱스를 저장할 배열
 
         // 직사각형의 정점과 법선 벡터를 계산합니다.
-        for i in 0..<points.count {
+        for i in 0..<points.count - 1 {
             let point = points[i]
 
             // 직선 세그먼트에 대한 수직 벡터를 계산합니다.
