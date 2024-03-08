@@ -61,6 +61,7 @@ struct ARViewContainer: UIViewRepresentable {
         
         // 3.
         let config = ARWorldTrackingConfiguration()
+        config.worldAlignment = .gravityAndHeading // y축은 중력과 평행하게 정렬되고 z축과 x축은 나침반 방향으로 정렬
         
         config.planeDetection = [.horizontal, .vertical]
         
@@ -137,8 +138,8 @@ struct ARViewContainer: UIViewRepresentable {
             let distance = userLocation.distance(from: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude))
             
             // 경로 좌표와 사용자 위치의 차이를 이용하여 방향을 계산합니다.
-            var direction = atan2(coordinate.latitude - userLocation.coordinate.latitude, coordinate.longitude - userLocation.coordinate.longitude)
-            direction = direction / Double.pi   // atna2는 라디안 단위 -> 각도로 변환
+            var direction = atan2(userLocation.coordinate.latitude - coordinate.latitude, userLocation.coordinate.longitude - coordinate.longitude)
+            direction = direction * 180 / Double.pi   // atna2는 라디안 단위 -> 각도로 변환
 
             
             // 경로 노드의 위치 설정 (현재 카메라의 방향에 따라 부호를 다르게 해야 함)
