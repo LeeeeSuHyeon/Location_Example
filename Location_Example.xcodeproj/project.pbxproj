@@ -109,11 +109,11 @@
 				CBB253302B664B0100DD408C /* CoreLocationEx.swift */,
 				CBAC22C32B90BB6200A79A61 /* CoreMotionEx.swift */,
 				CB6383C72B73BFBA00A18255 /* UseMap.swift */,
+				CB35B9962B9980AC00BD38BD /* PathData.swift */,
 				CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */,
 				CBB253262B664AD700DD408C /* Assets.xcassets */,
 				CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */,
 				CBB253282B664AD700DD408C /* Preview Content */,
-				CB35B9962B9980AC00BD38BD /* PathData.swift */,
 			);
 			path = Location_Example;
 			sourceTree = "<group>";
