@@ -10,6 +10,7 @@
 		00F8517A4D59C468F9E49981 /* Pods_Location_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8347742CEAFF71F123DF26A0 /* Pods_Location_Example.framework */; };
 		CB0BD9202B9C3B7900C08018 /* ARCLTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD91F2B9C3B7800C08018 /* ARCLTest.swift */; };
 		CB0BD9222B9C459200C08018 /* ARCLTestWrapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD9212B9C459200C08018 /* ARCLTestWrapping.swift */; };
+		CB0BD9242B9C536100C08018 /* gachon.png in Resources */ = {isa = PBXBuildFile; fileRef = CB0BD9232B9C536100C08018 /* gachon.png */; };
 		CB35B9972B9980AC00BD38BD /* PathData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB35B9962B9980AC00BD38BD /* PathData.swift */; };
 		CB6383C62B7110DC00A18255 /* ARTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C52B7110DC00A18255 /* ARTest.swift */; };
 		CB6383C82B73BFBA00A18255 /* UseMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C72B73BFBA00A18255 /* UseMap.swift */; };
@@ -31,6 +32,7 @@
 		8347742CEAFF71F123DF26A0 /* Pods_Location_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Location_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0BD91F2B9C3B7800C08018 /* ARCLTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCLTest.swift; sourceTree = "<group>"; };
 		CB0BD9212B9C459200C08018 /* ARCLTestWrapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCLTestWrapping.swift; sourceTree = "<group>"; };
+		CB0BD9232B9C536100C08018 /* gachon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gachon.png; sourceTree = "<group>"; };
 		CB16AC752B7A6FC800DAAE3F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		CB16AC772B7A70BA00DAAE3F /* libswiftMetal.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftMetal.tbd; path = usr/lib/swift/libswiftMetal.tbd; sourceTree = SDKROOT; };
 		CB16AC792B7A70DE00DAAE3F /* libswiftMetalKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftMetalKit.tbd; path = usr/lib/swift/libswiftMetalKit.tbd; sourceTree = SDKROOT; };
@@ -117,6 +119,7 @@
 				CB0BD91F2B9C3B7800C08018 /* ARCLTest.swift */,
 				CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */,
 				CBB253262B664AD700DD408C /* Assets.xcassets */,
+				CB0BD9232B9C536100C08018 /* gachon.png */,
 				CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */,
 				CBB253282B664AD700DD408C /* Preview Content */,
 				CB0BD9212B9C459200C08018 /* ARCLTestWrapping.swift */,
@@ -203,6 +206,7 @@
 				CBB2532A2B664AD700DD408C /* Preview Assets.xcassets in Resources */,
 				CBC299232B7E4F7C0026C908 /* toy_biplane_idle.usdz in Resources */,
 				CBC299282B7E52F80026C908 /* CC0_-_Arrow_5.usdz in Resources */,
+				CB0BD9242B9C536100C08018 /* gachon.png in Resources */,
 				CBB253272B664AD700DD408C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

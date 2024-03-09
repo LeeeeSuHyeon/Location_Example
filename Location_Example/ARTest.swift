@@ -1,6 +1,7 @@
 import SwiftUI
 import ARKit
 import RealityKit
+import ARCL
 
 struct ARTest: View {
     // AR 기능 on/off 변수
@@ -43,10 +44,14 @@ struct ARViewContainer: UIViewRepresentable {
     
     let route = PathData().route
     
+    
 //    @Binding var modelName: String
     
     // 2.
     func makeUIView(context: Context) -> ARSCNView {
+        
+        //ARCL
+        LocationNode()
         
         // ARSCNView 인스턴스 생성
         let arView = ARSCNView()
@@ -127,19 +132,22 @@ struct ARViewContainer: UIViewRepresentable {
         var relativeRoute : [SCNVector3] = [SCNVector3(x: 0, y: 0, z: 0)]
         
         // 사용자의 현재 위치를 SCNVector3로 변환 (x : 수평(경도), y : 수직(위도), z : 깊이(거리)) -> 일반적인 좌표쳬계와 다르게 해석됨
-//        let userPosition = SCNVector3(x: Float(userLocation.coordinate.longitude), y: 0, z: Float(-userLocation.coordinate.latitude))
-        
+
         // 경로 노드에 경로의 각 좌표를 추가
-        for coordinate in routeCoordinates {
-            // 경로 좌표를 SCNVector3로 변환
-//            let routePosition = SCNVector3(x: Float(coordinate.longitude), y: 0, z: Float(-coordinate.latitude))
-            
+        for i in 0..<routeCoordinates.count - 1 {
+            let coordinate = routeCoordinates[i]
+            let nextCoordinate = routeCoordinates[i+1]
+ 
             // 사용자의 현재 위치와 경로 좌표 사이의 거리와 방향을 계산하여 오일러 각도로 변환
             let distance = userLocation.distance(from: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude))
             
-            // 경로 좌표와 사용자 위치의 차이를 이용하여 방향을 계산합니다.
-            var direction = atan2(userLocation.coordinate.latitude - coordinate.latitude, userLocation.coordinate.longitude - coordinate.longitude)
-            direction = direction * 180 / Double.pi   // atna2는 라디안 단위 -> 각도로 변환
+            // 경로 좌표와 사용자 위치의 차이를 이용하여 방향을 계산 (atan2)
+            let a = cos(nextCoordinate.longitude.toRadians() - nextCoordinate.longitude.toRadians()) * cos(coordinate.latitude.toRadians())
+            
+            let b = cos(coordinate.latitude.toRadians()) * sin(nextCoordinate.latitude.toRadians()) - sin(coordinate.latitude.toRadians()) * cos(nextCoordinate.latitude.toRadians()) * cos(nextCoordinate.longitude.toRadians() - coordinate.longitude.toRadians())
+            
+            let direction = atan2(a, b).toDegrees() // 라디안 -> 각도로 변환
+    
 
             
             // 경로 노드의 위치 설정 (현재 카메라의 방향에 따라 부호를 다르게 해야 함)
@@ -165,6 +173,27 @@ struct ARViewContainer: UIViewRepresentable {
         
         // Scene에 경로 노드 추가
         scene.rootNode.addChildNode(routeNode)
+    }
+    
+    // 건물 위 이미지 띄우기
+    func LocationNode(){
+        var sceneLocationView = SceneLocationView()
+        
+        // 공원
+        let coordinate = CLLocationCoordinate2D(latitude: 37.454978, longitude: 127.128323)
+        let address = CLLocation(coordinate: coordinate, altitude: 300)
+        let image = UIImage(named: "gachon")!
+
+        let annotationNode = LocationAnnotationNode(location: address, image: image)
+        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
+        
+        // 뒷길
+        let coordinate1 = CLLocationCoordinate2D(latitude: 37.454974, longitude: 127.132851)
+        let address1 = CLLocation(coordinate: coordinate, altitude: 300)
+        let image1 = UIImage(named: "gachon")!
+
+        let annotationNode1 = LocationAnnotationNode(location: address1, image: image1)
+        sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode1)
     }
 }
 
@@ -251,41 +280,13 @@ extension SCNVector3 {
     }
 }
 
-//extension Entity {
-//    
-//    static func placemarkNode(for arAnchor: ARAnchor, in arView: ARSCNView) -> SCNNode? {
-//        guard let geoAnchor = arAnchor as? ARGeoAnchor else { return nil }
-//        
-//        let placemarkAnchor = AnchorEntity(anchor: arAnchor)
-//        
-//        // IndicatorEntity 생성
-//        let indicatorEntity = Entity.nameEntity(geoAnchor.name ?? "Untitled").clone(recursive: true)
-//        placemarkAnchor.addChild(indicatorEntity)
-//        
-//        // ARGeoAnchor의 위치로 설정
-//        placemarkAnchor.position = arAnchor.transform.translation
-//        
-//        // ARGeoAnchor의 회전 설정 (카메라를 향하도록)
-//        if let camera = arView.pointOfView {
-//            let lookAtConstraint = SCNBillboardConstraint()
-//            lookAtConstraint.freeAxes = [.Y]
-//            placemarkAnchor.constraints = [lookAtConstraint]
-//        }
-//        
-//        // ARGeoAnchor를 SCNNode로 변환하여 반환
-//        let placemarkNode = SCNNode()
-//        placemarkNode.addChildNode(placemarkAnchor)
-//        
-//        return placemarkNode
-//    }
-//    
-//    static func nameEntity(_ text: String) -> ModelEntity {
-//        ModelEntity(mesh: MeshResource.generateText(text,
-//                                                    extrusionDepth: 0.2,
-//                                                    font: .boldSystemFont(ofSize: 4),
-//                                                    alignment: .center),
-//                    materials: [UnlitMaterial(color: .yellow)])
-//    }
-//}
 
-
+extension Double {
+    func toRadians() -> Double {
+        return self * .pi / 180.0
+    }
+    
+    func toDegrees() -> Double {
+        return self * 180.0 / .pi
+    }
+}
