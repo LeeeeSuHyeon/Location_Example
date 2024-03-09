@@ -10,5 +10,7 @@ target 'Location_Example' do
  pod 'Alamofire'
 
  pod 'NMapsMap'
+ pod 'ARCL'
+
 
 end
