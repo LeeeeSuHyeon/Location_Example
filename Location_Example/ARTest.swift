@@ -62,8 +62,7 @@ struct ARViewContainer: UIViewRepresentable {
         // ARScene을 ARSCNView에 할당
         arView.scene = scene
         
-        drawRoute(on: scene, userLocation: coreLocation.location!, routeCoordinates: route)
-        
+//        drawRoute(on: scene, userLocation: coreLocation.location!, routeCoordinates: route)
         // 3.
         let config = ARWorldTrackingConfiguration()
         config.worldAlignment = .gravityAndHeading // y축은 중력과 평행하게 정렬되고 z축과 x축은 나침반 방향으로 정렬
@@ -121,7 +120,7 @@ struct ARViewContainer: UIViewRepresentable {
         }
         
         let scene = arView.scene
-        drawRoute(on: scene, userLocation: coreLocation.location!, routeCoordinates: route)
+//        drawRoute(on: scene, userLocation: coreLocation.location!, routeCoordinates: route)
     }
     
     func drawRoute(on scene: SCNScene, userLocation: CLLocation, routeCoordinates: [CLLocation]) {

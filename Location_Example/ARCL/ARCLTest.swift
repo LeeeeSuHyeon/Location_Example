@@ -16,10 +16,11 @@ class ARCLViewController: UIViewController {
     
     var start : CLLocationCoordinate2D
     var end : CLLocationCoordinate2D
-    
-    init(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D) {
+    var route : [CLLocationCoordinate2D]
+    init(start: CLLocationCoordinate2D, end: CLLocationCoordinate2D, route : [CLLocationCoordinate2D]) {
         self.start = start
         self.end = end
+        self.route = route
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,7 +33,10 @@ class ARCLViewController: UIViewController {
       super.viewDidLoad()
 
       sceneLocationView.run()
-        addRoute(from: start, to: end)
+        for i in 0..<route.count - 1{
+            addRoute(from: route[i], to: route[i+1])
+        }
+//        addRoute(from: start, to: end)
       view.addSubview(sceneLocationView)
         
     }

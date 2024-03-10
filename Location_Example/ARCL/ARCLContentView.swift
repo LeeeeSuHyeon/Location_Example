@@ -12,9 +12,10 @@ struct ARCLContentView: View {
     var body: some View {
         let source = CLLocationCoordinate2D(latitude: 37.455086, longitude: 127.133315)
         let destination = CLLocationCoordinate2D(latitude: 37.452451, longitude: 127.132802)
+        let route = PathData().route
         VStack{
-            ARCLViewControllerWrapper(start: source, end: destination)
-            ARCLMapView(sourceCoordinate: source, destinationCoordinate: destination)
+            ARCLViewControllerWrapper(start: source, end: destination, route : route)
+            ARCLMapView(route: route)
         }
     }
 }
