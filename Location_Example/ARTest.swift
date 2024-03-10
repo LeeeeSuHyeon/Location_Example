@@ -124,56 +124,42 @@ struct ARViewContainer: UIViewRepresentable {
         drawRoute(on: scene, userLocation: coreLocation.location!, routeCoordinates: route)
     }
     
-    func drawRoute(on scene: SCNScene, userLocation: CLLocation, routeCoordinates: [CLLocationCoordinate2D]) {
+    func drawRoute(on scene: SCNScene, userLocation: CLLocation, routeCoordinates: [CLLocation]) {
         // 경로를 표시할 노드 생성
         let routeNode = SCNNode()
         
         // 상대적 위치 배열 (현재 위치부터 시작)
         var relativeRoute : [SCNVector3] = [SCNVector3(x: 0, y: 0, z: 0)]
         
-        // 사용자의 현재 위치를 SCNVector3로 변환 (x : 수평(경도), y : 수직(위도), z : 깊이(거리)) -> 일반적인 좌표쳬계와 다르게 해석됨
-
+        
         // 경로 노드에 경로의 각 좌표를 추가
-        for i in 0..<routeCoordinates.count - 1 {
-            let coordinate = routeCoordinates[i]
-            let nextCoordinate = routeCoordinates[i+1]
- 
-            // 사용자의 현재 위치와 경로 좌표 사이의 거리와 방향을 계산하여 오일러 각도로 변환
-            let distance = userLocation.distance(from: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude))
+        for i in 0..<routeCoordinates.count {
+            let location = routeCoordinates[i]
+            let coordinate = location.coordinate
             
-            // 경로 좌표와 사용자 위치의 차이를 이용하여 방향을 계산 (atan2)
-            let a = cos(nextCoordinate.longitude.toRadians() - nextCoordinate.longitude.toRadians()) * cos(coordinate.latitude.toRadians())
+            // 사용자의 현재 위치에서 각 좌표까지의 상대적인 위치를 계산하여 SCNVector3로 변환
+            let distance = Float(location.distance(from: userLocation))
+            let bearing = GLKMathDegreesToRadians(Float(userLocation.coordinate.direction(to: location.coordinate)))
+            let position = vector_float4(0.0, 0.0, -distance, 0.0)
+            let translationMatrix = MatrixHelper.translationMatrix(with: matrix_identity_float4x4, for: position)
+            let rotationMatrix = MatrixHelper.rotateAroundY(with: matrix_identity_float4x4, for: bearing)
+            let transformMatrix = simd_mul(rotationMatrix, translationMatrix)
+//            let relativePosition = simd_mul(userPosition, transformMatrix)
             
-            let b = cos(coordinate.latitude.toRadians()) * sin(nextCoordinate.latitude.toRadians()) - sin(coordinate.latitude.toRadians()) * cos(nextCoordinate.latitude.toRadians()) * cos(nextCoordinate.longitude.toRadians() - coordinate.longitude.toRadians())
-            
-            let direction = atan2(a, b).toDegrees() // 라디안 -> 각도로 변환
-    
-
-            
-            // 경로 노드의 위치 설정 (현재 카메라의 방향에 따라 부호를 다르게 해야 함)
-            let routeNodePosition = SCNVector3(x: Float(distance * cos(direction)),
-                                               y: 0,
-                                               z: Float(-distance * sin(direction)))
-            
-            // 상대적 위치 배열에 추가
-            relativeRoute.append(routeNodePosition)
+            // 상대적 위치를 SCNVector3로 변환하여 경로 노드에 추가
+            let routePoint = SCNVector3(transformMatrix.columns.0.x, transformMatrix.columns.0.y, transformMatrix.columns.0.z)
+            relativeRoute.append(routePoint)
         }
-        print("drawRoute - relativeRoute : \(relativeRoute)")
         
-        let ex : [SCNVector3] = [
-            SCNVector3(x: 1, y: -1, z: 0),
-            SCNVector3(x: 1, y: -1, z: -1),
-            SCNVector3(x: 1, y: -1, z: -2)
-        ]
-        
-        // 상대적인 좌표를 사용하여 경로 노드에 선을 추가
+
         let pathLine = SCNNode(geometry: SCNGeometry.line(from: relativeRoute, thickness: 0.8))
         routeNode.addChildNode(pathLine)
         
         
-        // Scene에 경로 노드 추가
+        // ARSCNView에 경로 노드 추가
         scene.rootNode.addChildNode(routeNode)
     }
+
     
     // 건물 위 이미지 띄우기
     func LocationNode(){
@@ -181,15 +167,17 @@ struct ARViewContainer: UIViewRepresentable {
         
         // 공원
         let coordinate = CLLocationCoordinate2D(latitude: 37.454978, longitude: 127.128323)
-        let address = CLLocation(coordinate: coordinate, altitude: 300)
+        let address = CLLocation(coordinate: coordinate, altitude: 50)
         let image = UIImage(named: "gachon")!
+        
+                
 
         let annotationNode = LocationAnnotationNode(location: address, image: image)
         sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
         
         // 뒷길
         let coordinate1 = CLLocationCoordinate2D(latitude: 37.454974, longitude: 127.132851)
-        let address1 = CLLocation(coordinate: coordinate, altitude: 300)
+        let address1 = CLLocation(coordinate: coordinate, altitude: 50)
         let image1 = UIImage(named: "gachon")!
 
         let annotationNode1 = LocationAnnotationNode(location: address1, image: image1)

@@ -68,8 +68,8 @@ struct NaMapView: UIViewRepresentable {
         let route = PathData().route
         
         var pathPoints: [NMGLatLng] = []
-        for coordinate in route {
-            let latLng = NMGLatLng(lat: coordinate.latitude, lng: coordinate.longitude)
+        for location in route {
+            let latLng = NMGLatLng(lat: location.coordinate.latitude, lng: location.coordinate.longitude)
             pathPoints.append(latLng)
         }
 
