@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		00F8517A4D59C468F9E49981 /* Pods_Location_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8347742CEAFF71F123DF26A0 /* Pods_Location_Example.framework */; };
-		CB0BD9202B9C3B7900C08018 /* ARCLTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD91F2B9C3B7800C08018 /* ARCLTest.swift */; };
-		CB0BD9222B9C459200C08018 /* ARCLTestWrapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD9212B9C459200C08018 /* ARCLTestWrapping.swift */; };
+		CB0BD9202B9C3B7900C08018 /* ARCLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD91F2B9C3B7800C08018 /* ARCLViewController.swift */; };
+		CB0BD9222B9C459200C08018 /* ARCLViewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD9212B9C459200C08018 /* ARCLViewControllerWrapper.swift */; };
 		CB0BD9262B9C627000C08018 /* MatrixHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD9252B9C627000C08018 /* MatrixHelper.swift */; };
 		CB0BD9292B9D805F00C08018 /* ARCLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD9282B9D805F00C08018 /* ARCLMap.swift */; };
 		CB0BD92B2B9D808100C08018 /* ARCLContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD92A2B9D808100C08018 /* ARCLContentView.swift */; };
@@ -34,8 +34,8 @@
 		20016DBF40854E2DF46CA88B /* Pods-Location_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Location_Example.release.xcconfig"; path = "Target Support Files/Pods-Location_Example/Pods-Location_Example.release.xcconfig"; sourceTree = "<group>"; };
 		51CABC0E96543E4A289F97EF /* Pods-Location_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Location_Example.debug.xcconfig"; path = "Target Support Files/Pods-Location_Example/Pods-Location_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		8347742CEAFF71F123DF26A0 /* Pods_Location_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Location_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB0BD91F2B9C3B7800C08018 /* ARCLTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCLTest.swift; sourceTree = "<group>"; };
-		CB0BD9212B9C459200C08018 /* ARCLTestWrapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCLTestWrapping.swift; sourceTree = "<group>"; };
+		CB0BD91F2B9C3B7800C08018 /* ARCLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCLViewController.swift; sourceTree = "<group>"; };
+		CB0BD9212B9C459200C08018 /* ARCLViewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCLViewControllerWrapper.swift; sourceTree = "<group>"; };
 		CB0BD9252B9C627000C08018 /* MatrixHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixHelper.swift; sourceTree = "<group>"; };
 		CB0BD9282B9D805F00C08018 /* ARCLMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCLMap.swift; sourceTree = "<group>"; };
 		CB0BD92A2B9D808100C08018 /* ARCLContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCLContentView.swift; sourceTree = "<group>"; };
@@ -86,8 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				CB0BD9322B9EBF7700C08018 /* Extension */,
-				CB0BD91F2B9C3B7800C08018 /* ARCLTest.swift */,
-				CB0BD9212B9C459200C08018 /* ARCLTestWrapping.swift */,
+				CB0BD91F2B9C3B7800C08018 /* ARCLViewController.swift */,
+				CB0BD9212B9C459200C08018 /* ARCLViewControllerWrapper.swift */,
 				CB0BD9282B9D805F00C08018 /* ARCLMap.swift */,
 				CB0BD92A2B9D808100C08018 /* ARCLContentView.swift */,
 			);
@@ -289,13 +289,13 @@
 			files = (
 				CBD4B2652B91898200075BA8 /* coreMotionRequest.swift in Sources */,
 				CB6383C82B73BFBA00A18255 /* UseMap.swift in Sources */,
-				CB0BD9222B9C459200C08018 /* ARCLTestWrapping.swift in Sources */,
+				CB0BD9222B9C459200C08018 /* ARCLViewControllerWrapper.swift in Sources */,
 				CBB253252B664AD600DD408C /* ContentView.swift in Sources */,
 				CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */,
 				CB0BD92F2B9DEC0400C08018 /* SceneLocationView.swift in Sources */,
 				CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */,
 				CB0BD9262B9C627000C08018 /* MatrixHelper.swift in Sources */,
-				CB0BD9202B9C3B7900C08018 /* ARCLTest.swift in Sources */,
+				CB0BD9202B9C3B7900C08018 /* ARCLViewController.swift in Sources */,
 				CB0BD92B2B9D808100C08018 /* ARCLContentView.swift in Sources */,
 				CB35B9972B9980AC00BD38BD /* PathData.swift in Sources */,
 				CB0BD9292B9D805F00C08018 /* ARCLMap.swift in Sources */,

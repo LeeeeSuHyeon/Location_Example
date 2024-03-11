@@ -17,16 +17,17 @@ import SceneKit
 // 코드 수정이 필요한 부분
 public extension SceneLocationView {
 
+
     /// Adds routes to the scene and lets you specify the geometry prototype for the box.
     /// Note: You can provide your own SCNBox prototype to base the direction nodes from.
     ///
     /// - Parameters:
     ///   - routes: The CLLocation of directions
     ///   - boxBuilder: A block that will customize how a box is built.
-    func addRoutes(routes: [NMGLatLng], boxBuilder: BoxBuilder? = nil) {
+    func addRoutes(routes: [NMGLatLng], location : CLLocation?, boxBuilder: BoxBuilder? = nil) {
         // routes에 속성과 타입을 추가 후 다시 넘겨줌
 //        addRoutes(polyline: routes.map { AttributedType(type: $0, attribute: "nil") }, boxBuilder: boxBuilder)
-        addRoutes(polyline: routes, boxBuilder: boxBuilder)
+        addRoutes(polyline: routes, location: location, boxBuilder: boxBuilder)
         
     }
 
@@ -37,25 +38,40 @@ public extension SceneLocationView {
     ///   - polylines: The list of attributed CLLocation to rendered
     ///   - Δaltitude: difference between box and current user altitude
     ///   - boxBuilder: A block that will customize how a box is built.
-    func addRoutes(polyline: [NMGLatLng], Δaltitude: CLLocationDistance = -2.0, boxBuilder: BoxBuilder? = nil) {
+    func addRoutes(polyline: [NMGLatLng], location : CLLocation?, Δaltitude: CLLocationDistance = -2.0, boxBuilder: BoxBuilder? = nil) {
+        
         
         // 현재 고도를 가져옴
-        guard let altitude = sceneLocationManager.currentLocation?.altitude else {
+        guard let altitude = location?.altitude else {
             return assertionFailure("we don't have an elevation")
         }
-//        let polyNodes = polyline.map {
-//            PolylineNode(polyline: $0.type, altitude: altitude + Δaltitude, tag: $0.attribute, boxBuilder: boxBuilder)
-//        }
+        
         let polyNodes = PolylineNode(polyline: polyline, altitude: altitude + Δaltitude)
 
-//        polylineNodes.append(contentsOf: polyNodes)
-        polyNodes.locationNodes.map {
-//            $0.locationNodes.forEach {
-                let locationNodeLocation = self.locationOfLocationNode($0)
-//                $0.updatePositionAndScale(setup: true, scenePosition: currentScenePosition, locationNodeLocation: locationNodeLocation, locationManager: sceneLocationManager, onCompletion: {})
-                sceneNode?.addChildNode($0)
-//            }
+        polyNodes.locationNodes.forEach {
+            let locationNodeLocation = self.locationOfLocationNode($0)
+            sceneNode?.addChildNode($0)
         }
+        
+        
+        
+//        // 현재 고도를 가져옴
+//        guard let altitude = location.altitude else {
+//            return assertionFailure("we don't have an elevation")
+//        }
+////        let polyNodes = polyline.map {
+////            PolylineNode(polyline: $0.type, altitude: altitude + Δaltitude, tag: $0.attribute, boxBuilder: boxBuilder)
+////        }
+//        let polyNodes = PolylineNode(polyline: polyline, altitude: altitude + Δaltitude)
+//
+////        polylineNodes.append(contentsOf: polyNodes)
+//        polyNodes.locationNodes.map {
+////            $0.locationNodes.forEach {
+//                let locationNodeLocation = self.locationOfLocationNode($0)
+////                $0.updatePositionAndScale(setup: true, scenePosition: currentScenePosition, locationNodeLocation: locationNodeLocation, locationManager: sceneLocationManager, onCompletion: {})
+//                sceneNode?.addChildNode($0)
+////            }
+//        }
     }
 
     func removeRoutes(routes: [CLLocationCoordinate2D]) {
