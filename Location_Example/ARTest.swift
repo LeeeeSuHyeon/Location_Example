@@ -115,12 +115,12 @@ struct ARViewContainer: UIViewRepresentable {
     func updateUIView(_ arView: ARSCNView, context: Context) {
         
         // 이전에 추가된 경로 노드를 모두 제거합니다.
-        arView.scene.rootNode.enumerateChildNodes { (node, _) in
-            node.removeFromParentNode()
-        }
-        
-        let scene = arView.scene
-//        drawRoute(on: scene, userLocation: coreLocation.location!, routeCoordinates: route)
+                arView.scene.rootNode.enumerateChildNodes { (node, _) in
+                    node.removeFromParentNode()
+                }
+                
+                let scene = arView.scene
+        //        drawRoute(on: scene, userLocation: coreLocation.location!, routeCoordinates: route)
     }
     
     func drawRoute(on scene: SCNScene, userLocation: CLLocation, routeCoordinates: [CLLocation]) {

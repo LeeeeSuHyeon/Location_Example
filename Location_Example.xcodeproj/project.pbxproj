@@ -13,6 +13,8 @@
 		CB0BD9262B9C627000C08018 /* MatrixHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD9252B9C627000C08018 /* MatrixHelper.swift */; };
 		CB0BD9292B9D805F00C08018 /* ARCLMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD9282B9D805F00C08018 /* ARCLMap.swift */; };
 		CB0BD92B2B9D808100C08018 /* ARCLContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD92A2B9D808100C08018 /* ARCLContentView.swift */; };
+		CB0BD92F2B9DEC0400C08018 /* SceneLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD92E2B9DEC0400C08018 /* SceneLocationView.swift */; };
+		CB0BD9312B9DEC1F00C08018 /* PolylineNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD9302B9DEC1F00C08018 /* PolylineNode.swift */; };
 		CB35B9972B9980AC00BD38BD /* PathData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB35B9962B9980AC00BD38BD /* PathData.swift */; };
 		CB6383C62B7110DC00A18255 /* ARTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C52B7110DC00A18255 /* ARTest.swift */; };
 		CB6383C82B73BFBA00A18255 /* UseMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C72B73BFBA00A18255 /* UseMap.swift */; };
@@ -37,6 +39,8 @@
 		CB0BD9252B9C627000C08018 /* MatrixHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixHelper.swift; sourceTree = "<group>"; };
 		CB0BD9282B9D805F00C08018 /* ARCLMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCLMap.swift; sourceTree = "<group>"; };
 		CB0BD92A2B9D808100C08018 /* ARCLContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCLContentView.swift; sourceTree = "<group>"; };
+		CB0BD92E2B9DEC0400C08018 /* SceneLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneLocationView.swift; sourceTree = "<group>"; };
+		CB0BD9302B9DEC1F00C08018 /* PolylineNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolylineNode.swift; sourceTree = "<group>"; };
 		CB16AC752B7A6FC800DAAE3F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		CB16AC772B7A70BA00DAAE3F /* libswiftMetal.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftMetal.tbd; path = usr/lib/swift/libswiftMetal.tbd; sourceTree = SDKROOT; };
 		CB16AC792B7A70DE00DAAE3F /* libswiftMetalKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftMetalKit.tbd; path = usr/lib/swift/libswiftMetalKit.tbd; sourceTree = SDKROOT; };
@@ -81,12 +85,22 @@
 		CB0BD9272B9D805300C08018 /* ARCL */ = {
 			isa = PBXGroup;
 			children = (
+				CB0BD9322B9EBF7700C08018 /* Extension */,
 				CB0BD91F2B9C3B7800C08018 /* ARCLTest.swift */,
 				CB0BD9212B9C459200C08018 /* ARCLTestWrapping.swift */,
 				CB0BD9282B9D805F00C08018 /* ARCLMap.swift */,
 				CB0BD92A2B9D808100C08018 /* ARCLContentView.swift */,
 			);
 			path = ARCL;
+			sourceTree = "<group>";
+		};
+		CB0BD9322B9EBF7700C08018 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CB0BD9302B9DEC1F00C08018 /* PolylineNode.swift */,
+				CB0BD92E2B9DEC0400C08018 /* SceneLocationView.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		CB16AC742B7A6FC700DAAE3F /* Frameworks */ = {
@@ -121,8 +135,8 @@
 		CBB253212B664AD600DD408C /* Location_Example */ = {
 			isa = PBXGroup;
 			children = (
-				CB0BD9272B9D805300C08018 /* ARCL */,
 				CBB253222B664AD600DD408C /* Location_ExampleApp.swift */,
+				CB0BD9272B9D805300C08018 /* ARCL */,
 				CB3FA7782B946B1A005D770E /* Location-Example-Info.plist */,
 				CBD4B2632B91893500075BA8 /* Model */,
 				CBD4B2662B93337700075BA8 /* NaverMap.swift */,
@@ -278,6 +292,7 @@
 				CB0BD9222B9C459200C08018 /* ARCLTestWrapping.swift in Sources */,
 				CBB253252B664AD600DD408C /* ContentView.swift in Sources */,
 				CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */,
+				CB0BD92F2B9DEC0400C08018 /* SceneLocationView.swift in Sources */,
 				CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */,
 				CB0BD9262B9C627000C08018 /* MatrixHelper.swift in Sources */,
 				CB0BD9202B9C3B7900C08018 /* ARCLTest.swift in Sources */,
@@ -287,6 +302,7 @@
 				CBAC22C42B90BB6200A79A61 /* CoreMotionEx.swift in Sources */,
 				CB6383C62B7110DC00A18255 /* ARTest.swift in Sources */,
 				CBB253232B664AD600DD408C /* Location_ExampleApp.swift in Sources */,
+				CB0BD9312B9DEC1F00C08018 /* PolylineNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

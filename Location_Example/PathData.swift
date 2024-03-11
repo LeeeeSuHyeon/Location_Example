@@ -61,10 +61,25 @@ struct PathData {
 //    ]
     
     // AI -> 3긱 (인도 없는 구역)
+//    let route : [CLLocationCoordinate2D] = [
+//        CLLocationCoordinate2D(latitude: 37.455287, longitude: 127.133823),
+//        CLLocationCoordinate2D(latitude: 37.455516, longitude: 127.133089),
+//        CLLocationCoordinate2D(latitude: 37.455730, longitude: 127.133485),
+//        
+//    ]
+    
+    
+    // AI 뒷길 -> 집
     let route : [CLLocationCoordinate2D] = [
-        CLLocationCoordinate2D(latitude: 37.455287, longitude: 127.133823),
-        CLLocationCoordinate2D(latitude: 37.455516, longitude: 127.133089),
-        CLLocationCoordinate2D(latitude: 37.455730, longitude: 127.133485),
-        
+        CLLocationCoordinate2D(latitude: 37.455179, longitude: 127.132041),
+        CLLocationCoordinate2D(latitude: 37.454974, longitude: 127.131895),
+        CLLocationCoordinate2D(latitude: 37.455043, longitude: 127.131246),
+        CLLocationCoordinate2D(latitude: 37.455074, longitude: 127.130708),
+        CLLocationCoordinate2D(latitude: 37.454772, longitude: 127.130626),
+        CLLocationCoordinate2D(latitude: 37.454856, longitude: 127.130042),
+        CLLocationCoordinate2D(latitude: 37.455252, longitude: 127.129341),
+        CLLocationCoordinate2D(latitude: 37.454806, longitude: 127.128760),
+        CLLocationCoordinate2D(latitude: 37.454797, longitude: 127.127906),
+        CLLocationCoordinate2D(latitude: 37.454971, longitude: 127.127896),
     ]
 }

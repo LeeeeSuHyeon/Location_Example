@@ -18,7 +18,7 @@ struct NaverMap: View {
         NaMapView(coreLocation : coreLocation)
             .edgesIgnoringSafeArea(.all)
             .onAppear{
-                print("NaMapView Called - coreLocation \(coreLocation.location)")
+                print("NaMapView Called - coreLocation \(String(describing: coreLocation.location))")
             }
     }
 }
@@ -72,6 +72,7 @@ struct NaMapView: UIViewRepresentable {
             let latLng = NMGLatLng(lat: location.latitude, lng: location.longitude)
             pathPoints.append(latLng)
         }
+
 
         pathOverlay.path = NMGLineString(points: pathPoints)
         
