@@ -20,8 +20,9 @@ struct ARCLContentView: View {
         
         if coreLocation.location != nil{
             VStack{
-                ARCLViewControllerWrapper(route : route, coreLocation: coreLocation)
-                NaverMap(coreLocation: coreLocation)
+//                ARCLViewControllerWrapper(route : route, coreLocation: coreLocation)
+//                NaverMap(coreLocation: coreLocation)
+                ARCLMapView(route: route)
             }
         }
     }

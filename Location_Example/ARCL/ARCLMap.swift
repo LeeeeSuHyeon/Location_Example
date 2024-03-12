@@ -11,42 +11,51 @@ struct ARCLMapView: UIViewRepresentable {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
         
-        for i in 0..<route.count - 1 {
-            // Add annotations for source and destination
-            let sourceAnnotation = MKPointAnnotation()
-            sourceAnnotation.coordinate = route[i]
-            sourceAnnotation.title = "route[\(i)]"
-            mapView.addAnnotation(sourceAnnotation)
-            
-            let destinationAnnotation = MKPointAnnotation()
-            destinationAnnotation.coordinate = route[i+1]
-            destinationAnnotation.title = "route[\(i)]"
-            mapView.addAnnotation(destinationAnnotation)
-            
-            // Calculate route between source and destination
-            let sourcePlacemark = MKPlacemark(coordinate: route[i], addressDictionary: nil)
-            let destinationPlacemark = MKPlacemark(coordinate: route[i+1], addressDictionary: nil)
-            
-            let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
-            let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
-            
-            let directionRequest = MKDirections.Request()
-            directionRequest.source = sourceMapItem
-            directionRequest.destination = destinationMapItem
-            directionRequest.transportType = .walking
-            
-            let directions = MKDirections(request: directionRequest)
-            directions.calculate { (response, error) in
-                guard let response = response else {
-                    if let error = error {
-                        print("Error calculating route: \(error.localizedDescription)")
-                    }
-                    return
-                }
-                let route = response.routes[0]
-                mapView.addOverlay(route.polyline)
-            }
-        }
+//        for i in 0..<route.count - 1 {
+//            // Add annotations for source and destination
+//            let sourceAnnotation = MKPointAnnotation()
+//            sourceAnnotation.coordinate = route[i]
+//            sourceAnnotation.title = "route[\(i)]"
+//            mapView.addAnnotation(sourceAnnotation)
+//            
+//            let destinationAnnotation = MKPointAnnotation()
+//            destinationAnnotation.coordinate = route[i+1]
+//            destinationAnnotation.title = "route[\(i)]"
+//            mapView.addAnnotation(destinationAnnotation)
+//            
+//            // Calculate route between source and destination
+//            let sourcePlacemark = MKPlacemark(coordinate: route[i], addressDictionary: nil)
+//            let destinationPlacemark = MKPlacemark(coordinate: route[i+1], addressDictionary: nil)
+//            
+//            let sourceMapItem = MKMapItem(placemark: sourcePlacemark)
+//            let destinationMapItem = MKMapItem(placemark: destinationPlacemark)
+//            
+//            let directionRequest = MKDirections.Request()
+//            directionRequest.source = sourceMapItem
+//            directionRequest.destination = destinationMapItem
+//            directionRequest.transportType = .walking
+//            
+//            let directions = MKDirections(request: directionRequest)
+//            directions.calculate { (response, error) in
+//                guard let response = response else {
+//                    if let error = error {
+//                        print("Error calculating route: \(error.localizedDescription)")
+//                    }
+//                    return
+//                }
+//                let route = response.routes[0]
+//                mapView.addOverlay(route.polyline)
+//            }
+//        }
+  
+        
+        
+        let polyline = MKPolyline(coordinates: route, count: route.count)
+        
+        // 지도 뷰에 폴리라인 추가
+         mapView.addOverlay(polyline)
+        
+        
         return mapView
     }
     
