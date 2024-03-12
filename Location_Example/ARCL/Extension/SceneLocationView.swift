@@ -46,7 +46,7 @@ public extension SceneLocationView {
             return assertionFailure("we don't have an elevation")
         }
         
-        let polyNodes = PolylineNode(polyline: polyline, altitude: altitude + Δaltitude)
+        let polyNodes = PolylineNode(polyline: polyline, altitude: altitude + Δaltitude, location : location)
 
         polyNodes.locationNodes.forEach {
             let locationNodeLocation = self.locationOfLocationNode($0)
@@ -68,7 +68,7 @@ public extension SceneLocationView {
 //        polyNodes.locationNodes.map {
 ////            $0.locationNodes.forEach {
 //                let locationNodeLocation = self.locationOfLocationNode($0)
-////                $0.updatePositionAndScale(setup: true, scenePosition: currentScenePosition, locationNodeLocation: locationNodeLocation, locationManager: sceneLocationManager, onCompletion: {})
+//                $0.updatePositionAndScale(setup: true, scenePosition: currentScenePosition, locationNodeLocation: locationNodeLocation, locationManager: sceneLocationManager, onCompletion: {})
 //                sceneNode?.addChildNode($0)
 ////            }
 //        }

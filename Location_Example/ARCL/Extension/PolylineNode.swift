@@ -25,13 +25,14 @@ public class PolylineNode: LocationNode {
     ///   - boxBuilder: A block that will customize how a box is built.
     public init(polyline: [NMGLatLng],
                 altitude: CLLocationDistance,
+                location : CLLocation?,
                 tag: String? = nil,
                 boxBuilder: BoxBuilder? = nil) {
         self.polyline = polyline
         self.altitude = altitude
         self.boxBuilder = boxBuilder ?? Constants.defaultBuilder
 
-        super.init(location: nil)
+        super.init(location: location)
 
         self.tag = tag ?? Constants.defaultTag
 
