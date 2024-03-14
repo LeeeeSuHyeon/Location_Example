@@ -22,8 +22,6 @@ struct Step {
         
         // 중간 노드 사이의 이동 거리, 소요 시간, 목적지 위치, 단계의 위치 이름을 계산하고 Step 구조로 변경 후 반환하는 코드 필요
         
-        
-        
         return Step(distance: "1" , duration: "1", endLocation: endLocation, locationName: name)
     }
 }

@@ -42,7 +42,7 @@ struct ArkitNodeDimension {
     static let sourceNodeWidth = CGFloat(0.1)
     static let sourceNodeHeight = CGFloat(0.1)
     static let sourceChamferRadius = CGFloat(0.1)
-    static let cylinderRadius = CGFloat(0.1)
+    static let cylinderRadius = CGFloat(0.5)
     static let nodeYPosition = CGFloat(0.5)
     static let textDepth = CGFloat(0.2)
     static let textSize = CGFloat(1.0)

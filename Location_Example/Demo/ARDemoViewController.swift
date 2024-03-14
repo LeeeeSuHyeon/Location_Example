@@ -25,11 +25,8 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     var sourcePosition = SCNVector3()           // 출발지 상대적 위치
     var destinationPosition = SCNVector3()      // 목적지 상대적 위치
     var stepData = [Step]()                     // 출발지와 목적지 사이 중간 위치들
-    var name: String?                           // 경로에 대한 이름
     
     var routeDetail : [LocationDetails] = [] // route의 디테일 설정
-
-//    var mode: String?                           // 이동 모드
 
     init(coreLocation : CoreLocationEx){
         self.coreLocation = coreLocation
@@ -39,6 +36,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     
     // MARK: - override method
     override func viewDidLoad() {
@@ -47,7 +45,13 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         makeARView()               // ARSCNView 생성
         prepare(route: route)      // Detail 설정
         checkCameraAccess()        // 카메라 엑세스 권한 환인
-//        sourceDestinationLabel.text = name  // 출발지와 목적지 정보 표시
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Pause the view's session
+        sceneView.session.pause()
     }
     
     // ARSCNView 생성
@@ -65,15 +69,14 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     // Detail 설정
     func prepare(route : [CLLocationCoordinate2D]){
-        name = "\(route.first) -> \(route.last)"
         var detail : LocationDetails
         
         for i in 0..<route.count {
             detail = LocationDetails(lat: route[i].latitude, lng: route[i].longitude, name: String(i))
             routeDetail.append(detail)
         }
-        source = coreLocation.location?.coordinate
-        destination = route.last
+        source = coreLocation.location?.coordinate // 시작 위치를 현재 위치로 설정
+        destination = route.last                   // 도착지를 목적지 경로의 마지막 위치로 설정
     }
     
     // 카메라 엑세스 확인 메서드
@@ -116,6 +119,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         if  ARWorldTrackingConfiguration.isSupported { // 장치가 ARWorldTrackingConfiguration 지원하는지 확인
             let configuration = ARWorldTrackingConfiguration() // AR 환경 설정
             configuration.worldAlignment = .gravityAndHeading // 중력과 디바이스의 방향에 따라 정렬
+            configuration.planeDetection = .horizontal // 평면 감지 활성화
             sceneView.session.run(configuration) // AR 세션 시작
         } else {
 //            alert(info: AlertConstants.arErrorMessage) // AR 에러 메시지
@@ -170,7 +174,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
             let destinationLocation = CLLocation(latitude: destination.latitude, longitude: destination.longitude)
             let distance = sourceLocation.distance(from: destinationLocation)
             return distance
-    } // end of distanceBetweenCoordinate
+    } // end of distanceBetweenCoordinate()
     
     
     // 중간노드의 기하학 모양 정의, 노드 생성
@@ -195,11 +199,15 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     // 출발지와 목적지 사이에 실린더 노드 배치하는 역할
     private func placeCylinder(source: SCNVector3, destination: SCNVector3) {
-        let  height = source.distance(receiver: destination)
-        let  cylinder = SCNCylinder(radius: ArkitNodeDimension.cylinderRadius, height: CGFloat(height))
+        let height = source.distance(receiver: destination)
+        let cylinder = SCNCylinder(radius: ArkitNodeDimension.cylinderRadius, height: CGFloat(height))
+//        let cylinder = SCNBox(width: 0.1, height: 0.1, length: CGFloat(height), chamferRadius: 0)
+        
         cylinder.firstMaterial?.diffuse.contents = UIColor.blue
+        cylinder.firstMaterial?.transparency = 0.5 // 투명도 (0.0(완전 투명)에서 1.0(완전 불투명))
         let node = SCNNode(geometry: cylinder)
-        node.position = SCNVector3((source.x + destination.x) / 2, Float(-(ArkitNodeDimension.nodeYPosition)), (source.z + destination.z) / 2)
+//        node.position = SCNVector3((source.x + destination.x) / 2, Float(-(ArkitNodeDimension.nodeYPosition)), (source.z + destination.z) / 2))
+        node.position = SCNVector3((source.x + destination.x) / 2, -2, (source.z + destination.z) / 2)
         let dirVector = SCNVector3Make(destination.x - source.x, destination.y - source.y, destination.z - source.z)
         let yAngle = atan(dirVector.x / dirVector.z)
         node.eulerAngles.x = .pi / 2

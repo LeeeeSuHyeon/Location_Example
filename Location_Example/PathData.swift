@@ -85,10 +85,20 @@ struct PathData {
     
     
     // 중도 주차장 -> 학생회관
+//    let route : [CLLocationCoordinate2D] = [
+//        CLLocationCoordinate2D(latitude: 37.452865, longitude: 127.133457),
+//        CLLocationCoordinate2D(latitude: 37.452643, longitude: 127.133596),
+//        CLLocationCoordinate2D(latitude: 37.452954, longitude: 127.134127),
+//        
+//    ]
+    
+    
+    // 중도 주차장 -> 운동장
     let route : [CLLocationCoordinate2D] = [
-        CLLocationCoordinate2D(latitude: 37.452865, longitude: 127.133457),
         CLLocationCoordinate2D(latitude: 37.452643, longitude: 127.133596),
-        CLLocationCoordinate2D(latitude: 37.452954, longitude: 127.134127),
-        
+        CLLocationCoordinate2D(latitude: 37.452976, longitude: 127.133416),
+        CLLocationCoordinate2D(latitude: 37.453414, longitude: 127.134030),
+        CLLocationCoordinate2D(latitude: 37.453743, longitude: 127.134703),
+        CLLocationCoordinate2D(latitude: 37.454960, longitude: 127.135190)
     ]
 }
