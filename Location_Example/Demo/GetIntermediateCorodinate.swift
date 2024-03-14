@@ -16,7 +16,7 @@ class GetIntermediateCoordinate {
 //        steps = Step().intermediateRouteInfo(leg)
         // Step()의 intermediateRouteInfo() 메서드를 호출하여 [Step] 반환
         
-        for i in 0..<route.count {
+        for i in 0..<route.count - 1{
             let step = Step().intermediateRouteInfo(start: route[i], end: route[i+1], name: String(i))
             steps.append(step)
         }

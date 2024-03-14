@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import ARKit
 import SceneKit
+import CoreLocation
 
 extension SCNVector3 {
     // 현재점과 목적지 점 사이의 거리를 계산
@@ -22,5 +23,27 @@ extension SCNVector3 {
         } else {
             return distance
         }
+    }
+}
+
+
+// 베어링 각도 계산
+extension CLLocationCoordinate2D {
+    
+    func calculateBearing(coordinate: CLLocationCoordinate2D) -> Double {
+        let a = sin(coordinate.longitude.toRadians() - longitude.toRadians()) * cos(coordinate.latitude.toRadians())
+        let b = cos(latitude.toRadians()) * sin(coordinate.latitude.toRadians()) - sin(latitude.toRadians()) * cos(coordinate.latitude.toRadians()) * cos(coordinate.longitude.toRadians() - longitude.toRadians())
+        return atan2(a, b)
+    }
+}
+
+// 라디안 <-> 각도 설정 
+extension Double {
+    func toRadians() -> Double {
+        return self * .pi / 180.0
+    }
+    
+    func toDegrees() -> Double {
+        return self * 180.0 / .pi
     }
 }

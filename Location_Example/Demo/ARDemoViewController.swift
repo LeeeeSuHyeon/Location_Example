@@ -12,7 +12,7 @@ import SceneKit
 import AVFoundation
 import ARKit
 
-class ARViewController : UIViewController, ARSCNViewDelegate {
+class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     var sceneView: ARSCNView!
     
@@ -26,6 +26,24 @@ class ARViewController : UIViewController, ARSCNViewDelegate {
     var name: String?                           // 경로에 대한 이름
     
     var routeDetail : [LocationDetails] = [] // route의 디테일 설정
+    
+//    init(sceneView: ARSCNView!, route: [CLLocationCoordinate2D] = PathData().route, source: CLLocationCoordinate2D? = nil, destination: CLLocationCoordinate2D? = nil, sourcePosition: SCNVector3 = SCNVector3(), destinationPosition: SCNVector3 = SCNVector3(), stepData: [Step] = [Step](), name: String? = nil, routeDetail: [LocationDetails]) {
+//        self.sceneView = sceneView
+//        self.route = route
+//        self.source = source
+//        self.destination = destination
+//        self.sourcePosition = sourcePosition
+//        self.destinationPosition = destinationPosition
+//        self.stepData = stepData
+//        self.name = name
+//        self.routeDetail = routeDetail
+//        
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
 //    var mode: String?                           // 이동 모드
 //    var apiKey = ""
@@ -172,9 +190,10 @@ class ARViewController : UIViewController, ARSCNViewDelegate {
        let translation = SCNMatrix4MakeTranslation(0, 0, Float(-distance)) // 이동행렬
 //       let rotation = SCNMatrix4MakeRotation(-1 * GLKMathDegreesToRadians(Float(GMSGeometryHeading(source, destination))), 0, 1, 0) // 회전행렬
         // GMSGeometryHeading : 베어링 각도를 구해야 함
-        let rotation = SCNMatrix4MakeRotation(-1, 0, 1, 0)
-       let transformationMatrix = SCNMatrix4Mult(translation, rotation)
-       return (transformationMatrix)
+
+        let rotation = SCNMatrix4MakeRotation(-1 * (Float(source.calculateBearing(coordinate: destination))), 0, 1, 0)
+        let transformationMatrix = SCNMatrix4Mult(translation, rotation)
+        return (transformationMatrix)
     } // end of tansformMatrix
     
     
