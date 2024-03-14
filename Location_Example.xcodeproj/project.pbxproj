@@ -32,7 +32,7 @@
 		CBEC01492BA2BDD6008F5996 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01482BA2BDD6008F5996 /* Extension.swift */; };
 		CBEC014B2BA2BE20008F5996 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC014A2BA2BE20008F5996 /* Step.swift */; };
 		CBEC014D2BA2BE59008F5996 /* LocationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC014C2BA2BE59008F5996 /* LocationDetails.swift */; };
-		CBEC014F2BA2BF76008F5996 /* GetIntermediateCordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC014E2BA2BF76008F5996 /* GetIntermediateCordinate.swift */; };
+		CBEC014F2BA2BF76008F5996 /* GetIntermediateCorodinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC014E2BA2BF76008F5996 /* GetIntermediateCorodinate.swift */; };
 		CBEC01512BA2CCBE008F5996 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01502BA2CCBE008F5996 /* Constant.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,7 +69,7 @@
 		CBEC01482BA2BDD6008F5996 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CBEC014A2BA2BE20008F5996 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		CBEC014C2BA2BE59008F5996 /* LocationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetails.swift; sourceTree = "<group>"; };
-		CBEC014E2BA2BF76008F5996 /* GetIntermediateCordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIntermediateCordinate.swift; sourceTree = "<group>"; };
+		CBEC014E2BA2BF76008F5996 /* GetIntermediateCorodinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIntermediateCorodinate.swift; sourceTree = "<group>"; };
 		CBEC01502BA2CCBE008F5996 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -191,7 +191,7 @@
 				CBEC01482BA2BDD6008F5996 /* Extension.swift */,
 				CBEC014A2BA2BE20008F5996 /* Step.swift */,
 				CBEC014C2BA2BE59008F5996 /* LocationDetails.swift */,
-				CBEC014E2BA2BF76008F5996 /* GetIntermediateCordinate.swift */,
+				CBEC014E2BA2BF76008F5996 /* GetIntermediateCorodinate.swift */,
 				CBEC01502BA2CCBE008F5996 /* Constant.swift */,
 			);
 			path = Demo;
@@ -322,7 +322,7 @@
 				CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */,
 				CBEC014B2BA2BE20008F5996 /* Step.swift in Sources */,
 				CB0BD9262B9C627000C08018 /* MatrixHelper.swift in Sources */,
-				CBEC014F2BA2BF76008F5996 /* GetIntermediateCordinate.swift in Sources */,
+				CBEC014F2BA2BF76008F5996 /* GetIntermediateCorodinate.swift in Sources */,
 				CB0BD9202B9C3B7900C08018 /* ARCLViewController.swift in Sources */,
 				CBEC01492BA2BDD6008F5996 /* Extension.swift in Sources */,
 				CBEC014D2BA2BE59008F5996 /* LocationDetails.swift in Sources */,

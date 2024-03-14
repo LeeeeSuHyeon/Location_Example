@@ -16,21 +16,32 @@ class ARViewController : UIViewController, ARSCNViewDelegate {
     
     var sceneView: ARSCNView!
     
+    var route = PathData().route
+    
     var source: CLLocationCoordinate2D?         // 출발지 주소
     var destination: CLLocationCoordinate2D?    // 목적지 주소
     var sourcePosition = SCNVector3()           // 출발지 상대적 위치
     var destinationPosition = SCNVector3()      // 목적지 상대적 위치
     var stepData = [Step]()                     // 출발지와 목적지 사이 중간 위치들
     var name: String?                           // 경로에 대한 이름
-    var sourceDetail: LocationDetails?          // 출발지 위치의 세부 정보
-    var destinationDetail: LocationDetails?     // 목적지 위치의 세부 정보
-    var mode: String?                           // 이동 모드
+    
+    var routeDetail : [LocationDetails] = [] // route의 디테일 설정
+    
+//    var mode: String?                           // 이동 모드
 //    var apiKey = ""
 
     // MARK: - override method
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        makeARView()               // ARSCNView 생성
+        prepare(route: route)      // Detail 설정
+        checkCameraAccess()        // 카메라 엑세스 권한 환인
+//        sourceDestinationLabel.text = name  // 출발지와 목적지 정보 표시
+    }
+    
+    // ARSCNView 생성
+    private func makeARView(){
         // ARSCNView 생성
        sceneView = ARSCNView(frame: view.bounds)
         
@@ -40,24 +51,32 @@ class ARViewController : UIViewController, ARSCNViewDelegate {
         // ARSCNView의 delegate 설정
         sceneView.delegate = self
         
+    } // end of makeARView()
+    
+    // Detail 설정
+    func prepare(route : [CLLocationCoordinate2D]){
+        name = "\(route.first) -> \(route.last)"
+        var detail : LocationDetails
         
-        checkCameraAccess() // 카메라 엑세스 권한 환인
-//        sourceDestinationLabel.text = name  // 출발지와 목적지 정보 표시
+        for i in 0..<route.count {
+            detail = LocationDetails(lat: route[i].latitude, lng: route[i].longitude, name: String(i))
+            routeDetail.append(detail)
+        }
     }
     
     // 카메라 엑세스 확인 메서드
     private func checkCameraAccess() {
         
-        // 현재 앱이 카메라 엑세스 허용했으면 getIntermediateCordinates() 호출하여 중간좌표를 가져옴
+        // 현재 앱이 카메라 엑세스 허용했으면 getIntermediateCordinates() 호출하여 중간 좌표를 가져옴
         if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized {
-             getIntermediateCordinates()
+            getIntermediateCoordinates()
             
         // 카메라 엑세스를 허용하지 않았으면 사용자에게 권한 요청
         } else {
             AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
                 // 권한 허용
                 if granted {
-                    self.getIntermediateCordinates()
+                    self.getIntermediateCoordinates()
                 // 권한 거부
                 } else {
 //                        self.alert(info: AlertConstants.cameraAccessErrorMessage)
@@ -69,17 +88,13 @@ class ARViewController : UIViewController, ARSCNViewDelegate {
     
     
     // 중간 노드들의 정보를 계산하고 가져오는 메서드
-    private func getIntermediateCordinates() {
-        if let sourceDetail = sourceDetail, let destinationDetail = destinationDetail {
-            source = CLLocationCoordinate2D(latitude: sourceDetail.lat, longitude: sourceDetail.lng)
-            destination = CLLocationCoordinate2D(latitude: destinationDetail.lat, longitude: destinationDetail.lng)
-            
-            // 중간 노드(Steps)를 받아옴
-            let steps = GetIntermediateCordinate.getCordinates(source: sourceDetail, destination: destinationDetail)
-            self.stepData = steps
-            arConfigurationInitialize()
-            arViewSetup()
-          }
+    private func getIntermediateCoordinates() {
+        // 중간 노드(Steps)를 받아옴 -> CLLocationCoordinate2D 형식으로 보내서 [Step] 형식으로 변환해야 함
+        let steps = GetIntermediateCoordinate.getCoordinates(route : routeDetail)
+        self.stepData = steps
+        arConfigurationInitialize()
+        arViewSetup()
+          
     } // end of getIntermediateCordinates()
     
     
