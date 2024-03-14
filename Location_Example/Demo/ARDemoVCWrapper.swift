@@ -10,8 +10,10 @@ import SwiftUI
 
 struct ARDemoVCWrapper: UIViewControllerRepresentable {
     
+    var coreLocation: CoreLocationEx
+    
     func makeUIViewController(context: Context) -> ARDemoViewController {
-        return ARDemoViewController()
+        return ARDemoViewController(coreLocation : coreLocation)
     }
     
     func updateUIViewController(_ uiViewController: ARDemoViewController, context: Context) {

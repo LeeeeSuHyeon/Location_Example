@@ -35,6 +35,7 @@
 		CBEC014F2BA2BF76008F5996 /* GetIntermediateCorodinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC014E2BA2BF76008F5996 /* GetIntermediateCorodinate.swift */; };
 		CBEC01512BA2CCBE008F5996 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01502BA2CCBE008F5996 /* Constant.swift */; };
 		CBEC01572BA2E25E008F5996 /* ARDemoVCWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01562BA2E25E008F5996 /* ARDemoVCWrapper.swift */; };
+		CBEC01592BA30241008F5996 /* ARDemoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01582BA30241008F5996 /* ARDemoContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +74,7 @@
 		CBEC014E2BA2BF76008F5996 /* GetIntermediateCorodinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIntermediateCorodinate.swift; sourceTree = "<group>"; };
 		CBEC01502BA2CCBE008F5996 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		CBEC01562BA2E25E008F5996 /* ARDemoVCWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDemoVCWrapper.swift; sourceTree = "<group>"; };
+		CBEC01582BA30241008F5996 /* ARDemoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDemoContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +198,7 @@
 				CBEC014E2BA2BF76008F5996 /* GetIntermediateCorodinate.swift */,
 				CBEC01502BA2CCBE008F5996 /* Constant.swift */,
 				CBEC01562BA2E25E008F5996 /* ARDemoVCWrapper.swift */,
+				CBEC01582BA30241008F5996 /* ARDemoContentView.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				CB0BD92F2B9DEC0400C08018 /* SceneLocationView.swift in Sources */,
 				CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */,
 				CBEC014B2BA2BE20008F5996 /* Step.swift in Sources */,
+				CBEC01592BA30241008F5996 /* ARDemoContentView.swift in Sources */,
 				CB0BD9262B9C627000C08018 /* MatrixHelper.swift in Sources */,
 				CBEC014F2BA2BF76008F5996 /* GetIntermediateCorodinate.swift in Sources */,
 				CB0BD9202B9C3B7900C08018 /* ARCLViewController.swift in Sources */,

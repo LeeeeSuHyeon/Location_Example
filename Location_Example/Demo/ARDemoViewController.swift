@@ -16,6 +16,8 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     var sceneView: ARSCNView!
     
+    var coreLocation: CoreLocationEx
+    
     var route = PathData().route
     
     var source: CLLocationCoordinate2D?         // 출발지 주소
@@ -26,28 +28,18 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     var name: String?                           // 경로에 대한 이름
     
     var routeDetail : [LocationDetails] = [] // route의 디테일 설정
-    
-//    init(sceneView: ARSCNView!, route: [CLLocationCoordinate2D] = PathData().route, source: CLLocationCoordinate2D? = nil, destination: CLLocationCoordinate2D? = nil, sourcePosition: SCNVector3 = SCNVector3(), destinationPosition: SCNVector3 = SCNVector3(), stepData: [Step] = [Step](), name: String? = nil, routeDetail: [LocationDetails]) {
-//        self.sceneView = sceneView
-//        self.route = route
-//        self.source = source
-//        self.destination = destination
-//        self.sourcePosition = sourcePosition
-//        self.destinationPosition = destinationPosition
-//        self.stepData = stepData
-//        self.name = name
-//        self.routeDetail = routeDetail
-//        
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
-//    var mode: String?                           // 이동 모드
-//    var apiKey = ""
 
+//    var mode: String?                           // 이동 모드
+
+    init(coreLocation : CoreLocationEx){
+        self.coreLocation = coreLocation
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - override method
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +72,8 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
             detail = LocationDetails(lat: route[i].latitude, lng: route[i].longitude, name: String(i))
             routeDetail.append(detail)
         }
+        source = coreLocation.location?.coordinate
+        destination = route.last
     }
     
     // 카메라 엑세스 확인 메서드
@@ -110,6 +104,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         // 중간 노드(Steps)를 받아옴 -> CLLocationCoordinate2D 형식으로 보내서 [Step] 형식으로 변환해야 함
         let steps = GetIntermediateCoordinate.getCoordinates(route : routeDetail)
         self.stepData = steps
+        print("getIntermediateCoordinates - steps : \(steps)")
         arConfigurationInitialize()
         arViewSetup()
           
@@ -156,6 +151,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     // 목적지 노드를 AR 환경에 배치
     private func placeDestinationNode(source: CLLocationCoordinate2D, destination: CLLocationCoordinate2D, text: String) {
+        print("placeDestinationNode - Source : \(source), destination : \(destination)")
             let distance = distanceBetweenCoordinate(source: source, destination: destination)
             let destinationNode = SCNNode(geometry: intermediateNodeGeometry())
             let  transformationMatrix = transformMatrix(source: source, destination: destination, distance: distance, text: text)
@@ -188,9 +184,9 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     // 출발지와 목적지 사이의 변환 행렬 계산 후 노드 위치 방향 설정
     private func transformMatrix(source: CLLocationCoordinate2D, destination: CLLocationCoordinate2D, distance: Double, text: String) -> SCNMatrix4 {
        let translation = SCNMatrix4MakeTranslation(0, 0, Float(-distance)) // 이동행렬
-//       let rotation = SCNMatrix4MakeRotation(-1 * GLKMathDegreesToRadians(Float(GMSGeometryHeading(source, destination))), 0, 1, 0) // 회전행렬
-        // GMSGeometryHeading : 베어링 각도를 구해야 함
-
+        
+        // SCNMatrix4MakeRotation(회전량, x, y, z)
+        // y축 기준으로 베어링 각도 만큼 회전 -> 베어링은 시계 방향 기준, rotation은 반시계 기준이라 음수를 붙임 
         let rotation = SCNMatrix4MakeRotation(-1 * (Float(source.calculateBearing(coordinate: destination))), 0, 1, 0)
         let transformationMatrix = SCNMatrix4Mult(translation, rotation)
         return (transformationMatrix)
