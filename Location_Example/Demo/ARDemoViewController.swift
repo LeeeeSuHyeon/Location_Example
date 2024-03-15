@@ -133,13 +133,22 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     // AR 뷰 설정
     private func arViewSetup() {
         placeSourceNode() // 출발지 노드 배치
+//        if let source = source, let destination = destination {
+//            // 경로 노드마다 띄울 텍스트 설정
+//            for intermediateLocation in stepData.enumerated() {
+//                var text = "\(TextNodeConstant.direction) : " + intermediateLocation.element.locationName
+//                text += "\n \(TextNodeConstant.distance) :" + intermediateLocation.element.distance
+//                text += " \n \(TextNodeConstant.duration) : " + intermediateLocation.element.duration
+//                placeMiddleNode(source: source, destination: intermediateLocation.element.endLocation, text: text)
+//            }
+//            placeDestinationNode(source: source, destination: destination, text: TextNodeConstant.destination)
+//        }
+        
         if let source = source, let destination = destination {
             // 경로 노드마다 띄울 텍스트 설정
-            for intermediateLocation in stepData.enumerated() {
-                var text = "\(TextNodeConstant.direction) : " + intermediateLocation.element.locationName
-                text += "\n \(TextNodeConstant.distance) :" + intermediateLocation.element.distance
-                text += " \n \(TextNodeConstant.duration) : " + intermediateLocation.element.duration
-                placeDestinationNode(source: source, destination: intermediateLocation.element.endLocation, text: text)
+            for i in 0..<stepData.count - 1 {
+                var text = "Step : " + stepData[i].locationName
+                placeMiddleNode(source: source, destination: stepData[i].endLocation, text: text)
             }
             placeDestinationNode(source: source, destination: destination, text: TextNodeConstant.destination)
         }
@@ -172,7 +181,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         sourcePosition = sourceNode.position    // AR 경로 실린더의 시작 위치 설정
         
         // 출발지 텍스트 설정
-        let directionTextNode = placeDirectionText(textPosition: sourcePosition, text: "Start")
+        let directionTextNode = placeDirectionText(textPosition: sourcePosition, text: "Start", isMiddle: false)
         sourceNode.addChildNode(directionTextNode)
         
         sceneView.scene.rootNode.addChildNode(sourceNode)
@@ -181,19 +190,49 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     } // end of placeSourceNode()
     
     
+    // 마지막 도착지 노드 AR 환경에 배치
+    private func placeDestinationNode(source: CLLocationCoordinate2D, destination: CLLocationCoordinate2D, text: String){
+
+        let imageName = "pin"
+        // 1. SCNPlane을 생성하고 "name" 이미지를 텍스쳐로 설정합니다.
+       let plane = SCNPlane(width: 10, height: 10) // 크기 설정
+       plane.firstMaterial?.diffuse.contents = UIImage(named: imageName)
+
+       // 2. SCNNode를 생성하고 위에서 만든 SCNPlane을 geometry로 설정합니다.
+       let destinationNode = SCNNode(geometry: plane)
+
+
+        let distance = distanceBetweenCoordinate(source: source, destination: destination)
+        let transformationMatrix = transformMatrix(source: source, destination: destination, distance: distance, text: text)
+        destinationNode.transform = transformationMatrix
+        sceneView.scene.rootNode.addChildNode(destinationNode)
+        placeCylinder(source: sourcePosition, destination: destinationNode.position)
+        let directionTextNode = placeDirectionText(textPosition: destinationNode.position, text: text, isMiddle: false)
+        
+        // 목적지 텍스트 설정
+        destinationNode.addChildNode(directionTextNode)
+        
+        sceneView.scene.rootNode.addChildNode(destinationNode)
+        
+
+    } // end of placeSourceNode()
+    
+    
     // 목적지 노드를 AR 환경에 배치
-    private func placeDestinationNode(source: CLLocationCoordinate2D, destination: CLLocationCoordinate2D, text: String) {
+    private func placeMiddleNode(source: CLLocationCoordinate2D, destination: CLLocationCoordinate2D, text: String) {
 //        print("placeDestinationNode - Source : \(source), destination : \(destination)")
             let distance = distanceBetweenCoordinate(source: source, destination: destination)
 //            let destinationNode = SCNNode(geometry: intermediateNodeGeometry())
-            let destinationNode = intermediateNodeGeometry()
+            let middleNode = intermediateNodeGeometry()
             let  transformationMatrix = transformMatrix(source: source, destination: destination, distance: distance, text: text)
-            destinationNode.transform = transformationMatrix
-            sceneView.scene.rootNode.addChildNode(destinationNode)
-            placeCylinder(source: sourcePosition, destination: destinationNode.position)
-            let directionTextNode = placeDirectionText(textPosition: destinationNode.position, text: text)
-            destinationNode.addChildNode(directionTextNode)
-            sourcePosition = destinationNode.position
+            middleNode.transform = transformationMatrix
+            sceneView.scene.rootNode.addChildNode(middleNode)
+            placeCylinder(source: sourcePosition, destination: middleNode.position)
+        
+            // 텍스트
+            let directionTextNode = placeDirectionText(textPosition: middleNode.position, text: text, isMiddle: true)
+            middleNode.addChildNode(directionTextNode)
+            sourcePosition = middleNode.position
     } // end of placeDestinationNode()
     
     
@@ -261,19 +300,21 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     
     // 3D 텍스트 노드를 생성 후 방향 제어
-    private func placeDirectionText(textPosition: SCNVector3, text: String) -> SCNNode {
-        let textNode = SCNNode(geometry: getIntermediateNodeText(text: text))
+    private func placeDirectionText(textPosition: SCNVector3, text: String, isMiddle : Bool) -> SCNNode {
+        let textNode = SCNNode(geometry: getIntermediateNodeText(text: text, isMiddle : isMiddle))
         textNode.constraints = [SCNBillboardConstraint()]
         return textNode
     } // end of placeDirectionText
     
     
     // 3D 텍스트 객체 생성 함수
-    private func getIntermediateNodeText(text: String) -> SCNText {
+    private func getIntermediateNodeText(text: String, isMiddle : Bool) -> SCNText {
         let intermediateNodeText = SCNText(string: text, extrusionDepth: ArkitNodeDimension.textDepth)
-        intermediateNodeText.font = UIFont(name: "Optima", size: ArkitNodeDimension.textSize)
+        intermediateNodeText.font = UIFont(name: "Helvetica", size: ArkitNodeDimension.textSize)
         intermediateNodeText.firstMaterial?.diffuse.contents = UIColor.red
-        intermediateNodeText.containerFrame = CGRect(x: 0.0, y: 0.0, width: 20, height: 5)
+        let width = 10
+        let height = isMiddle ? 3 : 7
+        intermediateNodeText.containerFrame = CGRect(x: -(width / 4), y: 0, width: width, height: height)
         intermediateNodeText.isWrapped = true
         return intermediateNodeText
     } // end of getIntermediateNodeText
