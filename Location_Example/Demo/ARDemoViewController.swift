@@ -151,21 +151,15 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
 //        let box = SCNBox(width: ArkitNodeDimension.sourceNodeWidth, height: ArkitNodeDimension.sourceNodeHeight, length: ArkitNodeDimension.sourceNodeLength, chamferRadius: ArkitNodeDimension.sourceChamferRadius)
         //        let sourceNode = SCNNode(geometry: box)
         
-        let file = "CC0_-_Arrow_5"
-        guard let fileUrl = Bundle.main.url(forResource: file, withExtension: "usdz") else {
-                fatalError()
-        }
-        let scene = try? SCNScene(url: fileUrl, options: nil)
-        let sourceNode = SCNNode()
+        let imageName = "pin"
+        // 1. SCNPlane을 생성하고 "name" 이미지를 텍스쳐로 설정합니다.
+       let plane = SCNPlane(width: 10, height: 10) // 크기 설정
+       plane.firstMaterial?.diffuse.contents = UIImage(named: imageName)
 
-        if let scene = scene {
-            for child in scene.rootNode.childNodes {
-                child.scale = SCNVector3(0.2, 0.2, 0.2)
-                sourceNode.addChildNode(child)
-            }
-        }
+       // 2. SCNNode를 생성하고 위에서 만든 SCNPlane을 geometry로 설정합니다.
+       let sourceNode = SCNNode(geometry: plane)
 
-        sourceNode.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
+//        sourceNode.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
         
         // sourceNode의 상대적 위치를 경로의 첫번째 노드의 위치로 변경하고 sourcePosition 변경
 //        sourceNode.position = SCNVector3(0, -(ArkitNodeDimension.nodeYPosition), 0)
@@ -191,7 +185,8 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     private func placeDestinationNode(source: CLLocationCoordinate2D, destination: CLLocationCoordinate2D, text: String) {
 //        print("placeDestinationNode - Source : \(source), destination : \(destination)")
             let distance = distanceBetweenCoordinate(source: source, destination: destination)
-            let destinationNode = SCNNode(geometry: intermediateNodeGeometry())
+//            let destinationNode = SCNNode(geometry: intermediateNodeGeometry())
+            let destinationNode = intermediateNodeGeometry()
             let  transformationMatrix = transformMatrix(source: source, destination: destination, distance: distance, text: text)
             destinationNode.transform = transformationMatrix
             sceneView.scene.rootNode.addChildNode(destinationNode)
@@ -212,10 +207,24 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     
     // 중간노드의 기하학 모양 정의, 노드 생성
-    private func intermediateNodeGeometry() -> SCNBox {
-        let intermediateBox = SCNBox(width: ArkitNodeDimension.destinationNodeWidth, height: ArkitNodeDimension.destinationNodeHeight, length: ArkitNodeDimension.destinationNodeLength, chamferRadius: ArkitNodeDimension.destinationChamferRadius)
-        intermediateBox.firstMaterial?.diffuse.contents = UIColor.purple
-        return intermediateBox
+    private func intermediateNodeGeometry() -> SCNNode {
+//        let intermediateBox = SCNBox(width: ArkitNodeDimension.destinationNodeWidth, height: ArkitNodeDimension.destinationNodeHeight, length: ArkitNodeDimension.destinationNodeLength, chamferRadius: ArkitNodeDimension.destinationChamferRadius)
+        
+        let file = "right"
+        guard let fileUrl = Bundle.main.url(forResource: file, withExtension: "usdz") else {
+                fatalError()
+        }
+        let scene = try? SCNScene(url: fileUrl, options: nil)
+        let sourceNode = SCNNode()
+
+        if let scene = scene {
+            for child in scene.rootNode.childNodes {
+                child.scale = SCNVector3(0.2, 0.2, 0.2)
+                sourceNode.addChildNode(child)
+            }
+        }
+//        intermediateBox.firstMaterial?.diffuse.contents = UIColor.purple
+        return sourceNode
     } // end of itermediateNodeGeometry
     
     

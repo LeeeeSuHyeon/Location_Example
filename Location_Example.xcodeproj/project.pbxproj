@@ -25,7 +25,7 @@
 		CBB2532A2B664AD700DD408C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBB253292B664AD700DD408C /* Preview Assets.xcassets */; };
 		CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB253302B664B0100DD408C /* CoreLocationEx.swift */; };
 		CBC299232B7E4F7C0026C908 /* toy_biplane_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */; };
-		CBC299282B7E52F80026C908 /* CC0_-_Arrow_5.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */; };
+		CBC299282B7E52F80026C908 /* right.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CBC299272B7E52F80026C908 /* right.usdz */; };
 		CBD4B2652B91898200075BA8 /* coreMotionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4B2642B91898200075BA8 /* coreMotionRequest.swift */; };
 		CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4B2662B93337700075BA8 /* NaverMap.swift */; };
 		CBEC01472BA2BD48008F5996 /* ARDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01462BA2BD48008F5996 /* ARDemoViewController.swift */; };
@@ -64,7 +64,7 @@
 		CBB253292B664AD700DD408C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CBB253302B664B0100DD408C /* CoreLocationEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationEx.swift; sourceTree = "<group>"; };
 		CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_biplane_idle.usdz; sourceTree = "<group>"; };
-		CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "CC0_-_Arrow_5.usdz"; sourceTree = "<group>"; };
+		CBC299272B7E52F80026C908 /* right.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = right.usdz; sourceTree = "<group>"; };
 		CBD4B2642B91898200075BA8 /* coreMotionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coreMotionRequest.swift; sourceTree = "<group>"; };
 		CBD4B2662B93337700075BA8 /* NaverMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMap.swift; sourceTree = "<group>"; };
 		CBEC01462BA2BD48008F5996 /* ARDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDemoViewController.swift; sourceTree = "<group>"; };
@@ -165,7 +165,7 @@
 				CB35B9962B9980AC00BD38BD /* PathData.swift */,
 				CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */,
 				CBB253262B664AD700DD408C /* Assets.xcassets */,
-				CBC299272B7E52F80026C908 /* CC0_-_Arrow_5.usdz */,
+				CBC299272B7E52F80026C908 /* right.usdz */,
 				CBB253282B664AD700DD408C /* Preview Content */,
 				CB0BD9252B9C627000C08018 /* MatrixHelper.swift */,
 			);
@@ -265,7 +265,7 @@
 			files = (
 				CBB2532A2B664AD700DD408C /* Preview Assets.xcassets in Resources */,
 				CBC299232B7E4F7C0026C908 /* toy_biplane_idle.usdz in Resources */,
-				CBC299282B7E52F80026C908 /* CC0_-_Arrow_5.usdz in Resources */,
+				CBC299282B7E52F80026C908 /* right.usdz in Resources */,
 				CBB253272B664AD700DD408C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
