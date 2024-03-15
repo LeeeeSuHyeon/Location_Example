@@ -154,13 +154,20 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         // sourceNode의 상대적 위치를 경로의 첫번째 노드의 위치로 변경하고 sourcePosition 변경
 //        sourceNode.position = SCNVector3(0, -(ArkitNodeDimension.nodeYPosition), 0)
 
-        var firstNode = route[0]    // 경로의 첫번째 위치를 가져옴
+        let firstNode = route[0]    // 경로의 첫번째 위치를 가져옴
         // 사용자 현재 위치부터 첫번째 노도 사이의 거리를 구함
         let distance = distanceBetweenCoordinate(source: coreLocation.location!.coordinate, destination: firstNode)
         let transformationMatrix = transformMatrix(source: coreLocation.location!.coordinate, destination: firstNode, distance: distance, text: "Start")
         sourceNode.transform = transformationMatrix     // 출발지 노드 위치 설정
         sourcePosition = sourceNode.position    // AR 경로 실린더의 시작 위치 설정
+        
+        // 출발지 텍스트 설정
+        let directionTextNode = placeDirectionText(textPosition: sourcePosition, text: "Start")
+        sourceNode.addChildNode(directionTextNode)
+        
         sceneView.scene.rootNode.addChildNode(sourceNode)
+        
+
     } // end of placeSourceNode()
     
     
@@ -173,8 +180,6 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
             destinationNode.transform = transformationMatrix
             sceneView.scene.rootNode.addChildNode(destinationNode)
             placeCylinder(source: sourcePosition, destination: destinationNode.position)
-            print("sourcePosition : \(sourcePosition)")
-            print("destinationNode.position : \(destinationNode.position)")
             let directionTextNode = placeDirectionText(textPosition: destinationNode.position, text: text)
             destinationNode.addChildNode(directionTextNode)
             sourcePosition = destinationNode.position
@@ -243,7 +248,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         let intermediateNodeText = SCNText(string: text, extrusionDepth: ArkitNodeDimension.textDepth)
         intermediateNodeText.font = UIFont(name: "Optima", size: ArkitNodeDimension.textSize)
         intermediateNodeText.firstMaterial?.diffuse.contents = UIColor.red
-        intermediateNodeText.containerFrame = CGRect(x: 0.0, y: 0.0, width: 20, height: 10)
+        intermediateNodeText.containerFrame = CGRect(x: 0.0, y: 0.0, width: 20, height: 5)
         intermediateNodeText.isWrapped = true
         return intermediateNodeText
     } // end of getIntermediateNodeText
