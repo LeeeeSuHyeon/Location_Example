@@ -22,7 +22,7 @@ struct ARCLContentView: View {
             VStack{
                 ARCLViewControllerWrapper(route : route, coreLocation: coreLocation)
 //                NaverMap(coreLocation: coreLocation)
-                ARCLMapView(route: route)
+                ARCLMapView()
             }
         }
     }

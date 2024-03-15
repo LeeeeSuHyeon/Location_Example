@@ -5,7 +5,7 @@ struct ARCLMapView: UIViewRepresentable {
 //    var sourceCoordinate: CLLocationCoordinate2D
 //    var destinationCoordinate: CLLocationCoordinate2D
     
-    var route : [CLLocationCoordinate2D]
+//    var route : [CLLocationCoordinate2D]
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
@@ -48,7 +48,7 @@ struct ARCLMapView: UIViewRepresentable {
 //            }
 //        }
   
-        
+        let route = PathData().route
         
         let polyline = MKPolyline(coordinates: route, count: route.count)
         

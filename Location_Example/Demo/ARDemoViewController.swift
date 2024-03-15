@@ -75,7 +75,8 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
             detail = LocationDetails(lat: route[i].latitude, lng: route[i].longitude, name: String(i))
             routeDetail.append(detail)
         }
-        source = coreLocation.location?.coordinate // 시작 위치를 현재 위치로 설정
+//        source = coreLocation.location?.coordinate // 시작 위치를 현재 위치로 설정
+        source = route.first
         destination = route.last                   // 도착지를 목적지 경로의 마지막 위치로 설정
     }
     
@@ -119,7 +120,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         if  ARWorldTrackingConfiguration.isSupported { // 장치가 ARWorldTrackingConfiguration 지원하는지 확인
             let configuration = ARWorldTrackingConfiguration() // AR 환경 설정
             configuration.worldAlignment = .gravityAndHeading // 중력과 디바이스의 방향에 따라 정렬
-            configuration.planeDetection = .horizontal // 평면 감지 활성화
+            configuration.planeDetection = .horizontal // 평면 감지 활성화 -> AR 경로를 바닥에 표시하기 위해 설정
             sceneView.session.run(configuration) // AR 세션 시작
         } else {
 //            alert(info: AlertConstants.arErrorMessage) // AR 에러 메시지
@@ -132,6 +133,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     private func arViewSetup() {
         placeSourceNode() // 출발지 노드 배치
         if let source = source, let destination = destination {
+            // 경로 노드마다 띄울 텍스트 설정
             for intermediateLocation in stepData.enumerated() {
                 var text = "\(TextNodeConstant.direction) : " + intermediateLocation.element.locationName
                 text += "\n \(TextNodeConstant.distance) :" + intermediateLocation.element.distance

@@ -12,14 +12,14 @@ import ARKit
 struct PathData {
     // AI -> 집
     //    let route : [CLLocationCoordinate2D] = [
-    //        CLLocationCoordinate2D(latitude: 37.455086, longitude: 127.133315),
-    //        CLLocationCoordinate2D(latitude: 37.455179, longitude: 127.132041),
-    //        CLLocationCoordinate2D(latitude: 37.454974, longitude: 127.131895),
-    //        CLLocationCoordinate2D(latitude: 37.455043, longitude: 127.131246),
-    //        CLLocationCoordinate2D(latitude: 37.455486, longitude: 127.129632),
-    //        CLLocationCoordinate2D(latitude: 37.454869, longitude: 127.128768),
-    //        CLLocationCoordinate2D(latitude: 37.454814, longitude: 127.127927),
-    //        CLLocationCoordinate2D(latitude: 37.455010, longitude: 127.127867)
+//            CLLocationCoordinate2D(latitude: 37.455086, longitude: 127.133315),
+//            CLLocationCoordinate2D(latitude: 37.455179, longitude: 127.132041),
+//            CLLocationCoordinate2D(latitude: 37.454974, longitude: 127.131895),
+//            CLLocationCoordinate2D(latitude: 37.455043, longitude: 127.131246),
+//            CLLocationCoordinate2D(latitude: 37.455486, longitude: 127.129632),
+//            CLLocationCoordinate2D(latitude: 37.454869, longitude: 127.128768),
+//            CLLocationCoordinate2D(latitude: 37.454814, longitude: 127.127927),
+//            CLLocationCoordinate2D(latitude: 37.455010, longitude: 127.127867)
     //    ]
     //
     // 수집 -> 민집
@@ -101,4 +101,19 @@ struct PathData {
         CLLocationCoordinate2D(latitude: 37.453743, longitude: 127.134703),
         CLLocationCoordinate2D(latitude: 37.454960, longitude: 127.135190)
     ]
+    
+    // 중도 -> 집
+//    let route : [CLLocationCoordinate2D] = [
+//        CLLocationCoordinate2D(latitude: 37.452643, longitude: 127.133596),
+//        CLLocationCoordinate2D(latitude: 37.452976, longitude: 127.133416),
+//        CLLocationCoordinate2D(latitude: 37.453414, longitude: 127.134030),
+//        CLLocationCoordinate2D(latitude: 37.455086, longitude: 127.133315),
+//        CLLocationCoordinate2D(latitude: 37.455179, longitude: 127.132041),
+//        CLLocationCoordinate2D(latitude: 37.454974, longitude: 127.131895),
+//        CLLocationCoordinate2D(latitude: 37.455043, longitude: 127.131246),
+//        CLLocationCoordinate2D(latitude: 37.455486, longitude: 127.129632),
+//        CLLocationCoordinate2D(latitude: 37.454869, longitude: 127.128768),
+//        CLLocationCoordinate2D(latitude: 37.454814, longitude: 127.127927),
+//        CLLocationCoordinate2D(latitude: 37.455010, longitude: 127.127867)
+//    ]
 }
