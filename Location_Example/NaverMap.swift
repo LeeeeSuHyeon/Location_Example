@@ -13,9 +13,10 @@ struct NaverMap: View {
     
     // 전역으로 CoreLocationEx 인스턴스 생성
     @ObservedObject var coreLocation: CoreLocationEx
+    let route : [CLLocationCoordinate2D]
     
     var body: some View {
-        NaMapView(coreLocation : coreLocation)
+        NaMapView(coreLocation : coreLocation, route: route)
             .edgesIgnoringSafeArea(.all)
             .onAppear{
                 print("NaMapView Called - coreLocation \(String(describing: coreLocation.location))")
@@ -28,6 +29,7 @@ struct NaverMap: View {
 struct NaMapView: UIViewRepresentable {
     
     @ObservedObject var coreLocation: CoreLocationEx
+    let route : [CLLocationCoordinate2D]
     
     func makeUIView(context: Context) -> NMFNaverMapView {
         let mapView = NMFNaverMapView() // 지도 객체 생성
@@ -65,7 +67,6 @@ struct NaMapView: UIViewRepresentable {
 //            NMGLatLng(lat: 37.452656, lng: 127.132799), // 중도 앞
 //            NMGLatLng(lat: 37.452468, lng: 127.132850) // 중도 입구
 //        ])
-        let route = PathData().route
         
         var pathPoints: [NMGLatLng] = []
         for location in route {

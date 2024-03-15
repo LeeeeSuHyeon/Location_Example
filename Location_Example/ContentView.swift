@@ -60,11 +60,11 @@ struct ContentView: View {
                     }
                     .onAppear() {
                         // ContentView가 로드되고 나면 coreLocation을 참조하여 NaverMap을 생성
-                        myMap = NaverMap(coreLocation: coreLocation)
+                        myMap = NaverMap(coreLocation: coreLocation, route: PathData().route)
                     }
                 }
                 
-                NaMapView(coreLocation: coreLocation)
+                NaMapView(coreLocation: coreLocation, route: PathData().route)
                     .edgesIgnoringSafeArea(.all)
             }
         }

@@ -17,7 +17,7 @@ struct ARTest: View {
                 ARViewContainer(coreLocation: coreLocation)
                 .edgesIgnoringSafeArea(.all)
 
-                NaverMap(coreLocation : coreLocation)
+                NaverMap(coreLocation : coreLocation, route: PathData().route)
             }
            
             

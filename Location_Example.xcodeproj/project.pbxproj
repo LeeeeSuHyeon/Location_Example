@@ -18,6 +18,7 @@
 		CB35B9972B9980AC00BD38BD /* PathData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB35B9962B9980AC00BD38BD /* PathData.swift */; };
 		CB6383C62B7110DC00A18255 /* ARTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C52B7110DC00A18255 /* ARTest.swift */; };
 		CB6383C82B73BFBA00A18255 /* UseMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C72B73BFBA00A18255 /* UseMap.swift */; };
+		CB6CF5992BA44A1F00F2F0C7 /* ARDemoStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6CF5982BA44A1F00F2F0C7 /* ARDemoStartView.swift */; };
 		CBAC22C42B90BB6200A79A61 /* CoreMotionEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAC22C32B90BB6200A79A61 /* CoreMotionEx.swift */; };
 		CBB253232B664AD600DD408C /* Location_ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB253222B664AD600DD408C /* Location_ExampleApp.swift */; };
 		CBB253252B664AD600DD408C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB253242B664AD600DD408C /* ContentView.swift */; };
@@ -56,6 +57,7 @@
 		CB3FA7782B946B1A005D770E /* Location-Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Location-Example-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CB6383C52B7110DC00A18255 /* ARTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARTest.swift; sourceTree = "<group>"; };
 		CB6383C72B73BFBA00A18255 /* UseMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseMap.swift; sourceTree = "<group>"; };
+		CB6CF5982BA44A1F00F2F0C7 /* ARDemoStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDemoStartView.swift; sourceTree = "<group>"; };
 		CBAC22C32B90BB6200A79A61 /* CoreMotionEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreMotionEx.swift; sourceTree = "<group>"; };
 		CBB2531F2B664AD600DD408C /* Location_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Location_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBB253222B664AD600DD408C /* Location_ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location_ExampleApp.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				CBEC01502BA2CCBE008F5996 /* Constant.swift */,
 				CBEC01562BA2E25E008F5996 /* ARDemoVCWrapper.swift */,
 				CBEC01582BA30241008F5996 /* ARDemoContentView.swift */,
+				CB6CF5982BA44A1F00F2F0C7 /* ARDemoStartView.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				CB0BD9262B9C627000C08018 /* MatrixHelper.swift in Sources */,
 				CBEC014F2BA2BF76008F5996 /* GetIntermediateCorodinate.swift in Sources */,
 				CB0BD9202B9C3B7900C08018 /* ARCLViewController.swift in Sources */,
+				CB6CF5992BA44A1F00F2F0C7 /* ARDemoStartView.swift in Sources */,
 				CBEC01492BA2BDD6008F5996 /* Extension.swift in Sources */,
 				CBEC014D2BA2BE59008F5996 /* LocationDetails.swift in Sources */,
 				CB0BD92B2B9D808100C08018 /* ARCLContentView.swift in Sources */,

@@ -10,7 +10,7 @@ import CoreLocation
 
 struct ARDemoContentView: View {
     @ObservedObject var coreLocation = CoreLocationEx()
-    @State var path = [CLLocationCoordinate2D(latitude: 0, longitude: 0)]
+    @State var route = [CLLocationCoordinate2D(latitude: 0, longitude: 0)]
     @State var name = ""
     @State var isPresnted = false
     
@@ -23,7 +23,7 @@ struct ARDemoContentView: View {
                 HStack{
                     VStack{
                         Button(action: {
-                            path = PathData().AIToHome
+                            route = PathData().AIToHome
                             name = "AI -> 집"
                         }, label: {
                             Text("AI -> 집")
@@ -32,7 +32,7 @@ struct ARDemoContentView: View {
                         .padding()
                         
                         Button(action: {
-                            path = PathData().homeToMin
+                            route = PathData().homeToMin
                             name = "수집 -> 민집"
                         }, label: {
                             Text("수집 -> 민집")
@@ -41,7 +41,7 @@ struct ARDemoContentView: View {
                         .padding()
                         
                         Button(action: {
-                            path = PathData().homeToAI
+                            route = PathData().homeToAI
                             name = "집 -> AI"
                         }, label: {
                             Text("집 -> AI")
@@ -50,7 +50,7 @@ struct ARDemoContentView: View {
                         .padding()
                         
                         Button(action: {
-                            path = PathData().libraryToGround
+                            route = PathData().libraryToGround
                             name = "중도 -> 운동장"
                         }, label: {
                             Text("중도 -> 운동장")
@@ -66,7 +66,7 @@ struct ARDemoContentView: View {
                         Text("AR 시작")
                     })
                     .fullScreenCover( isPresented: $isPresnted, content: {
-                        ARDemoVCWrapper(coreLocation: coreLocation, route : path)
+                        ARDemoStartView(coreLocation: coreLocation, route : route)
                     })
                     .buttonStyle(BorderedButtonStyle())
                     .padding()
