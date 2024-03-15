@@ -11,6 +11,7 @@ import CoreLocation
 import SceneKit
 import AVFoundation
 import ARKit
+import SceneKit.ModelIO // usdz 파일을 가져오기 위한 프레임워크
 
 class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
@@ -147,8 +148,23 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     // 출발지 노드 AR 환경에 배치
     private func placeSourceNode() {
-        let box = SCNBox(width: ArkitNodeDimension.sourceNodeWidth, height: ArkitNodeDimension.sourceNodeHeight, length: ArkitNodeDimension.sourceNodeLength, chamferRadius: ArkitNodeDimension.sourceChamferRadius)
-        let sourceNode = SCNNode(geometry: box)
+//        let box = SCNBox(width: ArkitNodeDimension.sourceNodeWidth, height: ArkitNodeDimension.sourceNodeHeight, length: ArkitNodeDimension.sourceNodeLength, chamferRadius: ArkitNodeDimension.sourceChamferRadius)
+        //        let sourceNode = SCNNode(geometry: box)
+        
+        let file = "CC0_-_Arrow_5"
+        guard let fileUrl = Bundle.main.url(forResource: file, withExtension: "usdz") else {
+                fatalError()
+        }
+        let scene = try? SCNScene(url: fileUrl, options: nil)
+        let sourceNode = SCNNode()
+
+        if let scene = scene {
+            for child in scene.rootNode.childNodes {
+                child.scale = SCNVector3(0.2, 0.2, 0.2)
+                sourceNode.addChildNode(child)
+            }
+        }
+
         sourceNode.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
         
         // sourceNode의 상대적 위치를 경로의 첫번째 노드의 위치로 변경하고 sourcePosition 변경
