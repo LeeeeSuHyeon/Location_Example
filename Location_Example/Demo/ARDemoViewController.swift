@@ -19,7 +19,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     var coreLocation: CoreLocationEx
     
-    var route = PathData().route
+    var route : [CLLocationCoordinate2D]
     
     var source: CLLocationCoordinate2D?         // 출발지 주소
     var destination: CLLocationCoordinate2D?    // 목적지 주소
@@ -29,8 +29,9 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     var routeDetail : [LocationDetails] = [] // route의 디테일 설정
 
-    init(coreLocation : CoreLocationEx){
+    init(coreLocation : CoreLocationEx, route : [CLLocationCoordinate2D]){
         self.coreLocation = coreLocation
+        self.route = route
         super.init(nibName: nil, bundle: nil)
     }
     
