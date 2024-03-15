@@ -28,6 +28,7 @@ struct ARDemoContentView: View {
                         }, label: {
                             Text("AI -> 집")
                         })
+                        .buttonStyle(BorderedButtonStyle())
                         .padding()
                         
                         Button(action: {
@@ -36,6 +37,7 @@ struct ARDemoContentView: View {
                         }, label: {
                             Text("수집 -> 민집")
                         })
+                        .buttonStyle(BorderedButtonStyle())
                         .padding()
                         
                         Button(action: {
@@ -44,6 +46,7 @@ struct ARDemoContentView: View {
                         }, label: {
                             Text("집 -> AI")
                         })
+                        .buttonStyle(BorderedButtonStyle())
                         .padding()
                         
                         Button(action: {
@@ -52,6 +55,7 @@ struct ARDemoContentView: View {
                         }, label: {
                             Text("중도 -> 운동장")
                         })
+                        .buttonStyle(BorderedButtonStyle())
                         .padding()
                     }
                     .padding()
@@ -64,6 +68,8 @@ struct ARDemoContentView: View {
                     .fullScreenCover( isPresented: $isPresnted, content: {
                         ARDemoVCWrapper(coreLocation: coreLocation, route : path)
                     })
+                    .buttonStyle(BorderedButtonStyle())
+                    .padding()
                 }
             }
             

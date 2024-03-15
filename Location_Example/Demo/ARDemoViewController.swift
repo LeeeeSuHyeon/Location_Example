@@ -45,6 +45,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         super.viewDidLoad()
         
         makeARView()               // ARSCNView 생성
+        createButton()             // 버튼 생성
         prepare(route: route)      // Detail 설정
         checkCameraAccess()        // 카메라 엑세스 권한 환인
     }
@@ -319,4 +320,32 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         intermediateNodeText.isWrapped = true
         return intermediateNodeText
     } // end of getIntermediateNodeText
+}
+
+
+extension ARDemoViewController {
+    // AR 화면을 닫는 메서드
+     @objc func dismissARView() {
+         dismiss(animated: true, completion: nil)
+     }
+
+     func createButton() {
+         
+         // AR 화면을 닫는 버튼 추가
+         let closeButton = UIButton(type: .system)
+         closeButton.backgroundColor = .white
+         closeButton.setTitle("AR 종료", for: .normal)
+         closeButton.addTarget(self, action: #selector(dismissARView), for: .touchUpInside)
+         view.addSubview(closeButton)
+         
+         // 버튼 레이아웃 설정
+         closeButton.translatesAutoresizingMaskIntoConstraints = false
+         NSLayoutConstraint.activate([
+             closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16), // 오른쪽 여백 16
+             closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16), // 상단 여백 16
+             closeButton.widthAnchor.constraint(equalToConstant: 80),
+             closeButton.heightAnchor.constraint(equalToConstant: 40)
+         ])
+
+     }
 }
