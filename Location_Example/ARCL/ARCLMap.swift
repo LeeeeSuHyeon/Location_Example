@@ -7,6 +7,8 @@ struct ARCLMapView: UIViewRepresentable {
     
 //    var route : [CLLocationCoordinate2D]
     
+    var coreLocation : CoreLocationEx
+    
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
@@ -47,10 +49,12 @@ struct ARCLMapView: UIViewRepresentable {
 //                mapView.addOverlay(route.polyline)
 //            }
 //        }
+
   
         let route = PathData().route
         
         let polyline = MKPolyline(coordinates: route, count: route.count)
+//        mapView.centerCoordinate = CLLocationCoordinate2D(latitude: (coreLocation.location?.coordinate.latitude)!, longitude: (coreLocation.location?.coordinate.longitude)!)
         
         // 지도 뷰에 폴리라인 추가
          mapView.addOverlay(polyline)

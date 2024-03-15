@@ -108,7 +108,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         // 중간 노드(Steps)를 받아옴 -> CLLocationCoordinate2D 형식으로 보내서 [Step] 형식으로 변환해야 함
         let steps = GetIntermediateCoordinate.getCoordinates(route : routeDetail)
         self.stepData = steps
-        print("getIntermediateCoordinates - steps : \(steps)")
+//        print("getIntermediateCoordinates - steps : \(steps)")
         arConfigurationInitialize()
         arViewSetup()
           
@@ -150,20 +150,31 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         let box = SCNBox(width: ArkitNodeDimension.sourceNodeWidth, height: ArkitNodeDimension.sourceNodeHeight, length: ArkitNodeDimension.sourceNodeLength, chamferRadius: ArkitNodeDimension.sourceChamferRadius)
         let sourceNode = SCNNode(geometry: box)
         sourceNode.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
-        sourceNode.position = SCNVector3(0, -(ArkitNodeDimension.nodeYPosition), 0)
+        
+        // sourceNode의 상대적 위치를 경로의 첫번째 노드의 위치로 변경하고 sourcePosition 변경
+//        sourceNode.position = SCNVector3(0, -(ArkitNodeDimension.nodeYPosition), 0)
+
+        var firstNode = route[0]    // 경로의 첫번째 위치를 가져옴
+        // 사용자 현재 위치부터 첫번째 노도 사이의 거리를 구함
+        let distance = distanceBetweenCoordinate(source: coreLocation.location!.coordinate, destination: firstNode)
+        let transformationMatrix = transformMatrix(source: coreLocation.location!.coordinate, destination: firstNode, distance: distance, text: "Start")
+        sourceNode.transform = transformationMatrix     // 출발지 노드 위치 설정
+        sourcePosition = sourceNode.position    // AR 경로 실린더의 시작 위치 설정
         sceneView.scene.rootNode.addChildNode(sourceNode)
     } // end of placeSourceNode()
     
     
     // 목적지 노드를 AR 환경에 배치
     private func placeDestinationNode(source: CLLocationCoordinate2D, destination: CLLocationCoordinate2D, text: String) {
-        print("placeDestinationNode - Source : \(source), destination : \(destination)")
+//        print("placeDestinationNode - Source : \(source), destination : \(destination)")
             let distance = distanceBetweenCoordinate(source: source, destination: destination)
             let destinationNode = SCNNode(geometry: intermediateNodeGeometry())
             let  transformationMatrix = transformMatrix(source: source, destination: destination, distance: distance, text: text)
             destinationNode.transform = transformationMatrix
             sceneView.scene.rootNode.addChildNode(destinationNode)
             placeCylinder(source: sourcePosition, destination: destinationNode.position)
+            print("sourcePosition : \(sourcePosition)")
+            print("destinationNode.position : \(destinationNode.position)")
             let directionTextNode = placeDirectionText(textPosition: destinationNode.position, text: text)
             destinationNode.addChildNode(directionTextNode)
             sourcePosition = destinationNode.position

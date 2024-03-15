@@ -15,8 +15,8 @@ struct ARDemoContentView: View {
         if coreLocation.location != nil {
             VStack{
                 ARDemoVCWrapper(coreLocation: coreLocation)
-//                NaverMap(coreLocation: coreLocation)
-                ARCLMapView()
+                NaverMap(coreLocation: coreLocation)
+//                ARCLMapView(coreLocation: coreLocation)
             }
             
         }
