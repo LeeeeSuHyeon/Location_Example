@@ -76,6 +76,15 @@ struct ARDemoContentView: View {
                         .buttonStyle(BorderedButtonStyle())
                         .padding()
                         
+                        Button(action: {
+                            route = PathData().Dorm2ToEdu
+                            name = "2긱 -> 교대"
+                        }, label: {
+                            Text("2긱 -> 교대")
+                        })
+                        .buttonStyle(BorderedButtonStyle())
+                        .padding()
+                        
                     }
                     .padding()
                     

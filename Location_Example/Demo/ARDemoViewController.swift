@@ -152,7 +152,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
             // 경로 노드마다 띄울 텍스트 설정
             for i in 0..<stepData.count - 1 {
                 let text = "Step : " + stepData[i].locationName
-                placeMiddleNode(source: source, destination: stepData[i+1].endLocation, text: text)
+                placeMiddleNode(source: source, start : stepData[i].startLocation, end: stepData[i].endLocation, text: text)
             }
         }
         placeDestinationNode()  // 목적지 노드 배치
@@ -177,15 +177,15 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         // sourceNode의 상대적 위치를 경로의 첫번째 노드의 위치로 변경하고 sourcePosition 변경
 //        sourceNode.position = SCNVector3(0, -(ArkitNodeDimension.nodeYPosition), 0)
         
-        let source = self.source!
+        let source = self.source!   // 현재 위치
         let firstNode = route[0]    // 경로의 첫번째 위치를 가져옴
         
         // 사용자 현재 위치부터 첫번째 노도 사이의 거리를 구함
         let distance = distanceBetweenCoordinate(source: source, destination: firstNode)
         let transformMatrix = transformMatrix(source: source, destination: firstNode, distance: distance)
         sourceNode.transform = transformMatrix     // 출발지 노드 위치 설정
-        firstPosition = sourceNode.position
         
+        firstPosition = sourceNode.position
         sourcePosition = sourceNode.position    // AR 경로 실린더의 시작 위치 설정
         
         // 출발지 텍스트 설정
@@ -220,7 +220,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         
         destinationNode.transform = transformationMatrix
         sceneView.scene.rootNode.addChildNode(destinationNode)
-//        placeCylinder(source: sourcePosition, destination: destinationNode.position)
+        placeCylinder(source: sourcePosition, destination: destinationNode.position)
         let directionTextNode = placeDirectionText(textPosition: destinationNode.position, text: "Destination", isMiddle: false)
         
         // 목적지 텍스트 설정
@@ -233,16 +233,16 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     
     // 목적지 노드를 AR 환경에 배치
-    private func placeMiddleNode(source: CLLocationCoordinate2D, destination: CLLocationCoordinate2D, text: String) {
-        print("placeMiddleNode - Source : \(source), destination : \(destination)")
-        let distance = distanceBetweenCoordinate(source: source, destination: destination)
+    private func placeMiddleNode(source: CLLocationCoordinate2D, start :CLLocationCoordinate2D, end: CLLocationCoordinate2D, text: String) {
+        print("placeMiddleNode - Source : \(source), start : \(start) end : \(end)")
+        let distance = distanceBetweenCoordinate(source: source, destination: end)
 //            let destinationNode = SCNNode(geometry: intermediateNodeGeometry())
         let middleNode = intermediateNodeGeometry()
-        let  transformationMatrix = transformMatrix(source: source, destination: destination, distance: distance)
+        let  transformationMatrix = transformMatrix(source: source, destination: end, distance: distance)
         middleNode.transform = transformationMatrix
 
         sceneView.scene.rootNode.addChildNode(middleNode)
-//        placeCylinder(source: sourcePosition, destination: middleNode.position)
+        placeCylinder(source: sourcePosition, destination: middleNode.position)
     
         // 텍스트
         let directionTextNode = placeDirectionText(textPosition: middleNode.position, text: text, isMiddle: true)
@@ -307,7 +307,11 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         cylinder.firstMaterial?.transparency = 0.5 // 투명도 (0.0(완전 투명)에서 1.0(완전 불투명))
         let node = SCNNode(geometry: cylinder)
 //        node.position = SCNVector3((source.x + destination.x) / 2, Float(-(ArkitNodeDimension.nodeYPosition)), (source.z + destination.z) / 2))
+        
+        // 실린더 노드의 위치를 출발지와 목적지 중간으로 배치
         node.position = SCNVector3((source.x + destination.x) / 2, -2, (source.z + destination.z) / 2)
+        
+        // 출발지와 목적지 사이의 회전각을 구함
         let dirVector = SCNVector3Make(destination.x - source.x, destination.y - source.y, destination.z - source.z)
         let yAngle = atan(dirVector.x / dirVector.z)
         node.eulerAngles.x = .pi / 2

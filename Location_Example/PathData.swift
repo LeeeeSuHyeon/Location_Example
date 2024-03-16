@@ -114,4 +114,14 @@ struct PathData {
 //        CLLocationCoordinate2D(latitude: 37.454814, longitude: 127.127927),
 //        CLLocationCoordinate2D(latitude: 37.455010, longitude: 127.127867)
 //    ]
+    
+    let Dorm2ToEdu : [CLLocationCoordinate2D] = [
+        CLLocationCoordinate2D(latitude: 37.455895, longitude: 127.134636),
+        CLLocationCoordinate2D(latitude: 37.453854, longitude: 127.134786),
+        CLLocationCoordinate2D(latitude: 37.453518, longitude: 127.134297),
+        CLLocationCoordinate2D(latitude: 37.453399, longitude: 127.134004),
+        CLLocationCoordinate2D(latitude: 37.453063, longitude: 127.133620),
+        CLLocationCoordinate2D(latitude: 37.452353, longitude: 127.131802),
+        CLLocationCoordinate2D(latitude: 37.452043, longitude: 127.131665),
+    ]
 }
