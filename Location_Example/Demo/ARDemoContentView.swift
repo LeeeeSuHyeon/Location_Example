@@ -10,7 +10,7 @@ import CoreLocation
 
 struct ARDemoContentView: View {
     @ObservedObject var coreLocation = CoreLocationEx()
-    @State var route = [CLLocationCoordinate2D(latitude: 0, longitude: 0)]
+    @State var route = PathData().homeToAI
     @State var name = ""
     @State var isPresnted = false
     
@@ -57,6 +57,25 @@ struct ARDemoContentView: View {
                         })
                         .buttonStyle(BorderedButtonStyle())
                         .padding()
+                        
+                        Button(action: {
+                            route = PathData().AIToLibrary
+                            name = "AI -> 중도"
+                        }, label: {
+                            Text("AI -> 중도")
+                        })
+                        .buttonStyle(BorderedButtonStyle())
+                        .padding()
+                        
+                        Button(action: {
+                            route = PathData().AITo3Dorm
+                            name = "AI -> 3긱"
+                        }, label: {
+                            Text("AI -> 3긱")
+                        })
+                        .buttonStyle(BorderedButtonStyle())
+                        .padding()
+                        
                     }
                     .padding()
                     

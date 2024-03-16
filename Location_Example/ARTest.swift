@@ -247,8 +247,8 @@ extension SCNGeometry {
 // 벡터 덧셈 및 곱셈을 추가하는 확장
 extension SCNVector3 {
     static func +(lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
-//        return SCNVector3(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z)
-        return SCNVector3(lhs.x + rhs.x, -2, lhs.z + rhs.z)
+        return SCNVector3(lhs.x + rhs.x, lhs.y + rhs.y, lhs.z + rhs.z)
+//        return SCNVector3(lhs.x + rhs.x, -2, lhs.z + rhs.z)
     }
     
     static func -(lhs: SCNVector3, rhs: SCNVector3) -> SCNVector3 {
