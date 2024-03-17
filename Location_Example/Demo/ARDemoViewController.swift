@@ -24,7 +24,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     var currentLocation: CLLocationCoordinate2D? // 현재 위치
 //    var destination: CLLocationCoordinate2D?     // 목적지 주소
     var sourcePosition = SCNVector3()            // 출발지 상대적 위치
-    var destinationPosition = SCNVector3()       // 목적지 상대적 위치
+    var previousPosition = SCNVector3()       // 이전 노드의 포지션 -> 중간 노드를 배치할 때 사용
     var stepData = [Step]()                      // 출발지와 목적지 사이 중간 위치들
     
     var routeDetail : [LocationDetails] = [] // route의 디테일 설정
@@ -111,7 +111,6 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         // 중간 노드(Steps)를 받아옴 -> CLLocationCoordinate2D 형식으로 보내서 [Step] 형식으로 변환해야 함
         let steps = GetIntermediateCoordinate.getCoordinates(route : routeDetail)
         self.stepData = steps
-        print("getIntermediateCoordinates - steps : \(steps)")
         arConfigurationInitialize()
         arViewSetup()
           
@@ -140,7 +139,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
             // 경로 노드마다 띄울 텍스트 설정
             for i in 0..<stepData.count - 1 {
                 let text = "Step : " + stepData[i].locationName
-                placeMiddleNode(currentLocation: currentLocation, start : stepData[i].startLocation, end: stepData[i].endLocation, text: text)
+                placeMiddleNode(currentLocation: currentLocation, start : stepData[i].startLocation, end: stepData[i].endLocation, next : stepData[i].nextLocation, text: text)
             }
         }
         placeDestinationNode()  // 목적지 노드 배치
@@ -220,7 +219,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     
     // 목적지 노드를 AR 환경에 배치
-    private func placeMiddleNode(currentLocation: CLLocationCoordinate2D, start :CLLocationCoordinate2D, end: CLLocationCoordinate2D, text: String) {
+    private func placeMiddleNode(currentLocation: CLLocationCoordinate2D, start :CLLocationCoordinate2D, end: CLLocationCoordinate2D, next: CLLocationCoordinate2D, text: String) {
         print("placeMiddleNode - currentLocation : \(currentLocation), start : \(start) end : \(end)")
         let distance = distanceBetweenCoordinate(source: currentLocation, destination: end)
         var middleNode = intermediateNodeGeometry()
@@ -233,7 +232,8 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         sceneView.scene.rootNode.addChildNode(middleNode)
         sceneView.scene.rootNode.addChildNode(cylinder)
         
-        let nodeDistance = distanceBetweenCoordinate(source: start, destination: end)
+        // 도착지와 다음 노드 사이의 거리를 구함
+        let nodeDistance = distanceBetweenCoordinate(source: end, destination: next)
         var newText = "\(text)"
         newText += "\n \(String(format: "%.1f", nodeDistance))M"
     
