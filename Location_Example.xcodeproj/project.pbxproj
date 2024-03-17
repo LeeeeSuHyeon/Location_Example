@@ -31,7 +31,6 @@
 		CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4B2662B93337700075BA8 /* NaverMap.swift */; };
 		CBEC01472BA2BD48008F5996 /* ARDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01462BA2BD48008F5996 /* ARDemoViewController.swift */; };
 		CBEC01492BA2BDD6008F5996 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01482BA2BDD6008F5996 /* Extension.swift */; };
-		CBEC014B2BA2BE20008F5996 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC014A2BA2BE20008F5996 /* Step.swift */; };
 		CBEC014D2BA2BE59008F5996 /* LocationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC014C2BA2BE59008F5996 /* LocationDetails.swift */; };
 		CBEC014F2BA2BF76008F5996 /* GetIntermediateCorodinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC014E2BA2BF76008F5996 /* GetIntermediateCorodinate.swift */; };
 		CBEC01512BA2CCBE008F5996 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01502BA2CCBE008F5996 /* Constant.swift */; };
@@ -71,7 +70,6 @@
 		CBD4B2662B93337700075BA8 /* NaverMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMap.swift; sourceTree = "<group>"; };
 		CBEC01462BA2BD48008F5996 /* ARDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDemoViewController.swift; sourceTree = "<group>"; };
 		CBEC01482BA2BDD6008F5996 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		CBEC014A2BA2BE20008F5996 /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		CBEC014C2BA2BE59008F5996 /* LocationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetails.swift; sourceTree = "<group>"; };
 		CBEC014E2BA2BF76008F5996 /* GetIntermediateCorodinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetIntermediateCorodinate.swift; sourceTree = "<group>"; };
 		CBEC01502BA2CCBE008F5996 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -195,7 +193,6 @@
 			children = (
 				CBEC01462BA2BD48008F5996 /* ARDemoViewController.swift */,
 				CBEC01482BA2BDD6008F5996 /* Extension.swift */,
-				CBEC014A2BA2BE20008F5996 /* Step.swift */,
 				CBEC014E2BA2BF76008F5996 /* GetIntermediateCorodinate.swift */,
 				CBEC014C2BA2BE59008F5996 /* LocationDetails.swift */,
 				CBEC01502BA2CCBE008F5996 /* Constant.swift */,
@@ -329,7 +326,6 @@
 				CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */,
 				CB0BD92F2B9DEC0400C08018 /* SceneLocationView.swift in Sources */,
 				CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */,
-				CBEC014B2BA2BE20008F5996 /* Step.swift in Sources */,
 				CBEC01592BA30241008F5996 /* ARDemoContentView.swift in Sources */,
 				CB0BD9262B9C627000C08018 /* MatrixHelper.swift in Sources */,
 				CBEC014F2BA2BF76008F5996 /* GetIntermediateCorodinate.swift in Sources */,

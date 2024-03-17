@@ -32,8 +32,8 @@ struct PathData {
     //
     // 집 -> AI
         let homeToAI : [CLLocationCoordinate2D] = [
-            CLLocationCoordinate2D(latitude: 37.454869, longitude: 127.128768),
-            CLLocationCoordinate2D(latitude: 37.454814, longitude: 127.127927),
+            CLLocationCoordinate2D(latitude: 37.454971, longitude: 127.127896),
+            CLLocationCoordinate2D(latitude: 37.454797, longitude: 127.127906),
             CLLocationCoordinate2D(latitude: 37.454869, longitude: 127.128768),
             CLLocationCoordinate2D(latitude: 37.455486, longitude: 127.129632),
             CLLocationCoordinate2D(latitude: 37.455043, longitude: 127.131246),

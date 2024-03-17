@@ -19,15 +19,13 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     var coreLocation: CoreLocationEx
     
-    var firstPosition = SCNVector3(x: 0, y: 0, z: 0)
+    var route : [CLLocationCoordinate2D]        // 경로 노드의 위치 배열
     
-    var route : [CLLocationCoordinate2D]
-    
-    var source: CLLocationCoordinate2D?         // 출발지 주소
-    var destination: CLLocationCoordinate2D?    // 목적지 주소
-    var sourcePosition = SCNVector3()           // 출발지 상대적 위치
-    var destinationPosition = SCNVector3()      // 목적지 상대적 위치
-    var stepData = [Step]()                     // 출발지와 목적지 사이 중간 위치들
+    var currentLocation: CLLocationCoordinate2D? // 현재 위치
+//    var destination: CLLocationCoordinate2D?     // 목적지 주소
+    var sourcePosition = SCNVector3()            // 출발지 상대적 위치
+    var destinationPosition = SCNVector3()       // 목적지 상대적 위치
+    var stepData = [Step]()                      // 출발지와 목적지 사이 중간 위치들
     
     var routeDetail : [LocationDetails] = [] // route의 디테일 설정
 
@@ -50,6 +48,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         createButton()             // 버튼 생성
         prepare(route: route)      // Detail 설정
         checkCameraAccess()        // 카메라 엑세스 권한 환인
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -80,9 +79,8 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
             detail = LocationDetails(lat: route[i].latitude, lng: route[i].longitude, name: String(i))
             routeDetail.append(detail)
         }
-        source = coreLocation.location?.coordinate // 시작 위치를 현재 위치로 설정
-//        source = route.first
-        destination = route.last                   // 도착지를 목적지 경로의 마지막 위치로 설정
+        currentLocation = coreLocation.location?.coordinate // 시작 위치를 현재 위치로 설정
+//        destination = route.last                   // 도착지를 목적지 경로의 마지막 위치로 설정
     }
     
     // 카메라 엑세스 확인 메서드
@@ -137,22 +135,12 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     // AR 뷰 설정
     private func arViewSetup() {
         placeSourceNode() // 출발지 노드 배치
-//        if let source = source, let destination = destination {
-//            // 경로 노드마다 띄울 텍스트 설정
-//            for intermediateLocation in stepData.enumerated() {
-//                var text = "\(TextNodeConstant.direction) : " + intermediateLocation.element.locationName
-//                text += "\n \(TextNodeConstant.distance) :" + intermediateLocation.element.distance
-//                text += " \n \(TextNodeConstant.duration) : " + intermediateLocation.element.duration
-//                placeMiddleNode(source: source, destination: intermediateLocation.element.endLocation, text: text)
-//            }
-//            placeDestinationNode(source: source, destination: destination, text: TextNodeConstant.destination)
-//        }
-        
-        if let source = source, let destination = destination {
+
+        if let currentLocation = currentLocation {
             // 경로 노드마다 띄울 텍스트 설정
             for i in 0..<stepData.count - 1 {
                 let text = "Step : " + stepData[i].locationName
-                placeMiddleNode(source: source, start : stepData[i].startLocation, end: stepData[i].endLocation, text: text)
+                placeMiddleNode(currentLocation: currentLocation, start : stepData[i].startLocation, end: stepData[i].endLocation, text: text)
             }
         }
         placeDestinationNode()  // 목적지 노드 배치
@@ -161,9 +149,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     // 출발지 노드 AR 환경에 배치
     private func placeSourceNode() {
-//        let box = SCNBox(width: ArkitNodeDimension.sourceNodeWidth, height: ArkitNodeDimension.sourceNodeHeight, length: ArkitNodeDimension.sourceNodeLength, chamferRadius: ArkitNodeDimension.sourceChamferRadius)
-        //        let sourceNode = SCNNode(geometry: box)
-        
+
         let imageName = "pin"
         // 1. SCNPlane을 생성하고 "name" 이미지를 텍스쳐로 설정합니다.
        let plane = SCNPlane(width: 10, height: 10) // 크기 설정
@@ -177,7 +163,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         // sourceNode의 상대적 위치를 경로의 첫번째 노드의 위치로 변경하고 sourcePosition 변경
 //        sourceNode.position = SCNVector3(0, -(ArkitNodeDimension.nodeYPosition), 0)
         
-        let source = self.source!   // 현재 위치
+        let source = self.currentLocation!   // 현재 위치
         let firstNode = route[0]    // 경로의 첫번째 위치를 가져옴
         
         // 사용자 현재 위치부터 첫번째 노도 사이의 거리를 구함
@@ -185,7 +171,6 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         let transformMatrix = transformMatrix(source: source, destination: firstNode, distance: distance)
         sourceNode.transform = transformMatrix     // 출발지 노드 위치 설정
         
-        firstPosition = sourceNode.position
         sourcePosition = sourceNode.position    // AR 경로 실린더의 시작 위치 설정
         
         // 출발지 텍스트 설정
@@ -193,9 +178,6 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         sourceNode.addChildNode(directionTextNode)
         
         sceneView.scene.rootNode.addChildNode(sourceNode)
-        
-//        source = stepData[1].endLocation
-        
 
     } // end of placeSourceNode()
     
@@ -211,16 +193,21 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
        // 2. SCNNode를 생성하고 위에서 만든 SCNPlane을 geometry로 설정합니다.
        let destinationNode = SCNNode(geometry: plane)
         
-        let lastNode = route.last
+        let source = coreLocation.location!.coordinate  // 현재 위치
+        let lastNode = route.last! // 목적지 위치
 
-
-        let distance = distanceBetweenCoordinate(source: coreLocation.location!.coordinate, destination: lastNode!)
-        let transformationMatrix = transformMatrix(source: coreLocation.location!.coordinate, destination: lastNode!, distance: distance)
+        // 현재위치와 목적지 위치까지의 상대좌표를 구함
+        let distance = distanceBetweenCoordinate(source: source, destination: lastNode)
+        let transformationMatrix = transformMatrix(source: source, destination: lastNode, distance: distance)
         
         
         destinationNode.transform = transformationMatrix
         sceneView.scene.rootNode.addChildNode(destinationNode)
-        placeCylinder(source: sourcePosition, destination: destinationNode.position)
+        
+        // 경로의 마지막 전 노드와 마지막 노드까지의 실린더 설정
+        let cylinder = placeCylinder(source: sourcePosition, destination: destinationNode.position)
+        sceneView.scene.rootNode.addChildNode(cylinder)
+        
         let directionTextNode = placeDirectionText(textPosition: destinationNode.position, text: "Destination", isMiddle: false)
         
         // 목적지 텍스트 설정
@@ -233,19 +220,25 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     
     // 목적지 노드를 AR 환경에 배치
-    private func placeMiddleNode(source: CLLocationCoordinate2D, start :CLLocationCoordinate2D, end: CLLocationCoordinate2D, text: String) {
-        print("placeMiddleNode - Source : \(source), start : \(start) end : \(end)")
-        let distance = distanceBetweenCoordinate(source: source, destination: end)
-//            let destinationNode = SCNNode(geometry: intermediateNodeGeometry())
-        let middleNode = intermediateNodeGeometry()
-        let  transformationMatrix = transformMatrix(source: source, destination: end, distance: distance)
+    private func placeMiddleNode(currentLocation: CLLocationCoordinate2D, start :CLLocationCoordinate2D, end: CLLocationCoordinate2D, text: String) {
+        print("placeMiddleNode - currentLocation : \(currentLocation), start : \(start) end : \(end)")
+        let distance = distanceBetweenCoordinate(source: currentLocation, destination: end)
+        var middleNode = intermediateNodeGeometry()
+        let  transformationMatrix = transformMatrix(source: currentLocation, destination: end, distance: distance)
         middleNode.transform = transformationMatrix
 
+        let cylinder = placeCylinder(source: sourcePosition, destination: middleNode.position)
+        middleNode = rotateArrowImage(cylinder, middleNode)
+        
         sceneView.scene.rootNode.addChildNode(middleNode)
-        placeCylinder(source: sourcePosition, destination: middleNode.position)
+        sceneView.scene.rootNode.addChildNode(cylinder)
+        
+        let nodeDistance = distanceBetweenCoordinate(source: start, destination: end)
+        var newText = "\(text)"
+        newText += "\n \(String(format: "%.1f", nodeDistance))M"
     
         // 텍스트
-        let directionTextNode = placeDirectionText(textPosition: middleNode.position, text: text, isMiddle: true)
+        let directionTextNode = placeDirectionText(textPosition: middleNode.position, text: newText, isMiddle: true)
         middleNode.addChildNode(directionTextNode)
         sourcePosition = middleNode.position
         
@@ -298,7 +291,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     
     // 출발지와 목적지 사이에 실린더 노드 배치하는 역할
-    private func placeCylinder(source: SCNVector3, destination: SCNVector3) {
+    private func placeCylinder(source: SCNVector3, destination: SCNVector3) -> SCNNode{
         let height = source.distance(receiver: destination)
         let cylinder = SCNCylinder(radius: ArkitNodeDimension.cylinderRadius, height: CGFloat(height))
 //        let cylinder = SCNBox(width: 0.1, height: 0.1, length: CGFloat(height), chamferRadius: 0)
@@ -306,7 +299,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         cylinder.firstMaterial?.diffuse.contents = UIColor.blue
         cylinder.firstMaterial?.transparency = 0.5 // 투명도 (0.0(완전 투명)에서 1.0(완전 불투명))
         let node = SCNNode(geometry: cylinder)
-//        node.position = SCNVector3((source.x + destination.x) / 2, Float(-(ArkitNodeDimension.nodeYPosition)), (source.z + destination.z) / 2))
+//        node.position = SCNVector3((source.x + destination.x) / 2, Float(-(ArkitNodeDimension.nodsition)), (source.z + destination.z) / 2))
         
         // 실린더 노드의 위치를 출발지와 목적지 중간으로 배치
         node.position = SCNVector3((source.x + destination.x) / 2, -2, (source.z + destination.z) / 2)
@@ -316,8 +309,30 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         let yAngle = atan(dirVector.x / dirVector.z)
         node.eulerAngles.x = .pi / 2
         node.eulerAngles.y = yAngle
-        sceneView.scene.rootNode.addChildNode(node)
-    } // end of placeCylinder 
+//        sceneView.scene.rootNode.addChildNode(node)
+        return node
+    } // end of placeCylinder
+    
+    
+    // 회전 방향 판별 및 이미지 회전
+    func rotateArrowImage(_ cylinder: SCNNode, _ image : SCNNode) -> SCNNode {
+        // 노드의 y축 주위 회전 각도
+        let yRotation = cylinder.eulerAngles.y
+        print("yRotation : \(yRotation)")
+        
+        // 우회전인지 좌회전인지 판별
+        let isRightTurn = yRotation > 0 // 우회전인 경우
+        let isLeftTurn = yRotation < 0 // 좌회전인 경우
+        
+        // 회전된 각도에 따라 이미지 회전
+//        let rotationAngle: Float = isRightTurn ? yRotation - 90 : (isLeftTurn ? -yRotation - 90 : 0)
+        let rotationAngle: Float = 0
+        
+        // 노드에 회전 적용
+        image.eulerAngles.y = rotationAngle
+        return image
+    }
+
     
     
     
