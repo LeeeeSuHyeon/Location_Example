@@ -223,23 +223,31 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         print("placeMiddleNode - currentLocation : \(currentLocation), start : \(start) end : \(end)")
         let distance = distanceBetweenCoordinate(source: currentLocation, destination: end)
         var middleNode = intermediateNodeGeometry()
-        let  transformationMatrix = transformMatrix(source: currentLocation, destination: end, distance: distance)
+        let transformationMatrix = transformMatrix(source: currentLocation, destination: end, distance: distance)
         middleNode.transform = transformationMatrix
 
         let cylinder = placeCylinder(source: sourcePosition, destination: middleNode.position)
-        middleNode = rotateArrowImage(cylinder, middleNode)
-        
-        sceneView.scene.rootNode.addChildNode(middleNode)
-        sceneView.scene.rootNode.addChildNode(cylinder)
         
         // 도착지와 다음 노드 사이의 거리를 구함
-        let nodeDistance = distanceBetweenCoordinate(source: end, destination: next)
+        let nextDistance = distanceBetweenCoordinate(source: end, destination: next)
         var newText = "\(text)"
-        newText += "\n \(String(format: "%.1f", nodeDistance))M"
+        newText += "\n \(String(format: "%.1f", nextDistance))M"
+        
+        // 다음 노드의 상대 좌표를 구함
+        let nextTransformationMatrix = transformMatrix(source: currentLocation, destination: next, distance: nextDistance)
+        let nextNode = SCNNode()
+        nextNode.transform = nextTransformationMatrix
+        
+        middleNode = rotateArrowImage(middleNode, nextNode.position)
     
         // 텍스트
         let directionTextNode = placeDirectionText(textPosition: middleNode.position, text: newText, isMiddle: true)
         middleNode.addChildNode(directionTextNode)
+        
+        // ARScene에 노드 추가
+        sceneView.scene.rootNode.addChildNode(middleNode)
+        sceneView.scene.rootNode.addChildNode(cylinder)
+        
         sourcePosition = middleNode.position
         
         
@@ -309,28 +317,30 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         let yAngle = atan(dirVector.x / dirVector.z)
         node.eulerAngles.x = .pi / 2
         node.eulerAngles.y = yAngle
-//        sceneView.scene.rootNode.addChildNode(node)
+
         return node
     } // end of placeCylinder
     
     
     // 회전 방향 판별 및 이미지 회전
-    func rotateArrowImage(_ cylinder: SCNNode, _ image : SCNNode) -> SCNNode {
-        // 노드의 y축 주위 회전 각도
-        let yRotation = cylinder.eulerAngles.y
-        print("yRotation : \(yRotation)")
+    func rotateArrowImage(_ node: SCNNode, _ next : SCNVector3) -> SCNNode {
+        
+        // 출발지와 목적지 사이의 회전각을 구함
+        let dirVector = SCNVector3Make(next.x - node.position.x, next.y - node.position.y, next.z - node.position.z)
+        let yAngle = atan(dirVector.x / dirVector.z)
+
+        print("yAngle : \(yAngle)")
         
         // 우회전인지 좌회전인지 판별
-        let isRightTurn = yRotation > 0 // 우회전인 경우
-        let isLeftTurn = yRotation < 0 // 좌회전인 경우
-        
+//        let isRightTurn = yAngle > 0 // 우회전인 경우
+//        let isLeftTurn = yAngle < 0 // 좌회전인 경우
+//        
         // 회전된 각도에 따라 이미지 회전
 //        let rotationAngle: Float = isRightTurn ? yRotation - 90 : (isLeftTurn ? -yRotation - 90 : 0)
-        let rotationAngle: Float = 0
         
-        // 노드에 회전 적용
-        image.eulerAngles.y = rotationAngle
-        return image
+        // arrow.usdz 이미지가 원래 오른방향을 가리키고 있으므로 -를 붙여줌 
+        node.eulerAngles.y = -yAngle
+        return node
     }
 
     
