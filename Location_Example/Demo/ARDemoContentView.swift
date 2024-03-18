@@ -59,10 +59,10 @@ struct ARDemoContentView: View {
                         .padding()
                         
                         Button(action: {
-                            route = PathData().AIToLibrary
-                            name = "AI -> 중도"
+                            route = PathData().homeGround
+                            name = "집 주위"
                         }, label: {
-                            Text("AI -> 중도")
+                            Text("집 주위")
                         })
                         .buttonStyle(BorderedButtonStyle())
                         .padding()

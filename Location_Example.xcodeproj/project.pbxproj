@@ -15,6 +15,9 @@
 		CB0BD92B2B9D808100C08018 /* ARCLContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD92A2B9D808100C08018 /* ARCLContentView.swift */; };
 		CB0BD92F2B9DEC0400C08018 /* SceneLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD92E2B9DEC0400C08018 /* SceneLocationView.swift */; };
 		CB0BD9312B9DEC1F00C08018 /* PolylineNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0BD9302B9DEC1F00C08018 /* PolylineNode.swift */; };
+		CB24F3AC2BA86ECC00A349D3 /* threeArrows.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CB24F3A92BA86ECC00A349D3 /* threeArrows.usdz */; };
+		CB24F3AD2BA86ECC00A349D3 /* middleArrow.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CB24F3AA2BA86ECC00A349D3 /* middleArrow.usdz */; };
+		CB24F3AE2BA86ECC00A349D3 /* Pin.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CB24F3AB2BA86ECC00A349D3 /* Pin.usdz */; };
 		CB35B9972B9980AC00BD38BD /* PathData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB35B9962B9980AC00BD38BD /* PathData.swift */; };
 		CB6383C62B7110DC00A18255 /* ARTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C52B7110DC00A18255 /* ARTest.swift */; };
 		CB6383C82B73BFBA00A18255 /* UseMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C72B73BFBA00A18255 /* UseMap.swift */; };
@@ -25,7 +28,6 @@
 		CBB253272B664AD700DD408C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBB253262B664AD700DD408C /* Assets.xcassets */; };
 		CBB2532A2B664AD700DD408C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBB253292B664AD700DD408C /* Preview Assets.xcassets */; };
 		CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB253302B664B0100DD408C /* CoreLocationEx.swift */; };
-		CBC299232B7E4F7C0026C908 /* toy_biplane_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */; };
 		CBC299282B7E52F80026C908 /* right.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CBC299272B7E52F80026C908 /* right.usdz */; };
 		CBD4B2652B91898200075BA8 /* coreMotionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4B2642B91898200075BA8 /* coreMotionRequest.swift */; };
 		CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4B2662B93337700075BA8 /* NaverMap.swift */; };
@@ -52,6 +54,9 @@
 		CB16AC752B7A6FC800DAAE3F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		CB16AC772B7A70BA00DAAE3F /* libswiftMetal.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftMetal.tbd; path = usr/lib/swift/libswiftMetal.tbd; sourceTree = SDKROOT; };
 		CB16AC792B7A70DE00DAAE3F /* libswiftMetalKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftMetalKit.tbd; path = usr/lib/swift/libswiftMetalKit.tbd; sourceTree = SDKROOT; };
+		CB24F3A92BA86ECC00A349D3 /* threeArrows.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = threeArrows.usdz; sourceTree = "<group>"; };
+		CB24F3AA2BA86ECC00A349D3 /* middleArrow.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = middleArrow.usdz; sourceTree = "<group>"; };
+		CB24F3AB2BA86ECC00A349D3 /* Pin.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Pin.usdz; sourceTree = "<group>"; };
 		CB35B9962B9980AC00BD38BD /* PathData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathData.swift; sourceTree = "<group>"; };
 		CB3FA7782B946B1A005D770E /* Location-Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Location-Example-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CB6383C52B7110DC00A18255 /* ARTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARTest.swift; sourceTree = "<group>"; };
@@ -64,7 +69,6 @@
 		CBB253262B664AD700DD408C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBB253292B664AD700DD408C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CBB253302B664B0100DD408C /* CoreLocationEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationEx.swift; sourceTree = "<group>"; };
-		CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_biplane_idle.usdz; sourceTree = "<group>"; };
 		CBC299272B7E52F80026C908 /* right.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = right.usdz; sourceTree = "<group>"; };
 		CBD4B2642B91898200075BA8 /* coreMotionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coreMotionRequest.swift; sourceTree = "<group>"; };
 		CBD4B2662B93337700075BA8 /* NaverMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMap.swift; sourceTree = "<group>"; };
@@ -130,6 +134,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CB24F3A82BA86E9B00A349D3 /* Usdz */ = {
+			isa = PBXGroup;
+			children = (
+				CBC299272B7E52F80026C908 /* right.usdz */,
+				CB24F3AA2BA86ECC00A349D3 /* middleArrow.usdz */,
+				CB24F3AB2BA86ECC00A349D3 /* Pin.usdz */,
+				CB24F3A92BA86ECC00A349D3 /* threeArrows.usdz */,
+			);
+			path = Usdz;
+			sourceTree = "<group>";
+		};
 		CBB253162B664AD600DD408C = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +166,7 @@
 		CBB253212B664AD600DD408C /* Location_Example */ = {
 			isa = PBXGroup;
 			children = (
+				CB24F3A82BA86E9B00A349D3 /* Usdz */,
 				CBB253222B664AD600DD408C /* Location_ExampleApp.swift */,
 				CBEC01452BA2BD2C008F5996 /* Demo */,
 				CB0BD9272B9D805300C08018 /* ARCL */,
@@ -163,9 +179,7 @@
 				CBAC22C32B90BB6200A79A61 /* CoreMotionEx.swift */,
 				CB6383C72B73BFBA00A18255 /* UseMap.swift */,
 				CB35B9962B9980AC00BD38BD /* PathData.swift */,
-				CBC299222B7E4F7C0026C908 /* toy_biplane_idle.usdz */,
 				CBB253262B664AD700DD408C /* Assets.xcassets */,
-				CBC299272B7E52F80026C908 /* right.usdz */,
 				CBB253282B664AD700DD408C /* Preview Content */,
 				CB0BD9252B9C627000C08018 /* MatrixHelper.swift */,
 			);
@@ -263,9 +277,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB24F3AD2BA86ECC00A349D3 /* middleArrow.usdz in Resources */,
 				CBB2532A2B664AD700DD408C /* Preview Assets.xcassets in Resources */,
-				CBC299232B7E4F7C0026C908 /* toy_biplane_idle.usdz in Resources */,
 				CBC299282B7E52F80026C908 /* right.usdz in Resources */,
+				CB24F3AE2BA86ECC00A349D3 /* Pin.usdz in Resources */,
+				CB24F3AC2BA86ECC00A349D3 /* threeArrows.usdz in Resources */,
 				CBB253272B664AD700DD408C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

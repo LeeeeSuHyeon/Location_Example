@@ -52,11 +52,14 @@ struct PathData {
     
     
     
-    // AI - 중도
-    let AIToLibrary : [CLLocationCoordinate2D] = [
-        CLLocationCoordinate2D(latitude: 37.455086, longitude: 127.133315),
-        CLLocationCoordinate2D(latitude: 37.452451, longitude: 127.132802),
-        CLLocationCoordinate2D(latitude: 37.452640, longitude: 127.132681),
+    // 집 앞
+    let homeGround : [CLLocationCoordinate2D] = [
+        CLLocationCoordinate2D(latitude: 37.455059, longitude: 127.127051),
+        CLLocationCoordinate2D(latitude: 37.454531, longitude: 127.127373),
+        CLLocationCoordinate2D(latitude: 37.454624, longitude: 127.128746),
+        CLLocationCoordinate2D(latitude: 37.455425, longitude: 127.128655),
+        CLLocationCoordinate2D(latitude: 37.455433, longitude: 127.127067),
+        CLLocationCoordinate2D(latitude: 37.455191, longitude: 127.127072),
     ]
     
     // AI -> 3긱 (인도 없는 구역)
