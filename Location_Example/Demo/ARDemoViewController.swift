@@ -127,6 +127,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
             sceneView.session.run(configuration) // AR 세션 시작
             
             placeSourceNode() // 출발지 노드 배치
+            createArrowNode(currentLocation: currentLocation!, firstLocation: route[0], secondLocation: route[1])
         } else {
 //            alert(info: AlertConstants.arErrorMessage) // AR 에러 메시지
             print("arConfigurationInitialize - Error")
@@ -152,7 +153,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     // 출발지 노드 AR 환경에 배치
     private func placeSourceNode() {
         
-        let sourceNode = makeUsdzNode(fileName: "Pin", scale: 0.1, angleTF: true)
+        let sourceNode = makeUsdzNode(fileName: "Pin", scale: 0.1, middle: false)
 //        let file = "Pin"
 //        guard let fileUrl = Bundle.main.url(forResource: file, withExtension: "usdz") else {
 //                fatalError()
@@ -379,39 +380,59 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         // 현재 위치부터 시작 노드까지의 거리와 상대 좌표
         let firstDistance = distanceBetweenCoordinate(source: currentLocation, destination: firstLocation)
         let firstTransformation = transformMatrix(source: currentLocation, destination: firstLocation, distance: firstDistance)
-        let firstNode = SCNNode()
+        let firstNode = makeUsdzNode(fileName: "threeArrows", scale: 0.05, middle : false)
         firstNode.transform = firstTransformation
         let firstPosition = firstNode.position
         
         // 현재 위치부터 다음 노드까지의 거리와 상대 좌표
         let secondDistance = distanceBetweenCoordinate(source: currentLocation, destination: secondLocation)
-        let secondTransformation = transformMatrix(source: currentLocation, destination: secondLocation, distance: firstDistance)
-        let secondNode = SCNNode()
+        let secondTransformation = transformMatrix(source: currentLocation, destination: secondLocation, distance: secondDistance)
+        let secondNode = makeUsdzNode(fileName: "threeArrows", scale: 0.05, middle: false)
         secondNode.transform = secondTransformation
         let secondPosition = secondNode.position
+ 
+        // 화살표 노드 배열
+        var middleNodeLocation = [SCNNode]()
         
-        // 두 상대 좌표 사이의 거리
-        let betweenDistance = firstPosition.distance(receiver: secondPosition)
-        
-        // 화살표 노드를 배치할 상대 좌표 배열
-        var middleNodeLocation = [SCNVector3]()
-        
-        // 3m 당 하나의 화살표 만들기 count = 화살표 개수
-        let count = betweenDistance / 3
-        for i in 0..<Int(count) {
-            let middleNode = SCNVector3(x: firstPosition.x * Float(i) / count, y: 0, z: firstPosition.z * Float(i) / count)
-            middleNodeLocation.append(middleNode)
-        }
-        
-        // 화살표 노드의 회전 각 (공통) - 첫번째 노드와 다음 노드의 회전각을 구함
+        // 두 노드 사이의 방향 벡터 계산
         let dirVector = SCNVector3Make(secondPosition.x - firstPosition.x,
                                        secondPosition.y - firstPosition.y,
                                        secondPosition.z - firstPosition.z)
-        let yAngle = atan(dirVector.x / dirVector.z) // 공통 회전각 - 각 화살표 노드의 오일러 회전 y 값 
+        
+        // 공통 회전각 - 각 화살표 노드의 오일러 회전 y 값
+        let yAngle = atan(dirVector.x / dirVector.z)
+
+        // 두 노드 사이의 거리 계산
+        let distanceBetweenNodes = firstPosition.distance(receiver: secondPosition)
+
+        // 각 화살표 노드의 간격 계산 (5m 당 1개)
+        let interval = distanceBetweenNodes / Float(5)
+        let stepSize = Float(5) / distanceBetweenNodes
+
+        // 첫 번째 화살표 노드의 위치 계산
+        var currentNodePosition = firstPosition
+
+        // 첫 번째 화살표 노드를 제외한 나머지 화살표 노드 생성
+        for i in 1...Int(interval) {
+            // 다음 화살표 노드의 위치 계산
+            let fraction = stepSize * Float(i)
+            let intermediatePosition = SCNVector3(
+                x: firstPosition.x + fraction * dirVector.x,
+                y: firstPosition.y + fraction * dirVector.y,
+                z: firstPosition.z + fraction * dirVector.z
+            )
+
+            // 화살표 노드 생성 및 추가
+            let node = makeUsdzNode(fileName: "middleArrow", scale: 0.01, middle: true)
+            node.position = intermediatePosition
+            node.childNodes.map { $0.eulerAngles.y = yAngle }
+//            middleNodeLocation.append(node)
+            sceneView.scene.rootNode.addChildNode(node)
+        }
     }
     
     // usdz 파일 노드 생성
-    private func makeUsdzNode(fileName : String, scale : Float, angleTF : Bool) -> SCNNode {
+    private func makeUsdzNode(fileName : String, scale : Float, middle : Bool) -> SCNNode {
         let file = fileName
         guard let fileUrl = Bundle.main.url(forResource: file, withExtension: "usdz") else {
             fatalError()
@@ -422,7 +443,14 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         if let scene = scene {
             for child in scene.rootNode.childNodes {
                 child.scale = SCNVector3(scale, scale, scale)
-                child.eulerAngles.y = angleTF ? .pi / 2 : child.eulerAngles.y
+                if middle {
+                    child.eulerAngles.x = .pi / 2
+
+                }
+                else {
+                    child.eulerAngles.y = .pi / 2
+                }
+                
                 node.addChildNode(child)
             }
         }

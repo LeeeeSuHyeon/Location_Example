@@ -18,6 +18,7 @@ struct ARDemoStartView: View {
         VStack{
             ARDemoVCWrapper(coreLocation: coreLocation, route : route)
             NaverMap(coreLocation: coreLocation, route: route)
+                .frame(height: 200)
         }
     }
 }
