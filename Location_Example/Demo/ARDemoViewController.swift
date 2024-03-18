@@ -151,14 +151,24 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     // 출발지 노드 AR 환경에 배치
     private func placeSourceNode() {
+        
+        let file = "Pin"
+        guard let fileUrl = Bundle.main.url(forResource: file, withExtension: "usdz") else {
+                fatalError()
+        }
+        let scene = try? SCNScene(url: fileUrl, options: nil)
+        let sourceNode = SCNNode()
 
-        let imageName = "pin"
-        // 1. SCNPlane을 생성하고 "name" 이미지를 텍스쳐로 설정합니다.
-       let plane = SCNPlane(width: 10, height: 10) // 크기 설정
-       plane.firstMaterial?.diffuse.contents = UIImage(named: imageName)
-
-       // 2. SCNNode를 생성하고 위에서 만든 SCNPlane을 geometry로 설정합니다.
-       let sourceNode = SCNNode(geometry: plane)
+        
+        if let scene = scene {
+            for child in scene.rootNode.childNodes {
+                child.scale = SCNVector3(0.1, 0.1, 0.1)
+                
+                // usdz 파일 이미지를 y축 방향으로 90도 회전 (항상 카메라를 봐라 보도록 설정)
+                child.eulerAngles.y = .pi / 2
+                sourceNode.addChildNode(child)
+            }
+        }
         
         let source = self.currentLocation!   // 현재 위치
         let firstNode = route[0]    // 경로의 첫번째 위치를 가져옴
