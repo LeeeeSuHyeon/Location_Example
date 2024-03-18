@@ -152,23 +152,24 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     // 출발지 노드 AR 환경에 배치
     private func placeSourceNode() {
         
-        let file = "Pin"
-        guard let fileUrl = Bundle.main.url(forResource: file, withExtension: "usdz") else {
-                fatalError()
-        }
-        let scene = try? SCNScene(url: fileUrl, options: nil)
-        let sourceNode = SCNNode()
-
-        
-        if let scene = scene {
-            for child in scene.rootNode.childNodes {
-                child.scale = SCNVector3(0.1, 0.1, 0.1)
-                
-                // usdz 파일 이미지를 y축 방향으로 90도 회전 (항상 카메라를 봐라 보도록 설정)
-                child.eulerAngles.y = .pi / 2
-                sourceNode.addChildNode(child)
-            }
-        }
+        let sourceNode = makeUsdzNode(fileName: "Pin", scale: 0.1, angleTF: true)
+//        let file = "Pin"
+//        guard let fileUrl = Bundle.main.url(forResource: file, withExtension: "usdz") else {
+//                fatalError()
+//        }
+//        let scene = try? SCNScene(url: fileUrl, options: nil)
+//        let sourceNode = SCNNode()
+//
+//        
+//        if let scene = scene {
+//            for child in scene.rootNode.childNodes {
+//                child.scale = SCNVector3(0.1, 0.1, 0.1)
+//                
+//                // usdz 파일 이미지를 y축 방향으로 90도 회전 (항상 카메라를 봐라 보도록 설정)
+//                child.eulerAngles.y = .pi / 2
+//                sourceNode.addChildNode(child)
+//            }
+//        }
         
         let source = self.currentLocation!   // 현재 위치
         let firstNode = route[0]    // 경로의 첫번째 위치를 가져옴
@@ -407,6 +408,25 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
                                        secondPosition.y - firstPosition.y,
                                        secondPosition.z - firstPosition.z)
         let yAngle = atan(dirVector.x / dirVector.z) // 공통 회전각 - 각 화살표 노드의 오일러 회전 y 값 
+    }
+    
+    // usdz 파일 노드 생성
+    private func makeUsdzNode(fileName : String, scale : Float, angleTF : Bool) -> SCNNode {
+        let file = fileName
+        guard let fileUrl = Bundle.main.url(forResource: file, withExtension: "usdz") else {
+            fatalError()
+        }
+        let scene = try? SCNScene(url: fileUrl, options: nil)
+        let node = SCNNode()
+        
+        if let scene = scene {
+            for child in scene.rootNode.childNodes {
+                child.scale = SCNVector3(scale, scale, scale)
+                child.eulerAngles.y = angleTF ? .pi / 2 : child.eulerAngles.y
+                node.addChildNode(child)
+            }
+        }
+        return node
     }
 }
 
