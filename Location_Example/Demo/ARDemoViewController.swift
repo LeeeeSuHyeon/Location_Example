@@ -28,6 +28,13 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     var stepData = [Step]()                      // 출발지와 목적지 사이 중간 위치들
     
     var routeDetail : [LocationDetails] = [] // route의 디테일 설정
+    
+    // 화살표 노드 배열
+    var middleNodeLocation = [SCNNode]()
+    
+    // 화살표 노드를 생성한 루트 인덱스
+    var createdRouteIndex = [Int]()
+    var nextRoute = 0
 
     init(coreLocation : CoreLocationEx, route : [CLLocationCoordinate2D]){
         self.coreLocation = coreLocation
@@ -133,6 +140,29 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
             print("arConfigurationInitialize - Error")
         }
     } // end of arConfigurationInitialize()
+    
+    // CoreLocation() Class 에서 현재 위치 변경 시 호출될 메서드
+    func changeLocation(location : CLLocationCoordinate2D){
+        // 일정 거리 이내에 있는 루트 노드만 생성 (20m)
+        let boundary = 20
+        
+        // nextRoute 번째 노드까지의 거리를 구하여 boundary 이내이고 cre
+        
+        
+        if createdRouteIndex.isEmpty {
+            placeSourceNode()
+            createdRouteIndex.append(0)
+            nextRoute += 1
+        }
+        else if createdRouteIndex.count == route.count - 1 {   // 마지막 경로의 전 노드를 생성했다면
+            placeDestinationNode()
+            createdRouteIndex.append(route.count - 1)
+        }
+
+        else if createdRouteIndex.count < route.count && !createdRouteIndex.contains(nextRoute) {
+            
+        }
+    }
     
     
     // AR 뷰 설정
@@ -390,9 +420,6 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         let secondNode = makeUsdzNode(fileName: "threeArrows", scale: 0.05, middle: false)
         secondNode.transform = secondTransformation
         let secondPosition = secondNode.position
- 
-        // 화살표 노드 배열
-        var middleNodeLocation = [SCNNode]()
         
         // 두 노드 사이의 방향 벡터 계산
         let dirVector = SCNVector3Make(secondPosition.x - firstPosition.x,
