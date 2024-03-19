@@ -45,6 +45,7 @@ class CoreLocationEx: NSObject, ObservableObject, CLLocationManagerDelegate {
         guard let newLocation = locations.last else { return }
                DispatchQueue.main.async {
                    self.location = newLocation
+                   
                }
 
         // startUpdatingLocation()을 사용하여 사용자 위치를 가져왔다면

@@ -11,6 +11,7 @@ import CoreLocation
 
 struct ARDemoVCWrapper: UIViewControllerRepresentable {
     
+    // obeservedObject로 수정해야 할듯 -> 변경될 때마다 경로 추가 함수 호출되도록 
     var coreLocation: CoreLocationEx
     var route : [CLLocationCoordinate2D]
     

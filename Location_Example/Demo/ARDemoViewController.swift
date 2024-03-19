@@ -144,23 +144,28 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     // CoreLocation() Class 에서 현재 위치 변경 시 호출될 메서드
     func changeLocation(location : CLLocationCoordinate2D){
         // 일정 거리 이내에 있는 루트 노드만 생성 (20m)
-        let boundary = 20
+        let boundary : Double = 20
         
-        // nextRoute 번째 노드까지의 거리를 구하여 boundary 이내이고 cre
+        // 다음 노드까지의 거리
+        let nextDistance = distanceBetweenCoordinate(source: location, destination: route[nextRoute])
+ 
         
-        
+        // 첫 시작 노드
         if createdRouteIndex.isEmpty {
             placeSourceNode()
             createdRouteIndex.append(0)
             nextRoute += 1
         }
-        else if createdRouteIndex.count == route.count - 1 {   // 마지막 경로의 전 노드를 생성했다면
+        // 마지막 경로의 전 노드를 생성했다면
+        else if createdRouteIndex.count == route.count - 1 {
             placeDestinationNode()
             createdRouteIndex.append(route.count - 1)
         }
-
-        else if createdRouteIndex.count < route.count && !createdRouteIndex.contains(nextRoute) {
-            
+        // 시작 노드 설치 된 후 계속 호출됨
+        else if createdRouteIndex.count < route.count &&
+                    nextDistance < boundary &&
+                    !createdRouteIndex.contains(nextRoute) {
+            createArrowNode(currentLocation: location, firstLocation: route[nextRoute - 1], secondLocation: route[nextRoute])
         }
     }
     
