@@ -5,6 +5,7 @@
 //  Created by 이수현 on 2024/03/14.
 //
 
+// @ObsevedObject 변수 사용하려면 UIHostingController 사용?
 import Foundation
 import UIKit
 import CoreLocation
