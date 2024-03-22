@@ -47,6 +47,15 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // CoreLocation의 location 속성을 관찰하여 위치가 변경될 때마다 호출될 함수
+    // Combine 추가하고 공부해야 됨
+    private func observeLocationChange() {
+        coreLocation.$location.sink { [weak self] location in
+            guard let location = location else { return }
+            self?.changeLocation(location: location.coordinate)
+        }
+//        .store(in: &cancellables)
+    }
     
     // MARK: - override method
     override func viewDidLoad() {
