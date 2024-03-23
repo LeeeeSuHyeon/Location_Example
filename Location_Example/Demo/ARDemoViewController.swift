@@ -486,7 +486,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
             for child in scene.rootNode.childNodes {
                 child.scale = SCNVector3(scale, scale, scale)
                 if middle {
-                    child.eulerAngles.x = .pi / 2
+//                    child.eulerAngles.x = .pi / 2
 
                 }
                 else {
