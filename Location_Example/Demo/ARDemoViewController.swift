@@ -452,10 +452,10 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         let stepSize = Float(5) / distanceBetweenNodes
 
         // 첫 번째 화살표 노드의 위치 계산
-        var currentNodePosition = firstPosition
+//        var currentNodePosition = firstPosition
 
         // 첫 번째 화살표 노드를 제외한 나머지 화살표 노드 생성
-        for i in 1...Int(interval) {
+        for i in 0...Int(interval) {
             // 다음 화살표 노드의 위치 계산
             let fraction = stepSize * Float(i)
             let intermediatePosition = SCNVector3(
@@ -468,7 +468,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
             let node = makeUsdzNode(fileName: "middleArrow", scale: 0.01, middle: true)
             node.position = intermediatePosition
             node.childNodes.map { $0.eulerAngles.y = yAngle }
-//            middleNodeLocation.append(node)
+//            middleNodeLocation.append(node) // 씬에 추가는 다른 조건에 하기 위함
             sceneView.scene.rootNode.addChildNode(node)
         }
     }
