@@ -14,6 +14,7 @@ import AVFoundation
 import ARKit
 import SceneKit.ModelIO // usdz 파일을 가져오기 위한 프레임워크
 
+
 class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     var sceneView: ARSCNView!
@@ -153,8 +154,11 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     
     // CoreLocation() Class 에서 현재 위치 변경 시 호출될 메서드
     func changeLocation(location : CLLocationCoordinate2D){
-        // 일정 거리 이내에 있는 루트 노드만 생성 (20m)
-        let boundary : Double = 20
+        // 일정 거리 이내에 있는 경로 노드만 생성 (20m)
+        let routeBoundary : Double = 20
+        
+        // 경로 노드 사이의 화살표 노드는 10m 이내에 접근할 때 AR 화면에 출력 -> 화살표 노도의 고도를 이동하는 사용자와 일치 시키기 위해
+        let nodeBoundary : Double = 10
         
         // 다음 노드까지의 거리
         let nextDistance = distanceBetweenCoordinate(source: location, destination: route[nextRoute])
@@ -173,7 +177,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
         }
         // 시작 노드 설치 된 후 계속 호출됨
         else if createdRouteIndex.count < route.count &&
-                    nextDistance < boundary &&
+                    nextDistance < routeBoundary &&
                     !createdRouteIndex.contains(nextRoute) {
             createArrowNode(currentLocation: location, firstLocation: route[nextRoute - 1], secondLocation: route[nextRoute])
         }
