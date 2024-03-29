@@ -29,6 +29,9 @@
 		CBB2532A2B664AD700DD408C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBB253292B664AD700DD408C /* Preview Assets.xcassets */; };
 		CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB253302B664B0100DD408C /* CoreLocationEx.swift */; };
 		CBC299282B7E52F80026C908 /* right.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CBC299272B7E52F80026C908 /* right.usdz */; };
+		CBCB2E7B2BB6C7C4008FA272 /* MyTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB2E7A2BB6C7C4008FA272 /* MyTimer.swift */; };
+		CBCB2E7E2BB6CA2D008FA272 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB2E7D2BB6CA2D008FA272 /* TimerView.swift */; };
+		CBCB2E802BB6CAFB008FA272 /* CLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB2E7F2BB6CAFB008FA272 /* CLocation.swift */; };
 		CBD4B2652B91898200075BA8 /* coreMotionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4B2642B91898200075BA8 /* coreMotionRequest.swift */; };
 		CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4B2662B93337700075BA8 /* NaverMap.swift */; };
 		CBEC01472BA2BD48008F5996 /* ARDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01462BA2BD48008F5996 /* ARDemoViewController.swift */; };
@@ -70,6 +73,9 @@
 		CBB253292B664AD700DD408C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CBB253302B664B0100DD408C /* CoreLocationEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationEx.swift; sourceTree = "<group>"; };
 		CBC299272B7E52F80026C908 /* right.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = right.usdz; sourceTree = "<group>"; };
+		CBCB2E7A2BB6C7C4008FA272 /* MyTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTimer.swift; sourceTree = "<group>"; };
+		CBCB2E7D2BB6CA2D008FA272 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		CBCB2E7F2BB6CAFB008FA272 /* CLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLocation.swift; sourceTree = "<group>"; };
 		CBD4B2642B91898200075BA8 /* coreMotionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coreMotionRequest.swift; sourceTree = "<group>"; };
 		CBD4B2662B93337700075BA8 /* NaverMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMap.swift; sourceTree = "<group>"; };
 		CBEC01462BA2BD48008F5996 /* ARDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDemoViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +172,7 @@
 		CBB253212B664AD600DD408C /* Location_Example */ = {
 			isa = PBXGroup;
 			children = (
+				CBCB2E7C2BB6C91A008FA272 /* Timer */,
 				CB24F3A82BA86E9B00A349D3 /* Usdz */,
 				CBB253222B664AD600DD408C /* Location_ExampleApp.swift */,
 				CBEC01452BA2BD2C008F5996 /* Demo */,
@@ -192,6 +199,16 @@
 				CBB253292B664AD700DD408C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CBCB2E7C2BB6C91A008FA272 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				CBCB2E7A2BB6C7C4008FA272 /* MyTimer.swift */,
+				CBCB2E7D2BB6CA2D008FA272 /* TimerView.swift */,
+				CBCB2E7F2BB6CAFB008FA272 /* CLocation.swift */,
+			);
+			path = Timer;
 			sourceTree = "<group>";
 		};
 		CBD4B2632B91893500075BA8 /* Model */ = {
@@ -340,6 +357,7 @@
 				CB0BD9222B9C459200C08018 /* ARCLViewControllerWrapper.swift in Sources */,
 				CBB253252B664AD600DD408C /* ContentView.swift in Sources */,
 				CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */,
+				CBCB2E802BB6CAFB008FA272 /* CLocation.swift in Sources */,
 				CB0BD92F2B9DEC0400C08018 /* SceneLocationView.swift in Sources */,
 				CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */,
 				CBEC01592BA30241008F5996 /* ARDemoContentView.swift in Sources */,
@@ -353,11 +371,13 @@
 				CB35B9972B9980AC00BD38BD /* PathData.swift in Sources */,
 				CB0BD9292B9D805F00C08018 /* ARCLMap.swift in Sources */,
 				CBAC22C42B90BB6200A79A61 /* CoreMotionEx.swift in Sources */,
+				CBCB2E7E2BB6CA2D008FA272 /* TimerView.swift in Sources */,
 				CBEC01572BA2E25E008F5996 /* ARDemoVCWrapper.swift in Sources */,
 				CBEC01472BA2BD48008F5996 /* ARDemoViewController.swift in Sources */,
 				CB6383C62B7110DC00A18255 /* ARTest.swift in Sources */,
 				CBEC01512BA2CCBE008F5996 /* Constant.swift in Sources */,
 				CBB253232B664AD600DD408C /* Location_ExampleApp.swift in Sources */,
+				CBCB2E7B2BB6C7C4008FA272 /* MyTimer.swift in Sources */,
 				CB0BD9312B9DEC1F00C08018 /* PolylineNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

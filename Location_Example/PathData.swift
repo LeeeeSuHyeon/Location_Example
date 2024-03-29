@@ -92,6 +92,12 @@ struct PathData {
         CLLocationCoordinate2D(latitude: 37.452954, longitude: 127.134127),
         
     ]
+    let CLroute : [CLLocation] = [
+        CLLocation(latitude: 37.452865, longitude: 127.133457),
+        CLLocation(latitude: 37.452643, longitude: 127.133596),
+        CLLocation(latitude: 37.452954, longitude: 127.134127),
+        
+    ]
     
     
     // 중도 주차장 -> 운동장
