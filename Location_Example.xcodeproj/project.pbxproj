@@ -32,6 +32,7 @@
 		CBCB2E7B2BB6C7C4008FA272 /* MyTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB2E7A2BB6C7C4008FA272 /* MyTimer.swift */; };
 		CBCB2E7E2BB6CA2D008FA272 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB2E7D2BB6CA2D008FA272 /* TimerView.swift */; };
 		CBCB2E802BB6CAFB008FA272 /* CLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB2E7F2BB6CAFB008FA272 /* CLocation.swift */; };
+		CBCB2E822BB6D473008FA272 /* TimerMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCB2E812BB6D473008FA272 /* TimerMap.swift */; };
 		CBD4B2652B91898200075BA8 /* coreMotionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4B2642B91898200075BA8 /* coreMotionRequest.swift */; };
 		CBD4B2672B93337700075BA8 /* NaverMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD4B2662B93337700075BA8 /* NaverMap.swift */; };
 		CBEC01472BA2BD48008F5996 /* ARDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01462BA2BD48008F5996 /* ARDemoViewController.swift */; };
@@ -76,6 +77,7 @@
 		CBCB2E7A2BB6C7C4008FA272 /* MyTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTimer.swift; sourceTree = "<group>"; };
 		CBCB2E7D2BB6CA2D008FA272 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		CBCB2E7F2BB6CAFB008FA272 /* CLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLocation.swift; sourceTree = "<group>"; };
+		CBCB2E812BB6D473008FA272 /* TimerMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerMap.swift; sourceTree = "<group>"; };
 		CBD4B2642B91898200075BA8 /* coreMotionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coreMotionRequest.swift; sourceTree = "<group>"; };
 		CBD4B2662B93337700075BA8 /* NaverMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMap.swift; sourceTree = "<group>"; };
 		CBEC01462BA2BD48008F5996 /* ARDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDemoViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				CBCB2E7A2BB6C7C4008FA272 /* MyTimer.swift */,
 				CBCB2E7D2BB6CA2D008FA272 /* TimerView.swift */,
 				CBCB2E7F2BB6CAFB008FA272 /* CLocation.swift */,
+				CBCB2E812BB6D473008FA272 /* TimerMap.swift */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				CBCB2E802BB6CAFB008FA272 /* CLocation.swift in Sources */,
 				CB0BD92F2B9DEC0400C08018 /* SceneLocationView.swift in Sources */,
 				CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */,
+				CBCB2E822BB6D473008FA272 /* TimerMap.swift in Sources */,
 				CBEC01592BA30241008F5996 /* ARDemoContentView.swift in Sources */,
 				CB0BD9262B9C627000C08018 /* MatrixHelper.swift in Sources */,
 				CBEC014F2BA2BF76008F5996 /* GetIntermediateCorodinate.swift in Sources */,

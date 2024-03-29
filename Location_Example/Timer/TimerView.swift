@@ -13,19 +13,26 @@ struct TimerView: View {
     
     @State var time : Int = 0
 
-    let route = PathData().route
-    
+    let route = PathData().CLroute
+
     var body: some View {
-        Text("노드 간 소요시간 확인 : \(time)")
-        
-        VStack{
-            ForEach(0..<cLocation.timeList.count, id: \.self) { index in
-                Text("노드 \(index+1): \(self.cLocation.timeList[index])")
+        if cLocation.location != nil{
+            Text("노드 간 소요시간 확인 : \(time)")
+            
+            VStack{
+                ForEach(0..<cLocation.timeList.count, id: \.self) { index in
+                    Text("노드 \(index+1): \(self.cLocation.timeList[index])")
+                }
+                .padding()
             }
-            .padding()
-        }
-        .onReceive(cLocation.timer.$seconds) { second in
-            self.time = second
+            .onReceive(cLocation.timer.$seconds) { second in
+                self.time = second
+            }
+            Spacer()
+            TimerMap(coreLocation: cLocation, route: route)
+                .frame(height: 200)
+                .edgesIgnoringSafeArea(.bottom)
+                
         }
     }
 }
