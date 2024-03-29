@@ -92,14 +92,16 @@ struct PathData {
         CLLocationCoordinate2D(latitude: 37.452954, longitude: 127.134127),
         
     ]
+    
+    // 소요시간 
     let CLroute : [CLLocation] = [
         CLLocation(latitude: 37.452539, longitude: 127.132948),
         CLLocation(latitude: 37.452614, longitude: 127.133104),
-        CLLocation(latitude: 37.452691, longitude: 127.132962),
-        CLLocation(latitude: 37.452845, longitude: 127.133226),
-        CLLocation(latitude: 37.452600, longitude: 127.132592),
-        CLLocation(latitude: 37.452541, longitude: 127.132951)
-        
+        CLLocation(latitude: 37.452691, longitude: 127.133104),
+        CLLocation(latitude: 37.452717, longitude: 127.132873),
+        CLLocation(latitude: 37.452610, longitude: 127.132822),
+        CLLocation(latitude: 37.452508, longitude: 127.132851),
+
     ]
     
     

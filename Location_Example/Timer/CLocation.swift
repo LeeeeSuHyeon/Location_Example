@@ -12,7 +12,7 @@ class CLocation: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     @Published var location: CLLocation?
     @Published var time : Int?
-    @Published var timeList: [Any] = ["출발 시작"]
+    @Published var timeList: [Any] = []
     
     let timer = MyTimer()
     let route = PathData().CLroute
@@ -51,18 +51,27 @@ class CLocation: NSObject, ObservableObject, CLLocationManagerDelegate {
                }
         if start {
             // route 배열의 크기 만큼만 진행
-            if index < route.count {
+            if index <= route.count {
                 // 목표 위치와의 거리 계산
                 let distance = newLocation.distance(from: route[index])
                 print("index : \(index)")
                 print("distance : \(distance)")
                 // 거리가 5미터 이내일 때 타이머 시작
                 if distance <= 5 {
-                    time = timer.seconds
-                    timeList.append(time ?? 0)
-                    timer.stopTimer()
-                    timer.startTimer()
-                    index += 1
+                
+                    if timeList.isEmpty {
+                        timeList.append("출발지 도착")
+                        timer.startTimer()
+                        index += 1
+                    }
+                    else{ 
+                        time = timer.seconds
+                        timeList.append(time ?? 0)
+                        timer.stopTimer()
+                        timer.startTimer()
+                        index += 1
+                        
+                    }
                 }
             }
             else {
