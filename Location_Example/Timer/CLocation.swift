@@ -12,11 +12,12 @@ class CLocation: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     @Published var location: CLLocation?
     @Published var time : Int?
-    @Published var timeList: [Int] = []
+    @Published var timeList: [Any] = ["출발 시작"]
     
     let timer = MyTimer()
     let route = PathData().CLroute
     var index = 0
+    var start = true
     
     var locationManager = CLLocationManager()   // locationManager 인스턴스를 생성하여 위치 관련 작업을 수행
     
@@ -48,24 +49,28 @@ class CLocation: NSObject, ObservableObject, CLLocationManagerDelegate {
                DispatchQueue.main.async {
                    self.location = newLocation
                }
-        // route 배열의 크기 만큼만 진행
-        if index < route.count {
-            // 목표 위치와의 거리 계산
-            let distance = newLocation.distance(from: route[index])
-            
-            // 거리가 3미터 이내일 때 타이머 시작
-            if distance <= 3 {
-                time = timer.seconds
-                timeList.append(time ?? 0)
+        if start {
+            // route 배열의 크기 만큼만 진행
+            if index < route.count {
+                // 목표 위치와의 거리 계산
+                let distance = newLocation.distance(from: route[index])
+                print("index : \(index)")
+                print("distance : \(distance)")
+                // 거리가 5미터 이내일 때 타이머 시작
+                if distance <= 5 {
+                    time = timer.seconds
+                    timeList.append(time ?? 0)
+                    timer.stopTimer()
+                    timer.startTimer()
+                    index += 1
+                }
+            }
+            else {
                 timer.stopTimer()
-                timer.startTimer()
-                index += 1
+                start = false
+                print("모든 노드 종료")
             }
         }
-        else {
-            timer.stopTimer()
-        }
-        
     }
 
     

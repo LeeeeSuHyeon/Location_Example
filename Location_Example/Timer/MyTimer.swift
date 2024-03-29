@@ -14,6 +14,7 @@ class MyTimer : ObservableObject {
     
     func stopTimer() {
         timer?.invalidate()
+        seconds = 0
         timer = nil
     }
     

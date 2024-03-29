@@ -21,7 +21,11 @@ struct TimerView: View {
             
             VStack{
                 ForEach(0..<cLocation.timeList.count, id: \.self) { index in
-                    Text("노드 \(index+1): \(self.cLocation.timeList[index])")
+                    Text("노드 \(index) - 노드\(index + 1): \(self.cLocation.timeList[index])초")
+                    if(route.count - 1 == index){
+                        Text("모든 노드 종료")
+                    }
+                    
                 }
                 .padding()
             }
