@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct coreMotionRequest : Encodable {
+struct coreMotionResponse : Encodable {
     var accValueX : Double
     var accValueY : Double
     var accValueZ: Double

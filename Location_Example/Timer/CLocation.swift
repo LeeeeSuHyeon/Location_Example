@@ -12,10 +12,10 @@ class CLocation: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     @Published var location: CLLocation?
     @Published var time : Int?
-    @Published var timeList: [Any] = []
+    @Published var timeList: [Int] = []
     
     let timer = MyTimer()
-    let route = PathData().CLroute
+    let route = PathData().test
     var index = 0
     var start = true
     
@@ -60,7 +60,8 @@ class CLocation: NSObject, ObservableObject, CLLocationManagerDelegate {
                 if distance <= 5 {
                 
                     if timeList.isEmpty {
-                        timeList.append("출발지 도착")
+//                        timeList.append("출발지 도착")
+                        timeList.append(time ?? 0)
                         timer.startTimer()
                         index += 1
                     }

@@ -138,4 +138,13 @@ struct PathData {
         CLLocationCoordinate2D(latitude: 37.452353, longitude: 127.131802),
         CLLocationCoordinate2D(latitude: 37.452043, longitude: 127.131665),
     ]
+    
+    
+    let test : [CLLocation] = [
+        CLLocation(latitude: 37.450931, longitude: 127.127315),
+        CLLocation(latitude: 37.450635, longitude: 127.127601),
+        CLLocation(latitude: 37.451251, longitude: 127.127608),
+        CLLocation(latitude: 37.451495, longitude: 127.127438),
+        CLLocation(latitude: 37.451669, longitude: 127.127610),
+    ]
 }

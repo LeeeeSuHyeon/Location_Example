@@ -93,7 +93,7 @@ struct CoreMotionEx: View {
                 let dateString = dateFormatter.string(from: date)
                 
                 
-                var param = coreMotionRequest(
+                var param = coreMotionResponse(
                     accValueX: Double(motionManager.acceleration?.x ?? 0),
                     accValueY: Double(motionManager.acceleration?.y ?? 0),
                     accValueZ: Double(motionManager.acceleration?.z ?? 0),
@@ -111,7 +111,7 @@ struct CoreMotionEx: View {
         }
     }
     
-    func postData(parameter : coreMotionRequest) {
+    func postData(parameter : coreMotionResponse) {
         // API 요청을 보낼 URL 생성
         guard let url = URL(string: "https://c896-210-119-237-40.ngrok-free.app/save/data") else {
             print("Invalid URL")
