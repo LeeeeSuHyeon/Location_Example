@@ -141,7 +141,7 @@ struct PathData {
     
     
     let test : [CLLocation] = [
-        CLLocation(latitude: 37.450931, longitude: 127.127315),
+        CLLocation(latitude: 37.450629, longitude: 127.127454),
         CLLocation(latitude: 37.450635, longitude: 127.127601),
         CLLocation(latitude: 37.451251, longitude: 127.127608),
         CLLocation(latitude: 37.451495, longitude: 127.127438),

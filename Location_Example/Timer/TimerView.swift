@@ -26,10 +26,10 @@ struct TimerView: View {
                         .onAppear(){
                             if index != 0 {
                                 let param = TimerRequest(
-                                    point1_x: Double(route[index].coordinate.latitude),
-                                    point1_y: Double(route[index].coordinate.longitude),
-                                    point2_x: Double(route[index+1].coordinate.latitude),
-                                    point2_y: Double(route[index+1].coordinate.longitude),
+                                    point1_x: Double(route[index - 1].coordinate.latitude),
+                                    point1_y: Double(route[index - 1].coordinate.longitude),
+                                    point2_x: Double(route[index].coordinate.latitude),
+                                    point2_y: Double(route[index].coordinate.longitude),
                                     takeTime: Double(self.cLocation.timeList[index])
                                 )
                                 print("param \(param)")
@@ -39,7 +39,18 @@ struct TimerView: View {
                     
                     if(route.count - 1 == index){
                         Text("모든 노드 종료")
-                        
+                            .onAppear(){
+                                let param = TimerRequest(
+                                    point1_x: Double(route[index - 1].coordinate.latitude),
+                                    point1_y: Double(route[index - 1].coordinate.longitude),
+                                    point2_x: Double(route[index].coordinate.latitude),
+                                    point2_y: Double(route[index].coordinate.longitude),
+                                    takeTime: Double(self.cLocation.timeList[index])
+                                )
+                                print("param \(param)")
+                                postData(parameter : param)
+                            
+                            }
                     }
                     
                 }
