@@ -184,7 +184,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     }
     
     
-    // AR 뷰 설정
+//     AR 뷰 설정
 //    private func arViewSetup() {
 //        placeSourceNode() // 출발지 노드 배치
 //
@@ -277,7 +277,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     } // end of placeSourceNode()
     
     
-    // 목적지 노드를 AR 환경에 배치
+//     목적지 노드를 AR 환경에 배치
 //    private func placeMiddleNode(currentLocation: CLLocationCoordinate2D, start :CLLocationCoordinate2D, end: CLLocationCoordinate2D, next: CLLocationCoordinate2D, text: String) {
 //        print("placeMiddleNode - currentLocation : \(currentLocation), start : \(start) end : \(end)")
 //        let distance = distanceBetweenCoordinate(source: currentLocation, destination: end)
@@ -360,7 +360,7 @@ class ARDemoViewController : UIViewController, ARSCNViewDelegate {
     } // end of tansformMatrix
     
     
-    // 출발지와 목적지 사이에 실린더 노드 배치하는 역할
+//     출발지와 목적지 사이에 실린더 노드 배치하는 역할
 //    private func placeCylinder(source: SCNVector3, destination: SCNVector3) -> SCNNode{
 //        let height = source.distance(receiver: destination)
 //        let cylinder = SCNCylinder(radius: ArkitNodeDimension.cylinderRadius, height: CGFloat(height))

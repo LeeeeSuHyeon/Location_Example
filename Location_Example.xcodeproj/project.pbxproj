@@ -19,6 +19,7 @@
 		CB24F3AD2BA86ECC00A349D3 /* middleArrow.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CB24F3AA2BA86ECC00A349D3 /* middleArrow.usdz */; };
 		CB24F3AE2BA86ECC00A349D3 /* Pin.usdz in Resources */ = {isa = PBXBuildFile; fileRef = CB24F3AB2BA86ECC00A349D3 /* Pin.usdz */; };
 		CB35B9972B9980AC00BD38BD /* PathData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB35B9962B9980AC00BD38BD /* PathData.swift */; };
+		CB4EF6252BD002C100BDC73A /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4EF6242BD002C100BDC73A /* PasswordView.swift */; };
 		CB6383C62B7110DC00A18255 /* ARTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C52B7110DC00A18255 /* ARTest.swift */; };
 		CB6383C82B73BFBA00A18255 /* UseMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6383C72B73BFBA00A18255 /* UseMap.swift */; };
 		CB664BE72BB79DE70086E136 /* timerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB664BE62BB79DE70086E136 /* timerResponse.swift */; };
@@ -64,6 +65,7 @@
 		CB24F3AB2BA86ECC00A349D3 /* Pin.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Pin.usdz; sourceTree = "<group>"; };
 		CB35B9962B9980AC00BD38BD /* PathData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathData.swift; sourceTree = "<group>"; };
 		CB3FA7782B946B1A005D770E /* Location-Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Location-Example-Info.plist"; sourceTree = SOURCE_ROOT; };
+		CB4EF6242BD002C100BDC73A /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		CB6383C52B7110DC00A18255 /* ARTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARTest.swift; sourceTree = "<group>"; };
 		CB6383C72B73BFBA00A18255 /* UseMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseMap.swift; sourceTree = "<group>"; };
 		CB664BE62BB79DE70086E136 /* timerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timerResponse.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 			children = (
 				CBD4B2642B91898200075BA8 /* coreMotionResponse.swift */,
 				CB664BE62BB79DE70086E136 /* timerResponse.swift */,
+				CB4EF6242BD002C100BDC73A /* PasswordView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				CBEC01572BA2E25E008F5996 /* ARDemoVCWrapper.swift in Sources */,
 				CBEC01472BA2BD48008F5996 /* ARDemoViewController.swift in Sources */,
 				CB6383C62B7110DC00A18255 /* ARTest.swift in Sources */,
+				CB4EF6252BD002C100BDC73A /* PasswordView.swift in Sources */,
 				CBEC01512BA2CCBE008F5996 /* Constant.swift in Sources */,
 				CBB253232B664AD600DD408C /* Location_ExampleApp.swift in Sources */,
 				CBCB2E7B2BB6C7C4008FA272 /* MyTimer.swift in Sources */,
