@@ -41,10 +41,10 @@ open class LocationAnnotationNode: LocationNode {
     public var annotationHeightAdjustmentFactor = 1.1
     
     
+    // ==========================================================================================
     // 노드 init 추가
     public init(location : CLLocation?, node : SCNNode){
         annotationNode = AnnotationNode(view: nil, image: nil, node: node)
-//        annotationNode.geometry
         annotationNode.removeFlicker()
         super.init(location: location)
         
@@ -54,6 +54,8 @@ open class LocationAnnotationNode: LocationNode {
 
         addChildNode(annotationNode)
     }
+    
+    // ==========================================================================================
     
     public init(location: CLLocation?, image: UIImage) {
         let plane = SCNPlane(width: image.size.width / 100, height: image.size.height / 100)
@@ -110,6 +112,10 @@ open class LocationAnnotationNode: LocationNode {
     /// Note: we repeat code from `LocationNode`'s implementation of this function. Is this because of the use of `SCNTransaction`
     /// to wrap the changes? It's legal to nest the calls, should consider this if any more changes to
     /// `LocationNode`'s implementation are needed.
+    ///
+    ///
+    
+    // LocationNode에서 이미 정의하고 있고 거의 다 polyline 그릴 때 사용해서 필요 없을듯 싶음 
 //    override func updatePositionAndScale(setup: Bool = false, scenePosition: SCNVector3?,
 //                                         locationNodeLocation nodeLocation: CLLocation,
 //                                         locationManager: SceneLocationManager,

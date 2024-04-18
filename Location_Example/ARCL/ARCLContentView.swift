@@ -16,7 +16,7 @@ struct ARCLContentView: View {
     
     var body: some View {
 
-        let path = Path().ITtoGachon
+        let path = Path().edu
         
         if coreLocation.location != nil{
             VStack{

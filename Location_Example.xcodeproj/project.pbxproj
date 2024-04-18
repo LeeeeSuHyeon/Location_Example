@@ -193,9 +193,9 @@
 		CBB253212B664AD600DD408C /* Location_Example */ = {
 			isa = PBXGroup;
 			children = (
+				CBB253222B664AD600DD408C /* Location_ExampleApp.swift */,
 				CBCB2E7C2BB6C91A008FA272 /* Timer */,
 				CB24F3A82BA86E9B00A349D3 /* Usdz */,
-				CBB253222B664AD600DD408C /* Location_ExampleApp.swift */,
 				CBEC01452BA2BD2C008F5996 /* Demo */,
 				CB0BD9272B9D805300C08018 /* ARCL */,
 				CB3FA7782B946B1A005D770E /* Location-Example-Info.plist */,

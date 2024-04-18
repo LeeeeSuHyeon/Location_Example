@@ -195,6 +195,36 @@ class Path {
 //             coordinate: CLLocationCoordinate2D(latitude: 37.4524433, longitude: 127.1331701)),
     ]
     
+    
+    let edu : [Node] = [
+        Node(name: "E-1", location: CLLocation(coordinate: CLLocationCoordinate2D(
+            latitude: 37.4524204,
+            longitude: 127.1319354),
+            altitude: 75.4579715, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: Date())),
+        
+        Node(name: "E-2", location: CLLocation(coordinate: CLLocationCoordinate2D(
+            latitude: 37.4522185,
+            longitude: 127.1320309),
+            altitude: 76.4579715, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: Date())),
+        
+        Node(name: "E-3", location: CLLocation(coordinate: CLLocationCoordinate2D(
+            latitude: 37.4525377,
+            longitude: 127.1322478),
+            altitude: 70.4579715, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: Date())),
+        
+        Node(name: "E-4", location: CLLocation(coordinate: CLLocationCoordinate2D(
+            latitude: 37.4520720,
+            longitude: 127.1324146),
+            altitude: 80.4579715, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: Date())),
+        
+        Node(name: "E-5", location: CLLocation(coordinate: CLLocationCoordinate2D(
+            latitude: 37.4522674,
+            longitude: 127.1324846),
+            altitude: 65.4579715, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: Date())),
+    ]
+    
+    
+    
 //    let Library1 : [Node] = [
 //        Node(name: "L1-1", latitude: 37.4525300, longitude: 127.1334579, altitude: 82.1884449),
 //        Node(name: "L1-2", latitude: 37.4527988, longitude: 127.1338672, altitude: 90.1467710),
