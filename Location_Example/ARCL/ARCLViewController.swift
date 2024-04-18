@@ -13,10 +13,19 @@ import MapKit
 import ARKit
 
 
-class ARCLViewController: UIViewController {
-    var sceneLocationView = SceneLocationView()
+class ARCLViewController: UIViewController, ARSCNViewDelegate {
+    var sceneLocationView: SceneLocationView?
     var path : [Node]
     var coreLocation : CoreLocationEx
+    
+    public var locationEstimateMethod = LocationEstimateMethod.mostRelevantEstimate // 위치 추정 방법
+    public var arTrackingType = SceneLocationView.ARTrackingType.orientationTracking // AR 추적 타입 (orientation : 방향 추적, world : 평면 추적)
+    public var scalingScheme = ScalingScheme.normal // 스케일링 방식
+        
+    // 노드 위치를 조정하고 크기를 업데이트하는데 필요한 변수
+    public var continuallyAdjustNodePositionWhenWithinRange = true
+    public var continuallyUpdatePositionAndScale = true
+    public var annotationHeightAdjustmentFactor = 1.1
     
     init(path : [Node], coreLocation : CoreLocationEx) {
 
@@ -34,116 +43,63 @@ class ARCLViewController: UIViewController {
         super.viewDidLoad()
 
         // sceneLocationView.pause()다른 보기로 이동하거나 앱을 종료하는 등 중단되는 경우 호출
-        sceneLocationView.run()
-        view.addSubview(sceneLocationView)
+//        sceneLocationView.run()
+//        view.addSubview(sceneLocationView)
         
         
-        let sceneNode = LocationNode(location: path[0].location)
-        sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: [sceneNode])
-        
-        
+//        let sceneNode = LocationNode(location: path[0].location)
+//        sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: [sceneNode])
     }
+    
+    //SceneLocationView() 재구성 함수
+    func rebuildSceneLocationView() {
+         sceneLocationView?.removeFromSuperview()
+        let newSceneLocationView = SceneLocationView.init(trackingType: arTrackingType, frame: view.frame, options: nil)
+         newSceneLocationView.translatesAutoresizingMaskIntoConstraints = false
+         newSceneLocationView.arViewDelegate = self
+         newSceneLocationView.locationEstimateMethod = locationEstimateMethod
+
+//         newSceneLocationView.debugOptions = [.showWorldOrigin]
+         newSceneLocationView.showsStatistics = true
+         newSceneLocationView.showAxesNode = false // don't need ARCL's axesNode because we're showing SceneKit's
+         newSceneLocationView.autoenablesDefaultLighting = true
+         view.addSubview(newSceneLocationView)
+         sceneLocationView = newSceneLocationView
+     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        rebuildSceneLocationView()  // SceneLocationView() 재구성
+        
+        // 노드 추가 함수
+        
+        sceneLocationView?.run()    // SceneLocationView 시작
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+         sceneLocationView?.removeAllNodes()
+         sceneLocationView?.pause()
+         super.viewWillDisappear(animated)
+     }
+    
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        sceneLocationView?.frame = view.bounds
+    }
+    
+    // 노드 기본 설정 (노드가 추가된 후에 각 노드에 대해 수행되는 작업)
+    func addScenewideNodeSettings(_ node: LocationNode) {
+        if let annoNode = node as? LocationAnnotationNode {
+            annoNode.annotationHeightAdjustmentFactor = annotationHeightAdjustmentFactor // 노드 높이 조절
+        }
+        node.scalingScheme = scalingScheme      //노드의 크기 조절 방식을 결정
+        // FIXME: We should be able to do this, or do it internally in addLocationNode...() calls, to match
+        // SceneLocationView's setting.
+//         node.locationEstimateMethod = locationEstimateMethod
         
-        
-        sceneLocationView.frame = view.bounds
+        // 노드가 범위 내에 있을 때 노드의 위치를 지속적으로 조정하도록 설정하고, 위치와 크기를 계속해서 업데이트하도록 설정합니다.
+        node.continuallyAdjustNodePositionWhenWithinRange = continuallyAdjustNodePositionWhenWithinRange
+        node.continuallyUpdatePositionAndScale = continuallyUpdatePositionAndScale
     }
 }
-
-
-
-
-
-
-
-//extension LocationAnnotationNode {
-//    convenience init(location: CLLocation?, layer: CALayer) {
-//           let plane = SCNPlane(width: layer.bounds.size.width / 100, height: layer.bounds.size.height / 100)
-//           plane.firstMaterial?.diffuse.contents = layer
-//           plane.firstMaterial?.lightingModel = .constant
-//
-//           annotationNode = AnnotationNode(view: nil, image: nil, layer: layer)
-//           annotationNode.geometry = plane
-//           annotationNode.removeFlicker()
-//
-//            
-//           super.init(location: location)
-//
-//           let billboardConstraint = SCNBillboardConstraint()
-//           billboardConstraint.freeAxes = SCNBillboardAxis.Y
-//           constraints = [billboardConstraint]
-
-//           addChildNode(annotationNode)
-//       }
-//}
-
-
-
-
-
-//extension ARCLViewController {
-//    
-//    /// add route by requesting walking directions from Apple Maps
-//    func addRoute(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
-//        print("addRoute : \(source), \(destination)")
-//        let request = MKDirections.Request()
-//        request.transportType = .walking
-//        request.source = MKMapItem(placemark: MKPlacemark(coordinate: source))
-//        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination))
-//        request.requestsAlternateRoutes = false
-//        
-//        let directions = MKDirections(request: request)
-//        directions.calculate { (response, _) in
-//            guard let response = response else { return }
-//            print("directinos.calculate.count : \(response.routes.count)") // 1
-//            print("response.routes[0].polyline : \(response.routes[0].polyline)")
-//            // response.routes[0].polyline : <MKRoutePolyline: 0x280fe2920>
-//            self.sceneLocationView.addRoutes(routes: response.routes)
-//        }
-//    }
-//}
-//
-//
-//extension ARCLViewController {
-//    
-//
-//    func addRoutes(polylines : [MKPolyline]){
-//        print("polylines : \(polylines)") // polylines : [<MKPolyline: 0x282a4e290>]
-//        let poly = polylines.map{
-//            AttributedType(type: $0 , attribute: "path")
-//        }
-//        print("poly : \(poly)")
-//        
-//        // MKPolyline을 이용하여 나타낸 polyline type : MKPolyline 
-//        // polylines : [ARCL.AttributedType<__C.MKPolyline>(type: <MKPolyline: 0x281381490>, attribute: "name")]
-//        
-//        // Directions 함수를 이용해 구한 경로 사용시 polyline Type : MKRoutePolyline
-////        [ARCL.AttributedType<__C.MKPolyline>(type: <MKRoutePolyline: 0x28352e530>, attribute: "")
-//        
-//        self.sceneLocationView.addRoutes(polylines: poly)
-//    }
-//    
-//    func addRoutes(polylines: [AttributedType<MKPolyline>],
-//                   Δaltitude: CLLocationDistance = -2.0,
-//                   boxBuilder: BoxBuilder? = nil) {
-//        print("ex polylines : \(polylines)")
-//    }
-//    
-//
-//}
-
-
-//extension SceneLocationView {
-//    func addRoutes(polylines : [MKPolyline]){
-//        let poly = polylines.map{
-//            AttributedType(type: $0, attribute: "name")
-//        }
-//        print("polylines : \(poly)")
-//        addRoutes(polylines: poly)
-//    }
-//}
-
-
-
