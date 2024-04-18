@@ -16,13 +16,13 @@ struct ARCLContentView: View {
     
     var body: some View {
 
-        let route = PathData().route
+        let path = Path().ITtoGachon
         
         if coreLocation.location != nil{
             VStack{
-                ARCLViewControllerWrapper(route : route, coreLocation: coreLocation)
-//                NaverMap(coreLocation: coreLocation)
-                ARCLMapView(coreLocation: coreLocation)
+                ARCLViewControllerWrapper(path : path, coreLocation: coreLocation)
+//                ARCLMapView(coreLocation: coreLocation)
+                AppleMap(coreLocation: coreLocation, path: path)
             }
         }
     }

@@ -44,6 +44,11 @@
 		CBEC01512BA2CCBE008F5996 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01502BA2CCBE008F5996 /* Constant.swift */; };
 		CBEC01572BA2E25E008F5996 /* ARDemoVCWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01562BA2E25E008F5996 /* ARDemoVCWrapper.swift */; };
 		CBEC01592BA30241008F5996 /* ARDemoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEC01582BA30241008F5996 /* ARDemoContentView.swift */; };
+		CBF9274C2BD0F8E5002BCA14 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF9274B2BD0F8E5002BCA14 /* Path.swift */; };
+		CBF927502BD0FB42002BCA14 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF9274F2BD0FB42002BCA14 /* Node.swift */; };
+		CBF927522BD0FB86002BCA14 /* AppleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF927512BD0FB86002BCA14 /* AppleMap.swift */; };
+		CBF927542BD11237002BCA14 /* LocationAnnotationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF927532BD11237002BCA14 /* LocationAnnotationNode.swift */; };
+		CBF927562BD11ED2002BCA14 /* SCNNode+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF927552BD11ED2002BCA14 /* SCNNode+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +96,11 @@
 		CBEC01502BA2CCBE008F5996 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		CBEC01562BA2E25E008F5996 /* ARDemoVCWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDemoVCWrapper.swift; sourceTree = "<group>"; };
 		CBEC01582BA30241008F5996 /* ARDemoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARDemoContentView.swift; sourceTree = "<group>"; };
+		CBF9274B2BD0F8E5002BCA14 /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
+		CBF9274F2BD0FB42002BCA14 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		CBF927512BD0FB86002BCA14 /* AppleMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMap.swift; sourceTree = "<group>"; };
+		CBF927532BD11237002BCA14 /* LocationAnnotationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationNode.swift; sourceTree = "<group>"; };
+		CBF927552BD11ED2002BCA14 /* SCNNode+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +132,10 @@
 				CB0BD9212B9C459200C08018 /* ARCLViewControllerWrapper.swift */,
 				CB0BD9282B9D805F00C08018 /* ARCLMap.swift */,
 				CB0BD92A2B9D808100C08018 /* ARCLContentView.swift */,
+				CBF9274B2BD0F8E5002BCA14 /* Path.swift */,
+				CBF9274F2BD0FB42002BCA14 /* Node.swift */,
+				CBF927512BD0FB86002BCA14 /* AppleMap.swift */,
+				CBF927532BD11237002BCA14 /* LocationAnnotationNode.swift */,
 			);
 			path = ARCL;
 			sourceTree = "<group>";
@@ -131,6 +145,7 @@
 			children = (
 				CB0BD9302B9DEC1F00C08018 /* PolylineNode.swift */,
 				CB0BD92E2B9DEC0400C08018 /* SceneLocationView.swift */,
+				CBF927552BD11ED2002BCA14 /* SCNNode+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -370,8 +385,11 @@
 				CB0BD92F2B9DEC0400C08018 /* SceneLocationView.swift in Sources */,
 				CBB253312B664B0100DD408C /* CoreLocationEx.swift in Sources */,
 				CBCB2E822BB6D473008FA272 /* TimerMap.swift in Sources */,
+				CBF927542BD11237002BCA14 /* LocationAnnotationNode.swift in Sources */,
 				CBEC01592BA30241008F5996 /* ARDemoContentView.swift in Sources */,
 				CB0BD9262B9C627000C08018 /* MatrixHelper.swift in Sources */,
+				CBF927502BD0FB42002BCA14 /* Node.swift in Sources */,
+				CBF927522BD0FB86002BCA14 /* AppleMap.swift in Sources */,
 				CBEC014F2BA2BF76008F5996 /* GetIntermediateCorodinate.swift in Sources */,
 				CB0BD9202B9C3B7900C08018 /* ARCLViewController.swift in Sources */,
 				CB6CF5992BA44A1F00F2F0C7 /* ARDemoStartView.swift in Sources */,
@@ -390,7 +408,9 @@
 				CBEC01512BA2CCBE008F5996 /* Constant.swift in Sources */,
 				CBB253232B664AD600DD408C /* Location_ExampleApp.swift in Sources */,
 				CBCB2E7B2BB6C7C4008FA272 /* MyTimer.swift in Sources */,
+				CBF927562BD11ED2002BCA14 /* SCNNode+Extension.swift in Sources */,
 				CB0BD9312B9DEC1F00C08018 /* PolylineNode.swift in Sources */,
+				CBF9274C2BD0F8E5002BCA14 /* Path.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
