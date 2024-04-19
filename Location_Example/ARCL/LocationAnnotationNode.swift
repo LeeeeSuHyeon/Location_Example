@@ -45,6 +45,7 @@ open class LocationAnnotationNode: LocationNode {
     // 노드 init 추가
     public init(location : CLLocation?, node : SCNNode){
         annotationNode = AnnotationNode(view: nil, image: nil, node: node)
+        annotationNode.addChildNode(node)
         annotationNode.removeFlicker()
         super.init(location: location)
         
@@ -62,7 +63,7 @@ open class LocationAnnotationNode: LocationNode {
         plane.firstMaterial?.diffuse.contents = image
         plane.firstMaterial?.lightingModel = .constant
 
-        annotationNode = AnnotationNode(view: nil, image: image)
+        annotationNode = AnnotationNode(view: nil, image: image, node: nil)
         annotationNode.geometry = plane
         annotationNode.removeFlicker()
 
@@ -92,7 +93,7 @@ open class LocationAnnotationNode: LocationNode {
         plane.firstMaterial?.diffuse.contents = layer
         plane.firstMaterial?.lightingModel = .constant
 
-        annotationNode = AnnotationNode(view: nil, image: nil, layer: layer)
+        annotationNode = AnnotationNode(view: nil, image: nil, layer: layer, node: nil)
         annotationNode.geometry = plane
         annotationNode.removeFlicker()
 

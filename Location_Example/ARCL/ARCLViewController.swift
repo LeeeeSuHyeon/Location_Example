@@ -19,7 +19,7 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
     var coreLocation : CoreLocationEx
     
     public var locationEstimateMethod = LocationEstimateMethod.mostRelevantEstimate // 위치 추정 방법
-    public var arTrackingType = SceneLocationView.ARTrackingType.orientationTracking // AR 추적 타입 (orientation : 방향 추적, world : 평면 추적)
+    public var arTrackingType = SceneLocationView.ARTrackingType.worldTracking // AR 추적 타입 (orientation : 방향 추적, world : 평면 추적)
     public var scalingScheme = ScalingScheme.normal // 스케일링 방식
         
     // 노드 위치를 조정하고 크기를 업데이트하는데 필요한 변수
@@ -116,15 +116,29 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
             if sceneLocationView != nil {
                 print("muhanNode 추가")
             }
-            
-
             addScenewideNodeSettings(muhanNode)
-            sceneLocationView?.addLocationNodeForCurrentPosition(locationNode: muhanNode)
+            sceneLocationView?.addLocationNodeWithConfirmedLocation(locationNode: muhanNode)
         }
+        
+        
+        
+        let box = SCNBox(width: 1, height: 0.5, length: 15, chamferRadius: 0)
+        
+        box.firstMaterial?.diffuse.contents = UIColor.blue
+        box.firstMaterial?.transparency = 0.9 // 투명도 (0.0(완전 투명)에서 1.0(완전 불투명))
+        let node = SCNNode(geometry: box)
+        let location = CLLocation(latitude: (path[0].location.coordinate.latitude + path[1].location.coordinate.latitude) / 2, longitude: (path[0].location.coordinate.longitude + path[1].location.coordinate.longitude) / 2)
+        let placeNode = LocationAnnotationNode(location: location, node: node)
+        addScenewideNodeSettings(placeNode)
+        sceneLocationView?.addLocationNodeWithConfirmedLocation(locationNode: placeNode)
+        
+        
+        
+        
         
         // Copy the current location because it's a reference type. Necessary?
        let referenceLocation = CLLocation(coordinate: currentLocation.coordinate,
-                                          altitude: currentLocation.altitude)
+                                          altitude: currentLocation.altitude)   // 고도 수정 가능
        let startingPoint = CLLocation(coordinate: referenceLocation.coordinate, altitude: referenceLocation.altitude)
 
         let originNode = LocationNode(location: startingPoint)
@@ -133,7 +147,7 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
         let pyramidNode = SCNNode(geometry: pyramid)
         originNode.addChildNode(pyramidNode)
         addScenewideNodeSettings(originNode)
-        sceneLocationView?.addLocationNodeForCurrentPosition(locationNode: originNode)
+        sceneLocationView?.addLocationNodeWithConfirmedLocation(locationNode: originNode)
         print("originNode 추가")
     }
     
