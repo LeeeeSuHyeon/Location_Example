@@ -113,10 +113,13 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
         for i in 0..<path.count{
             let sourceNode = makePngNode(fileName: "MuhanStart")
             let muhanNode = LocationAnnotationNode(location: path[i].location, node: sourceNode)
-            print("muhanNode 추가")
+            if sceneLocationView != nil {
+                print("muhanNode 추가")
+            }
+            
 
             addScenewideNodeSettings(muhanNode)
-            sceneLocationView?.addLocationNodeWithConfirmedLocation(locationNode: muhanNode)
+            sceneLocationView?.addLocationNodeForCurrentPosition(locationNode: muhanNode)
         }
         
         // Copy the current location because it's a reference type. Necessary?
@@ -130,7 +133,7 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
         let pyramidNode = SCNNode(geometry: pyramid)
         originNode.addChildNode(pyramidNode)
         addScenewideNodeSettings(originNode)
-        sceneLocationView?.addLocationNodeWithConfirmedLocation(locationNode: originNode)
+        sceneLocationView?.addLocationNodeForCurrentPosition(locationNode: originNode)
         print("originNode 추가")
     }
     
@@ -171,4 +174,5 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
             })
         }
     } // end of checkCameraAccess()
+    
 }
